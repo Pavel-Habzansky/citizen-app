@@ -3,10 +3,12 @@ apply from: 'dependencies.gradle'
 
 buildscript {
     apply from: 'dependencies.gradle'
-    
+
     repositories {
         google()
         jcenter()
+
+        maven { url 'https://s3.amazonaws.com/repo.commonsware.com' }
 
     }
 
@@ -23,6 +25,7 @@ allprojects {
         google()
         jcenter()
 
+        maven { url 'https://s3.amazonaws.com/repo.commonsware.com' }
     }
 }
 

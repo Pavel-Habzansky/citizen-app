@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -26,6 +27,16 @@ dependencies {
     implementation project(':data')
     implementation project(':infrastructure')
 
+    implementation thirdPartyDependencies.timber
+    implementation thirdPartyDependencies.koinScope
+    implementation thirdPartyDependencies.koinAndroid
+    implementation thirdPartyDependencies.koinViewModel
+    implementation thirdPartyDependencies.safeRoom
+
+    implementation architectureComponents.roomRuntime
+    implementation architectureComponents.roomRxJava
+    kapt architectureComponents.roomCompiler
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation kotlinDependencies.kotlinStdLib
@@ -35,6 +46,7 @@ dependencies {
     implementation androidDependencies.constraintLayout
 
     testImplementation testDependencies.junit
+    testImplementation testDependencies.koinTest
     androidTestImplementation testDependencies.testRunner
     androidTestImplementation testDependencies.espressoCore
 }
