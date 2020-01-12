@@ -13,7 +13,7 @@ class LogTree(val logConsumer: ILogConsumer) : Timber.Tree() {
         }
 
         if (priority >= Log.ERROR) {
-            throw UnsupportedOperationException(message = message, cause = t)
+            throw UnsupportedOperationException(message)
         }
     }
 

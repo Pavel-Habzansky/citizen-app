@@ -47,7 +47,7 @@ dependencies {
 
     implementation kotlinDependencies.kotlinStdLib
 
-    implementation supportDependencies.dataBindingCompiler
+    kapt supportDependencies.dataBindingCompiler
     implementation supportDependencies.androidKTX
 
     implementation androidDependencies.constraintLayout
