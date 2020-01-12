@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.pavelhabzansky.infrastructure
 
 import org.junit.Test
 

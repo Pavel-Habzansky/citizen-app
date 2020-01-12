@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="margin_item_2">2dp</dimen>
+    <dimen name="margin_item_4">4dp</dimen>
+    <dimen name="margin_item_8">8dp</dimen>
+    <dimen name="margin_item_12">12dp</dimen>
+    <dimen name="margin_item_16">16dp</dimen>
+    <dimen name="margin_item_20">20dp</dimen>
+    <dimen name="margin_item_24">24dp</dimen>
+    <dimen name="margin_item_28">28dp</dimen>
+    <dimen name="margin_item_32">32dp</dimen>
+    <dimen name="margin_item_36">36dp</dimen>
+    <dimen name="margin_item_42">42dp</dimen>
+    <dimen name="margin_item_48">48dp</dimen>
+    <dimen name="margin_item_52">52dp</dimen>
+
+    <dimen name="news_ic_size">64dp</dimen>
+
+    <dimen name="news_item_height_base">160dp</dimen>
+    <dimen name="news_item_height_expand">280dp</dimen>
+
+</resources>

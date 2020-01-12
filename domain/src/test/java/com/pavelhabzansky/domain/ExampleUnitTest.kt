@@ -1,4 +1,4 @@
-package com.example.data
+package com.pavelhabzansky.domain
 
 import org.junit.Test
 

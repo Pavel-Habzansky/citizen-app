@@ -1,4 +1,4 @@
-package com.example.infrastructure
+package com.pavelhabzansky.citizenapp
 
 import org.junit.Test
 
