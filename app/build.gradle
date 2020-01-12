@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -33,6 +37,8 @@ dependencies {
     implementation thirdPartyDependencies.koinViewModel
     implementation thirdPartyDependencies.safeRoom
 
+    implementation architectureComponents.navigationFragment
+    implementation architectureComponents.navigationUi
     implementation architectureComponents.roomRuntime
     implementation architectureComponents.roomRxJava
     kapt architectureComponents.roomCompiler
@@ -41,6 +47,7 @@ dependencies {
 
     implementation kotlinDependencies.kotlinStdLib
 
+    implementation supportDependencies.dataBindingCompiler
     implementation supportDependencies.androidKTX
 
     implementation androidDependencies.constraintLayout

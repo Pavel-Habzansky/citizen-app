@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 
-@Database(
-    entities = [
-    ],
-    version = 0
-)
+//@Database(
+//    entities = [
+//    ],
+//    version = 0
+//)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
