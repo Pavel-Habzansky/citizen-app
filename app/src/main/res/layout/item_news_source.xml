@@ -30,14 +30,7 @@
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Novinka" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/date"
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="1.1.2020 10:00" />
+                tools:text="Facebook" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/newsText"
@@ -46,8 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:maxLines="5"
-                tools:text="Text bla bla novinkyText bla bla novinkyText bla bla novinkyText bla bla novinkyText bla bla novinkyText bla bla novinky
-Text bla bla novinkyText bla bla novinkyText bla bla novinkyText bla bla novinkyText bla bla novinkyText bla bla novinkyText novinkyText bla bla novinkyText " />
+                tools:text="Poslední novinky z tohoto zdroje" />
 
         </LinearLayout>
 

@@ -8,10 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.databinding.FragmentTouristNewsBinding
+import com.pavelhabzansky.citizenapp.features.news.view.adapter.TouristNewsAdapter
 
 class TouristNewsFragment : Fragment() {
 
     private lateinit var binding: FragmentTouristNewsBinding
+
+    private val touristNewsAdapter: TouristNewsAdapter by lazy {
+        TouristNewsAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,6 +26,15 @@ class TouristNewsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tourist_news, container, false)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val recycler = binding.touristNewsRecycler
+
+        recycler.setHasFixedSize(true)
+        recycler.adapter = touristNewsAdapter
     }
 
 }

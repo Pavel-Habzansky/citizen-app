@@ -13,6 +13,7 @@ buildscript {
     }
 
     dependencies {
+        classpath thirdPartyDependencies.firebase
         classpath gradlePlugins.android
         classpath gradlePlugins.kotlin
         // NOTE: Do not place your application dependencies here; they belong

@@ -8,11 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.databinding.FragmentCitizenNewsBinding
-import com.pavelhabzansky.citizenapp.features.news.view.adapter.NewsPagerAdapter
+import com.pavelhabzansky.citizenapp.features.news.view.adapter.NewsSourceAdapter
 
 class CitizenNewsFragment : Fragment() {
 
     private lateinit var binding: FragmentCitizenNewsBinding
+
+    private val newsSourceAdapter: NewsSourceAdapter by lazy {
+        NewsSourceAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +32,10 @@ class CitizenNewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val recycler = binding.newsSourceRecycler
+
+        recycler.setHasFixedSize(true)
+        recycler.adapter = newsSourceAdapter
     }
 
 }
