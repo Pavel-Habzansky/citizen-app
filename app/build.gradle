@@ -50,6 +50,8 @@ dependencies {
     kapt supportDependencies.dataBindingCompiler
     implementation supportDependencies.androidKTX
 
+    implementation thirdPartyDependencies.material
+    implementation androidDependencies.viewPager2
     implementation androidDependencies.constraintLayout
 
     testImplementation testDependencies.junit

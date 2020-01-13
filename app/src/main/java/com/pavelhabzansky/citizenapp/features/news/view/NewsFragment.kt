@@ -6,10 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.databinding.FragmentNewsBinding
+import com.pavelhabzansky.citizenapp.features.news.view.adapter.NewsPagerAdapter
 
 class NewsFragment : Fragment() {
+
+    private val newsPagerAdapter: NewsPagerAdapter by lazy {
+        NewsPagerAdapter(this)
+    }
 
     private lateinit var binding: FragmentNewsBinding
 
@@ -25,6 +33,30 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initViewPager()
+    }
+
+    private fun initViewPager() {
+        val viewPager = binding.newsViewPager
+        val tabLayout = binding.newsTabLayout
+
+        viewPager.adapter = newsPagerAdapter
+        viewPager.offscreenPageLimit = NewsPagerAdapter.SCREEN_OFFSCREEN_LIMIT as Int
+//        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//
+//            }
+//        })
+
+        TabLayoutMediator(tabLayout, viewPager) { currentTab, currentPosition ->
+            currentTab.text = when (currentPosition) {
+                NewsPagerAdapter.CITIZEN_NEWS_POSITION -> "Rezident"
+                else -> "Turista"
+            }
+        }.attach()
+
+
     }
 
 }
