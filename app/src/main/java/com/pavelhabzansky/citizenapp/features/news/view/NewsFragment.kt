@@ -10,16 +10,21 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.pavelhabzansky.citizenapp.R
+import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.databinding.FragmentNewsBinding
 import com.pavelhabzansky.citizenapp.features.news.view.adapter.NewsPagerAdapter
+import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class NewsFragment : Fragment() {
+class NewsFragment : BaseFragment() {
 
     private val newsPagerAdapter: NewsPagerAdapter by lazy {
         NewsPagerAdapter(this)
     }
 
     private lateinit var binding: FragmentNewsBinding
+
+    private val viewModel by viewModel<NewsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +40,8 @@ class NewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViewPager()
+
+        viewModel.callFirebase()
     }
 
     private fun initViewPager() {

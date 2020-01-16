@@ -1,0 +1,39 @@
+{
+  "cities": [
+    {
+      "name": "jmeno",
+      "id": "EFCD2EC0-765C-4F7E-9D9B-A0723D7AF623",
+      "wiki": {
+        "headline": "... wiki ...",
+        "gps": {
+          "lat": 0.0,
+          "lng": 0.1
+        },
+        "citizens": 1100
+      },
+      "event_feeds": [
+        {
+          "title/name": "stranka 1",
+          "type": "facebook / rss / twitter / ...",
+          "url": "..."
+        },
+        {
+          "title/name": "stranka 1",
+          "type": "facebook / rss / twitter / ...",
+          "url": "..."
+        }
+      ]
+    }
+  ],
+  "incidents": [
+    {
+      "title": "titulek 1",
+      "description": "popisek afsdf",
+      "gps": {
+        "lat": 0.0,
+        "lng": 0.1
+      },
+      "time": 1234566
+    }
+  ]
+}

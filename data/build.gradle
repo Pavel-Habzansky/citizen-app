@@ -37,6 +37,8 @@ dependencies {
     implementation supportDependencies.androidKTX
     implementation architectureComponents.roomRuntime
     implementation architectureComponents.roomKtx
+    implementation thirdPartyDependencies.firebase
+    implementation thirdPartyDependencies.firebaseDb
     kapt architectureComponents.roomCompiler
     implementation architectureComponents.roomRxJava
     testImplementation architectureComponents.roomTesting

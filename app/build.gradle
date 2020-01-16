@@ -37,6 +37,7 @@ dependencies {
     implementation thirdPartyDependencies.koinAndroid
     implementation thirdPartyDependencies.koinViewModel
     implementation thirdPartyDependencies.safeRoom
+    implementation thirdPartyDependencies.firebaseDb
 
     implementation architectureComponents.navigationFragment
     implementation architectureComponents.navigationUi

@@ -4,6 +4,7 @@ import android.app.Application
 import com.pavelhabzansky.citizenapp.LogTree
 import com.pavelhabzansky.citizenapp.core.config.LogConsumer
 import com.pavelhabzansky.citizenapp.core.di.appModule
+import com.pavelhabzansky.citizenapp.features.news.di.newsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -34,7 +35,8 @@ class CitizenApp : Application() {
 
             modules(
                 listOf(
-                    appModule
+                    appModule,
+                    newsModule
                 )
             )
         }

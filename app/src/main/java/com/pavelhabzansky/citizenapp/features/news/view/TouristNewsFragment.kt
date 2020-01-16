@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.pavelhabzansky.citizenapp.R
+import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.databinding.FragmentTouristNewsBinding
 import com.pavelhabzansky.citizenapp.features.news.view.adapter.TouristNewsAdapter
 
-class TouristNewsFragment : Fragment() {
+class TouristNewsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTouristNewsBinding
 
