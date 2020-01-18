@@ -47,6 +47,7 @@ dependencies {
     implementation thirdPartyDependencies.koinViewModel
     implementation thirdPartyDependencies.safeRoom
     implementation thirdPartyDependencies.firebaseDb
+    implementation thirdPartyDependencies.facebook
 
     implementation architectureComponents.navigationFragment
     implementation architectureComponents.navigationUi

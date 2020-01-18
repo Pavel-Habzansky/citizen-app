@@ -5,7 +5,9 @@ import com.commonsware.cwac.saferoom.SafeHelperFactory
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.pavelhabzansky.data.core.room.AppDatabase
+import com.pavelhabzansky.data.features.cities.repository.CityRepository
 import com.pavelhabzansky.data.features.news.repository.NewsRepository
+import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
 import com.pavelhabzansky.domain.features.news.repository.INewsRepository
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.qualifier.named
@@ -19,15 +21,22 @@ val appModule = module {
 
     single(qualifier = named(QUAL_FIREBASE_ROOT)) { provideFirebaseReference() }
 
-    single (qualifier = named(QUAL_FIREBASE_CITIES)) { provideFirebaseReference(path = "cities") }
+    single(qualifier = named(QUAL_FIREBASE_CITIES)) { provideFirebaseReference(path = "cities") }
 
-    single (qualifier = named(QUAL_FIREBASE_INCIDENTS)) { provideFirebaseReference(path = "incidents") }
+    single(qualifier = named(QUAL_FIREBASE_INCIDENTS)) { provideFirebaseReference(path = "incidents") }
 
     single { AppDatabase.getInstance(context = get(), factory = provideSQLiteHelperFactory()) }
 
     single {
-        NewsRepository(
+        CityRepository(
+            cityReference = get(named(QUAL_FIREBASE_CITIES)),
+            lastSearchDao = get<AppDatabase>().lastSearchDao
+        ) as ICityRepository
+    }
 
+    single {
+        NewsRepository(
+            citiesReference = get(named(QUAL_FIREBASE_CITIES))
         ) as INewsRepository
     }
 

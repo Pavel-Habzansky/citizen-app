@@ -41,7 +41,7 @@ class NewsFragment : BaseFragment() {
 
         initViewPager()
 
-        viewModel.callFirebase()
+//        viewModel.callFirebase()
     }
 
     private fun initViewPager() {
@@ -50,11 +50,6 @@ class NewsFragment : BaseFragment() {
 
         viewPager.adapter = newsPagerAdapter
         viewPager.offscreenPageLimit = NewsPagerAdapter.SCREEN_OFFSCREEN_LIMIT as Int
-//        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//
-//            }
-//        })
 
         TabLayoutMediator(tabLayout, viewPager) { currentTab, currentPosition ->
             currentTab.text = when (currentPosition) {

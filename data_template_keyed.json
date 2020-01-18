@@ -1,7 +1,7 @@
 {
   "cities": {
-    "city-name": {
-      "name": "jmeno",
+    "pilsen": {
+      "name": "Plzeň",
       "id": "EFCD2EC0-765C-4F7E-9D9B-A0723D7AF623",
       "wiki": {
         "headline": "... wiki ...",
@@ -12,15 +12,35 @@
         "citizens": 1100
       },
       "event_feeds": {
-        "event-1": {
-          "title-name": "stranka 1",
-          "type": "facebook  rss  twitter  ...",
-          "url": "..."
+        "facebook": {
+          "id": "id12345",
+          "events": {
+            "event-1": {
+              "title-name": "stranka 1",
+              "type": "facebook  rss  twitter  ...",
+              "url": "..."
+            },
+            "event-2": {
+              "title-name": "stranka 1",
+              "type": "facebook rss  twitter  ...",
+              "url": "..."
+            }
+          }
         },
-        "event-2": {
-          "title-name": "stranka 1",
-          "type": "facebook rss  twitter  ...",
-          "url": "..."
+        "twitter": {
+          "id": "id12345",
+          "events": {
+            "event-1": {
+              "title-name": "stranka 1",
+              "type": "facebook  rss  twitter  ...",
+              "url": "..."
+            },
+            "event-2": {
+              "title-name": "stranka 1",
+              "type": "facebook rss  twitter  ...",
+              "url": "..."
+            }
+          }
         }
       }
     },

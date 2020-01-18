@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Citizen App</string>
+
+<!--    Access token -->
+<!--    1058543571164824|_J-big1hLg4lp8fRPZdnzhllIFk-->
+    <string name="facebook_app_id">1058543571164824</string>
+
+
 </resources>

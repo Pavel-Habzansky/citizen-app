@@ -1,9 +1,11 @@
 package com.pavelhabzansky.citizenapp.core.app
 
 import android.app.Application
+import com.facebook.FacebookSdk
 import com.pavelhabzansky.citizenapp.LogTree
 import com.pavelhabzansky.citizenapp.core.config.LogConsumer
 import com.pavelhabzansky.citizenapp.core.di.appModule
+import com.pavelhabzansky.citizenapp.features.cities.di.cityPickerModule
 import com.pavelhabzansky.citizenapp.features.news.di.newsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -19,6 +21,7 @@ class CitizenApp : Application() {
         instance = this
         super.onCreate()
 
+        FacebookSdk.fullyInitialize()
         initMisc()
         initKoin()
     }
@@ -36,7 +39,8 @@ class CitizenApp : Application() {
             modules(
                 listOf(
                     appModule,
-                    newsModule
+                    newsModule,
+                    cityPickerModule
                 )
             )
         }

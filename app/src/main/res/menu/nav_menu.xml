@@ -8,33 +8,10 @@
             android:icon="@mipmap/ic_launcher"
             android:title="Novinky" />
 
-        <!--        <item android:id="@+id/fragment1"-->
-        <!--            android:icon="@drawable/ic_names_of_god"-->
-        <!--            android:title="@string/names_of_god" />-->
-        <!--        <item-->
-        <!--            android:id="@+id/fragment2"-->
-        <!--            android:icon="@drawable/ic_quran"-->
-        <!--            android:title="@string/quran" />-->
-        <!--        <item-->
-        <!--            android:id="@+id/nav_calendar"-->
-        <!--            android:icon="@drawable/ic_calendar"-->
-        <!--            android:title="@string/calendar_and_events" />-->
-        <!--        <item-->
-        <!--            android:id="@+id/nav_tasbeeh"-->
-        <!--            android:icon="@drawable/ic_tasbeeh"-->
-        <!--            android:title="@string/tasbeeh" />-->
-        <!--        <item-->
-        <!--            android:id="@+id/nav_gallery"-->
-        <!--            android:icon="@drawable/ic_menu_gallery"-->
-        <!--            android:title="@string/gallery" />-->
-        <!--        <item-->
-        <!--            android:id="@+id/nav_news"-->
-        <!--            android:icon="@drawable/ic_news"-->
-        <!--            android:title="@string/news" />-->
-        <!--        <item-->
-        <!--            android:id="@+id/nav_settings"-->
-        <!--            android:icon="@drawable/ic_settings_dark_grey_24dp"-->
-        <!--            android:title="@string/action_settings" />-->
+        <item
+            android:id="@+id/city_picker_fragment"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Města" />
     </group>
     <!--    <item android:title="@string/more">-->
     <!--        <menu>-->

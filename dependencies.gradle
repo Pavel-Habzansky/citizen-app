@@ -39,6 +39,7 @@ ext {
             constraintLayout   : '2.0.0-beta2',
             viewPager2         : '1.0.0',
 
+            facebook           : '5.13.0',
             firebaseDb         : '19.2.0',
             firebase           : '4.3.2',
             espresso           : '3.1.0',
@@ -119,6 +120,7 @@ ext {
     ]
 
     thirdPartyDependencies = [
+            facebook     : "com.facebook.android:facebook-android-sdk:${versions.facebook}",
             firebaseDb   : "com.google.firebase:firebase-database:${versions.firebaseDb}",
             firebase     : "com.google.gms:google-services:${versions.firebase}",
             material     : "com.google.android.material:material:${versions.material}",

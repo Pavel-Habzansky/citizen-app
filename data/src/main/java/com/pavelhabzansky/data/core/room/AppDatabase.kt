@@ -5,13 +5,22 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
+import com.pavelhabzansky.data.features.cities.dao.CityDao
+import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
+import com.pavelhabzansky.data.features.cities.entities.CityEntity
+import com.pavelhabzansky.data.features.cities.entities.LastSearchCityEntity
 
-//@Database(
-//    entities = [
-//    ],
-//    version = 0
-//)
+@Database(
+    entities = [
+        LastSearchCityEntity::class,
+        CityEntity::class
+    ],
+    version = 1
+)
 abstract class AppDatabase : RoomDatabase() {
+
+    abstract val cityDao: CityDao
+    abstract val lastSearchDao: LastSearchDao
 
     companion object {
         @Volatile

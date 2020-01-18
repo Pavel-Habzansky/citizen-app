@@ -8,8 +8,10 @@ class LogTree(val logConsumer: ILogConsumer) : Timber.Tree() {
 
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        if (priority > android.util.Log.DEBUG) {
-            logConsumer.log(priority, tag, message, t?.toString())
+        super.log(priority, tag, message)
+
+        if (priority > Log.VERBOSE) {
+            logConsumer.log(priority, tag, message)
         }
 
         if (priority >= Log.ERROR) {
