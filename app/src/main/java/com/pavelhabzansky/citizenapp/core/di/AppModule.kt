@@ -12,10 +12,16 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 const val QUAL_FIREBASE_ROOT = "FIREBASE_ROOT"
+const val QUAL_FIREBASE_CITIES = "FIREBASE_CITIES"
+const val QUAL_FIREBASE_INCIDENTS = "FIREBASE_INCIDENTS"
 
 val appModule = module {
 
     single(qualifier = named(QUAL_FIREBASE_ROOT)) { provideFirebaseReference() }
+
+    single (qualifier = named(QUAL_FIREBASE_CITIES)) { provideFirebaseReference(path = "cities") }
+
+    single (qualifier = named(QUAL_FIREBASE_INCIDENTS)) { provideFirebaseReference(path = "incidents") }
 
     single { AppDatabase.getInstance(context = get(), factory = provideSQLiteHelperFactory()) }
 

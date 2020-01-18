@@ -1,0 +1,63 @@
+{
+  "cities": {
+    "city-name": {
+      "name": "jmeno",
+      "id": "EFCD2EC0-765C-4F7E-9D9B-A0723D7AF623",
+      "wiki": {
+        "headline": "... wiki ...",
+        "gps": {
+          "lat": 0.0,
+          "lng": 0.1
+        },
+        "citizens": 1100
+      },
+      "event_feeds": {
+        "event-1": {
+          "title-name": "stranka 1",
+          "type": "facebook  rss  twitter  ...",
+          "url": "..."
+        },
+        "event-2": {
+          "title-name": "stranka 1",
+          "type": "facebook rss  twitter  ...",
+          "url": "..."
+        }
+      }
+    },
+    "city-name2": {
+      "name": "jmeno",
+      "id": "EFCD2EC0-765C-4F7E-9D9B-A0723D7AF623",
+      "wiki": {
+        "headline": "... wiki ...",
+        "gps": {
+          "lat": 0.0,
+          "lng": 0.1
+        },
+        "citizens": 1100
+      },
+      "event_feeds": {
+        "event-1": {
+          "title-name": "stranka 1",
+          "type": "facebook  rss  twitter  ...",
+          "url": "..."
+        },
+        "event-2": {
+          "title-name": "stranka 1",
+          "type": "facebook rss  twitter  ...",
+          "url": "..."
+        }
+      }
+    }
+  },
+  "incidents": {
+    "title": {
+      "title": "titulek 1",
+      "description": "popisek afsdf",
+      "gps": {
+        "lat": 0.0,
+        "lng": 0.1
+      },
+      "time": 1234566
+    }
+  }
+}
