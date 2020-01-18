@@ -36,15 +36,35 @@
         "citizens": 1100
       },
       "event_feeds": {
-        "event-1": {
-          "title-name": "stranka 1",
-          "type": "facebook  rss  twitter  ...",
-          "url": "..."
+        "facebook": {
+          "id": "id12345",
+          "events": {
+            "event-1": {
+              "title-name": "stranka 1",
+              "type": "facebook  rss  twitter  ...",
+              "url": "..."
+            },
+            "event-2": {
+              "title-name": "stranka 1",
+              "type": "facebook rss  twitter  ...",
+              "url": "..."
+            }
+          }
         },
-        "event-2": {
-          "title-name": "stranka 1",
-          "type": "facebook rss  twitter  ...",
-          "url": "..."
+        "twitter": {
+          "id": "id12345",
+          "events": {
+            "event-1": {
+              "title-name": "stranka 1",
+              "type": "facebook  rss  twitter  ...",
+              "url": "..."
+            },
+            "event-2": {
+              "title-name": "stranka 1",
+              "type": "facebook rss  twitter  ...",
+              "url": "..."
+            }
+          }
         }
       }
     }
