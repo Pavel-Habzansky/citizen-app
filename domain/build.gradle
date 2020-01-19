@@ -30,6 +30,9 @@ dependencies {
 
     implementation kotlinDependencies.kotlinStdLib
 
+    implementation thirdPartyDependencies.firebaseDb
+    implementation thirdPartyDependencies.timber
+
     implementation supportDependencies.androidKTX
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.testRunner

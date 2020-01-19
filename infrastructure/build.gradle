@@ -30,6 +30,7 @@ dependencies {
 
     implementation kotlinDependencies.kotlinStdLib
     implementation supportDependencies.androidKTX
+    implementation thirdPartyDependencies.timber
 
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.testRunner

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "283224665034",
+    "firebase_url": "https://citizen-app-be.firebaseio.com",
+    "project_id": "citizen-app-be",
+    "storage_bucket": "citizen-app-be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283224665034:android:95be04f4aec9f9b0b27d33",
+        "android_client_info": {
+          "package_name": "com.pavelhabzansky.citizenapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283224665034-4cscdmm5bav627s4d5pf3sl0sd23fkm8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYEZSrV7RIvuWkijm21pw4ssceiJQsq7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283224665034-4cscdmm5bav627s4d5pf3sl0sd23fkm8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

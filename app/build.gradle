@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -24,6 +25,15 @@ android {
     dataBinding {
         enabled = true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -36,6 +46,8 @@ dependencies {
     implementation thirdPartyDependencies.koinAndroid
     implementation thirdPartyDependencies.koinViewModel
     implementation thirdPartyDependencies.safeRoom
+    implementation thirdPartyDependencies.firebaseDb
+    implementation thirdPartyDependencies.facebook
 
     implementation architectureComponents.navigationFragment
     implementation architectureComponents.navigationUi
@@ -50,10 +62,14 @@ dependencies {
     kapt supportDependencies.dataBindingCompiler
     implementation supportDependencies.androidKTX
 
+    implementation thirdPartyDependencies.material
+    implementation androidDependencies.viewPager2
     implementation androidDependencies.constraintLayout
 
     testImplementation testDependencies.junit
     testImplementation testDependencies.koinTest
     androidTestImplementation testDependencies.testRunner
     androidTestImplementation testDependencies.espressoCore
+
+    implementation 'com.google.firebase:firebase-analytics:17.2.1'
 }

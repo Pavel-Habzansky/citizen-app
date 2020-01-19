@@ -27,18 +27,21 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/messageTitle"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Novinka" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/date"
+                style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="1.1.2020 10:00" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/newsText"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

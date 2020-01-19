@@ -9,10 +9,12 @@ buildscript {
         jcenter()
 
         maven { url 'https://s3.amazonaws.com/repo.commonsware.com' }
+        mavenCentral()
 
     }
 
     dependencies {
+        classpath thirdPartyDependencies.firebase
         classpath gradlePlugins.android
         classpath gradlePlugins.kotlin
         // NOTE: Do not place your application dependencies here; they belong
@@ -21,6 +23,7 @@ buildscript {
 }
 
 allprojects {
+
     repositories {
         google()
         jcenter()

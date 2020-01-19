@@ -1,5 +1,6 @@
 package com.pavelhabzansky.citizenapp.core.config
 
+import android.util.Log
 import com.pavelhabzansky.citizenapp.core.LANGUAGE_CZ
 import com.pavelhabzansky.infrastructure.logfile.LogFileWriter
 import java.io.File

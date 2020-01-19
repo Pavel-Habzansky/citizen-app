@@ -8,4 +8,8 @@
         android:id="@+id/news_fragment"
         android:name="com.pavelhabzansky.citizenapp.features.news.view.NewsFragment" />
 
+    <fragment
+        android:id="@+id/city_picker_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.cities.view.CityPickerFragment" />
+
 </navigation>
