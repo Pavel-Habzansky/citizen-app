@@ -6,10 +6,17 @@
 
     <fragment
         android:id="@+id/news_fragment"
-        android:name="com.pavelhabzansky.citizenapp.features.news.view.NewsFragment" />
+        android:name="com.pavelhabzansky.citizenapp.features.news.view.NewsFragment"
+        android:label="@string/nav_menu_news" />
 
     <fragment
         android:id="@+id/city_picker_fragment"
-        android:name="com.pavelhabzansky.citizenapp.features.cities.view.CityPickerFragment" />
+        android:name="com.pavelhabzansky.citizenapp.features.cities.search.view.CityPickerFragment"
+        android:label="@string/nav_menu_cities" />
+
+    <fragment
+        android:id="@+id/cityDetailFragment"
+        android:name="com.pavelhabzansky.citizenapp.features.cities.detail.view.CityDetailFragment"
+        android:label="@string/nav_label_city_detail" />
 
 </navigation>

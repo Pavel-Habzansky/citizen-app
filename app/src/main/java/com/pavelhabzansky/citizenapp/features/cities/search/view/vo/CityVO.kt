@@ -1,4 +1,4 @@
-package com.pavelhabzansky.citizenapp.features.cities.view.vo
+package com.pavelhabzansky.citizenapp.features.cities.search.view.vo
 
 data class CityVO(
     var key: String,

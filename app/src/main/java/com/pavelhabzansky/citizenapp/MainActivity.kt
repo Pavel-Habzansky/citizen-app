@@ -1,6 +1,8 @@
 package com.pavelhabzansky.citizenapp
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -21,6 +23,9 @@ class MainActivity : BaseActivity() {
         Timber.i("Startup")
 
         val navController = findNavController(R.id.navHostFragment)
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            
+        }
         appBarConfig = AppBarConfiguration(navController.graph, drawer)
 
         setupActionBarWithNavController(navController, appBarConfig)
@@ -32,4 +37,5 @@ class MainActivity : BaseActivity() {
         val navController = findNavController(R.id.navHostFragment)
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
     }
+
 }

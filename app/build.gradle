@@ -66,6 +66,8 @@ dependencies {
     implementation androidDependencies.viewPager2
     implementation androidDependencies.constraintLayout
 
+    implementation thirdPartyDependencies.debugDb
+
     testImplementation testDependencies.junit
     testImplementation testDependencies.koinTest
     androidTestImplementation testDependencies.testRunner

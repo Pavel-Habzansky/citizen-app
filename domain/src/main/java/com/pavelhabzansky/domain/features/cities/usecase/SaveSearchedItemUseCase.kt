@@ -1,16 +1,15 @@
 package com.pavelhabzansky.domain.features.cities.usecase
 
-import androidx.lifecycle.LiveData
 import com.pavelhabzansky.domain.core.UseCase
 import com.pavelhabzansky.domain.features.cities.domain.LastSearchItemDO
 import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
 
-class LoadLastSearchesUseCase(
+class SaveSearchedItemUseCase(
     private val cityRepository: ICityRepository
-) : UseCase<LiveData<List<LastSearchItemDO>>, Unit>() {
+) : UseCase<Unit, LastSearchItemDO>() {
 
-    override suspend fun doWork(params: Unit): LiveData<List<LastSearchItemDO>> {
-        return cityRepository.loadLastSearches()
+    override suspend fun doWork(params: LastSearchItemDO) {
+        cityRepository.saveSearch(search = params)
     }
 
 }
