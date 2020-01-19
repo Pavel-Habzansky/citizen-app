@@ -21,7 +21,6 @@ class CitizenApp : Application() {
         instance = this
         super.onCreate()
 
-        FacebookSdk.fullyInitialize()
         initMisc()
         initKoin()
     }

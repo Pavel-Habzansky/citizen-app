@@ -8,6 +8,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cityPickLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_item_16">
@@ -15,7 +16,8 @@
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/cityPick"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:completionThreshold="0" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

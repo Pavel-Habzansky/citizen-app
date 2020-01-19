@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -14,6 +15,7 @@ import com.pavelhabzansky.citizenapp.databinding.FragmentCityPickBinding
 import com.pavelhabzansky.citizenapp.features.cities.states.CityPickerViewStates
 import com.pavelhabzansky.citizenapp.features.cities.view.adapter.LastSearchAdapter
 import com.pavelhabzansky.citizenapp.features.cities.view.vm.CityPickerViewModel
+import com.pavelhabzansky.citizenapp.features.cities.view.vo.AutoCompleteItem
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -34,6 +36,8 @@ class CityPickerFragment : BaseFragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_city_pick, container, false)
 
+        setupAutocomplete()
+
         return binding.root
     }
 
@@ -43,10 +47,8 @@ class CityPickerFragment : BaseFragment() {
         registerEvents()
 
         setupRecycler()
-        setupAutocomplete()
 
         viewModel.onCityPickerTextUpdate()
-
         viewModel.loadLastUsedSearches()
     }
 
@@ -68,6 +70,19 @@ class CityPickerFragment : BaseFragment() {
             is CityPickerViewStates.LastUsedItemsLoadedEvent -> {
                 lastSearchAdapter.updateItems(newItems = event.items)
             }
+            is CityPickerViewStates.AutoCompleteLoadedEvent -> {
+                val cityPick = binding.cityPick
+                cityPick.apply {
+                    setAdapter(
+                        ArrayAdapter<String>(
+                            context!!,
+                            android.R.layout.simple_list_item_1,
+                            event.items.map { it.name }
+                        )
+                    )
+                    if (cityPick.hasFocus()) showDropDown()
+                }
+            }
         }
     }
 
@@ -81,11 +96,14 @@ class CityPickerFragment : BaseFragment() {
     }
 
     private fun setupAutocomplete() {
-        val autoCompleteTextureView = binding.cityPick
+        val cityInput = binding.cityPick
 
-        autoCompleteTextureView.doOnTextChanged { text, start, count, after ->
-            //            viewModel.onCityPickerTextUpdate(newText = text.toString())
+        cityInput.apply {
+            setOnClickListener { showDropDown() }
+            setOnFocusChangeListener { _, hasFocus -> if (hasFocus) showDropDown() }
+            doOnTextChanged { text, _, _, _ -> viewModel.onCityPickerTextUpdate(newText = text.toString()) }
         }
+
     }
 
 }

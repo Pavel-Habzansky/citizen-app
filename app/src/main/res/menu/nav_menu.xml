@@ -6,12 +6,12 @@
         <item
             android:id="@+id/news_fragment"
             android:icon="@mipmap/ic_launcher"
-            android:title="Novinky" />
+            android:title="@string/nav_menu_news" />
 
         <item
             android:id="@+id/city_picker_fragment"
             android:icon="@mipmap/ic_launcher"
-            android:title="Města" />
+            android:title="@string/nav_menu_cities" />
     </group>
     <!--    <item android:title="@string/more">-->
     <!--        <menu>-->

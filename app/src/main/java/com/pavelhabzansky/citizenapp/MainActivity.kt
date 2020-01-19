@@ -22,7 +22,7 @@ class MainActivity : BaseActivity() {
 
         val navController = findNavController(R.id.navHostFragment)
         appBarConfig = AppBarConfiguration(navController.graph, drawer)
-//        collapsingToolbarLayout.setupWithNavController(toolbar, navController, appBarConfig)
+
         setupActionBarWithNavController(navController, appBarConfig)
         navView.setupWithNavController(navController)
 

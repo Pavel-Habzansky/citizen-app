@@ -39,7 +39,12 @@ class CityRepository(
 
                 }
 
-                cities.postValue(cityList)
+                cities.postValue(cityList.filter {
+                    it.name.startsWith(
+                        prefix = startsWith,
+                        ignoreCase = true
+                    )
+                })
             }
 
             override fun onCancelled(error: DatabaseError) {

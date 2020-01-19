@@ -14,12 +14,13 @@ import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.databinding.FragmentNewsBinding
 import com.pavelhabzansky.citizenapp.features.news.view.adapter.NewsPagerAdapter
 import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
+import kotlinx.android.synthetic.main.fragment_news.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class NewsFragment : BaseFragment() {
 
     private val newsPagerAdapter: NewsPagerAdapter by lazy {
-        NewsPagerAdapter(this)
+        NewsPagerAdapter(childFragmentManager)
     }
 
     private lateinit var binding: FragmentNewsBinding
@@ -39,7 +40,9 @@ class NewsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViewPager()
+        if (newsViewPager.adapter == null) {
+            initViewPager()
+        }
 
 //        viewModel.callFirebase()
     }
@@ -51,12 +54,16 @@ class NewsFragment : BaseFragment() {
         viewPager.adapter = newsPagerAdapter
         viewPager.offscreenPageLimit = NewsPagerAdapter.SCREEN_OFFSCREEN_LIMIT as Int
 
-        TabLayoutMediator(tabLayout, viewPager) { currentTab, currentPosition ->
-            currentTab.text = when (currentPosition) {
-                NewsPagerAdapter.CITIZEN_NEWS_POSITION -> "Rezident"
-                else -> "Turista"
-            }
-        }.attach()
+//        TabLayoutMediator(tabLayout, viewPager) { currentTab, currentPosition ->
+//            currentTab.text = when (currentPosition) {
+//                NewsPagerAdapter.CITIZEN_NEWS_POSITION -> "Rezident"
+//                else -> "Turista"
+//            }
+//        }.attach()
+
+        tabLayout.apply {
+            setupWithViewPager(viewPager)
+        }
 
 
     }
