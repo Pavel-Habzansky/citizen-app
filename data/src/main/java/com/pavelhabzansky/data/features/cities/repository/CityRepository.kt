@@ -8,6 +8,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.StorageReference
+import com.pavelhabzansky.data.core.*
 import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
 import com.pavelhabzansky.data.features.cities.mapper.LastSearchMapper
 import com.pavelhabzansky.domain.features.cities.domain.CityDO
@@ -18,6 +20,7 @@ import timber.log.Timber
 
 class CityRepository(
     private val cityReference: DatabaseReference,
+    private val storageReference: StorageReference,
     private val lastSearchDao: LastSearchDao
 ) : ICityRepository {
 
@@ -36,8 +39,8 @@ class CityRepository(
 
                     CityDO(
                         key = requireNotNull(it.key),
-                        id = requireNotNull(it.child("id").value.toString()),
-                        name = requireNotNull(it.child("name").value.toString())
+                        id = requireNotNull(it.child(CITY_CHILD_ID).value.toString()),
+                        name = requireNotNull(it.child(CITY_CHILD_NAME).value.toString())
                     )
 
                 }
@@ -68,19 +71,32 @@ class CityRepository(
         val city = cityReference.child(cityKey)
         city.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val name = snapshot.child("name").value?.toString()
-                val wikiInfo = snapshot.child("wiki")
-                val population = wikiInfo.child("citizens").value?.toString()?.toLong()
-                val description = wikiInfo.child("headline").value?.toString()
+                val name = snapshot.child(CITY_CHILD_NAME).value?.toString()
+                val wikiInfo = snapshot.child(CITY_CHILD_WIKI)
+                val population = wikiInfo.child(WIKI_CHILD_CITIZENS).value?.toString()?.toLong()
+                val description = wikiInfo.child(WIKI_CHILD_HEADLINE).value?.toString()
+                val logo = wikiInfo.child(WIKI_CHILD_LOGO).value?.toString()
 
-                cityInfo.postValue(
-                    CityInformationDO(
-                        key = cityKey,
-                        name = name,
-                        population = population,
-                        description = description
-                    )
+                val cityObject = CityInformationDO(
+                    key = cityKey,
+                    name = name,
+                    population = population,
+                    description = description
                 )
+
+                cityInfo.postValue(cityObject)
+
+                logo?.let { logo ->
+                    val logoReference = storageReference.child(logo)
+                    logoReference.getBytes(LOGO_MAX_SIZE).addOnSuccessListener {
+                        Timber.i("Loaded ${it.size} bytes for city logo")
+                        cityInfo.postValue(
+                            cityObject.copy(logoBytes = it)
+                        )
+                    }.addOnFailureListener {
+                        Timber.i("Unable to load logo: $it")
+                    }
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

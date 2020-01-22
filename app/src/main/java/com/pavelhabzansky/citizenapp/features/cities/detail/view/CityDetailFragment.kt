@@ -1,11 +1,13 @@
 package com.pavelhabzansky.citizenapp.features.cities.detail.view
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.firebase.storage.FirebaseStorage
 import com.pavelhabzansky.citizenapp.BR
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_CITY_KEY
@@ -13,6 +15,7 @@ import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.databinding.FragmentCityDetailBinding
 import com.pavelhabzansky.citizenapp.features.cities.detail.states.CityDetailViewStates
 import com.pavelhabzansky.citizenapp.features.cities.detail.view.vm.CityDetailViewModel
+import com.pavelhabzansky.citizenapp.features.cities.detail.view.vo.CityInformationVO
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -43,10 +46,18 @@ class CityDetailFragment : BaseFragment() {
 
     private fun updateViewState(state: CityDetailViewStates) {
         when (state) {
-            is CityDetailViewStates.CityInformationLoaded -> {
-                binding.setVariable(BR.info, state.info)
-                binding.executePendingBindings()
-            }
+            is CityDetailViewStates.CityInformationLoaded -> setCityData(city = state.info)
+        }
+    }
+
+    private fun setCityData(city: CityInformationVO) {
+        binding.setVariable(BR.info, city)
+        binding.executePendingBindings()
+
+        val bytes = city.logoBytes
+        bytes?.let {
+            val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            binding.cityLogo.setImageBitmap(bmp)
         }
     }
 

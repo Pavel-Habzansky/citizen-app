@@ -33,21 +33,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_item_12"
+            android:text="@string/city_detail_name_title"
             app:layout_constraintStart_toEndOf="@id/cityLogo"
             app:layout_constraintTop_toTopOf="@id/cityLogo"
-            tools:text="Název: " />
+            tools:text="@string/city_detail_name_title" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/cityName"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_item_12"
             android:text="@{ info.name }"
-            app:layout_constraintBottom_toBottomOf="@id/cityNameLabel"
-            app:layout_constraintStart_toEndOf="@id/cityNameLabel"
-            app:layout_constraintTop_toTopOf="@id/cityNameLabel"
-            tools:text="Plzeň" />
+            app:layout_constraintStart_toStartOf="@id/cityNameLabel"
+            app:layout_constraintTop_toBottomOf="@id/cityNameLabel"
+            tools:text="@string/city_detail_name_title" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/populationLabel"
@@ -55,20 +54,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_item_12"
+            android:text="@string/city_detail_population_title"
             app:layout_constraintStart_toEndOf="@id/cityLogo"
-            app:layout_constraintTop_toBottomOf="@id/cityNameLabel"
-            tools:text="Počet obyvatel: " />
+            app:layout_constraintTop_toBottomOf="@id/cityName"
+            tools:text="@string/city_detail_population_title" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/populationText"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_item_12"
             android:text="@{ info.population.toString() }"
-            app:layout_constraintBottom_toBottomOf="@id/populationLabel"
-            app:layout_constraintStart_toEndOf="@id/populationLabel"
-            app:layout_constraintTop_toTopOf="@id/populationLabel"
+            app:layout_constraintStart_toEndOf="@id/cityLogo"
+            app:layout_constraintStart_toStartOf="@id/populationLabel"
+            app:layout_constraintTop_toBottomOf="@id/populationLabel"
             tools:text="-12345" />
 
         <com.google.android.material.textview.MaterialTextView

@@ -10,7 +10,8 @@ object CityInformationVOMapper : Mapper<CityInformationDO, CityInformationVO>() 
         key = from.key,
         name = from.key,
         description = from.description,
-        population = from.population
+        population = from.population,
+        logoBytes = from.logoBytes
     )
 
 }

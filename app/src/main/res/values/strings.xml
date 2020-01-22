@@ -18,6 +18,8 @@
     <string name="city_pick_last_search_title">Poslední vyhledávání</string>
 
     <!--  CITY DETAIL  -->
+    <string name="city_detail_population_title">Počet obyvatel: </string>
+    <string name="city_detail_name_title">Název: </string>
     <string name="city_detail_description_title">Popis: </string>
     <string name="city_detail_residential_button">Nastavit jako rezidentní</string>
     <string name="city_detail_map_button">Zobrazit na mapě</string>
