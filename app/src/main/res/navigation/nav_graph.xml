@@ -4,6 +4,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/news_fragment">
 
+
     <fragment
         android:id="@+id/news_fragment"
         android:name="com.pavelhabzansky.citizenapp.features.news.view.NewsFragment"
@@ -18,5 +19,9 @@
         android:id="@+id/cityDetailFragment"
         android:name="com.pavelhabzansky.citizenapp.features.cities.detail.view.CityDetailFragment"
         android:label="@string/nav_label_city_detail" />
+
+    <action
+        android:id="@+id/toCityPickerFragment"
+        app:destination="@id/city_picker_fragment" />
 
 </navigation>
