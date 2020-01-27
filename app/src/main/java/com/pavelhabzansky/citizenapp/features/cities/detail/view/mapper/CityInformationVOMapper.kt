@@ -11,7 +11,10 @@ object CityInformationVOMapper : Mapper<CityInformationDO, CityInformationVO>() 
         name = from.key,
         description = from.description,
         population = from.population,
-        logoBytes = from.logoBytes
+        logoBytes = from.logoBytes,
+        lat = from.lat,
+        lng = from.lng,
+        www = from.www
     )
 
 }

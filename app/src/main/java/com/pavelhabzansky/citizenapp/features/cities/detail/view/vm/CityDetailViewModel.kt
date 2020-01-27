@@ -8,6 +8,7 @@ import com.pavelhabzansky.citizenapp.core.vm.BaseViewModel
 import com.pavelhabzansky.citizenapp.features.cities.detail.states.CityDetailErrorStates
 import com.pavelhabzansky.citizenapp.features.cities.detail.states.CityDetailViewStates
 import com.pavelhabzansky.citizenapp.features.cities.detail.view.mapper.CityInformationVOMapper
+import com.pavelhabzansky.citizenapp.features.cities.detail.view.vo.CityInformationVO
 import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
 import com.pavelhabzansky.domain.features.cities.usecase.LoadCityInfoUseCase
 import kotlinx.coroutines.Dispatchers
@@ -22,14 +23,15 @@ class CityDetailViewModel : BaseViewModel() {
 
     private val cityInfoObserver: Observer<CityInformationDO> by lazy {
         Observer<CityInformationDO> {
-            cityDetailViewState.value =
-                CityDetailViewStates.CityInformationLoaded(CityInformationVOMapper.mapFrom(from = it))
-
+            cityInfo = CityInformationVOMapper.mapFrom(from = it)
+            cityDetailViewState.value = CityDetailViewStates.CityInformationLoaded(cityInfo)
         }
     }
 
     val cityDetailViewState = SingleLiveEvent<CityDetailViewStates>()
     val cityDetailErrorState = SingleLiveEvent<CityDetailErrorStates>()
+
+    lateinit var cityInfo: CityInformationVO
 
     fun loadCityInfo(key: String) {
         viewModelScope.launch(Dispatchers.IO) {

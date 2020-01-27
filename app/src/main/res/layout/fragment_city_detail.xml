@@ -99,13 +99,13 @@
             android:layout_height="wrap_content"
             android:text="@string/city_detail_residential_button"
             android:textAllCaps="false"
-            app:layout_constraintBottom_toTopOf="@id/showOnMap"
+            app:layout_constraintBottom_toTopOf="@id/showOnMapButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Nastavit jako rezidentní" />
 
         <Button
-            android:id="@+id/showOnMap"
+            android:id="@+id/showOnMapButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/city_detail_map_button"

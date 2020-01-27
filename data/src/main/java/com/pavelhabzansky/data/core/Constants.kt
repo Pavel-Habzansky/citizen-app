@@ -8,7 +8,12 @@ const val LOGO_MAX_SIZE = 1024*1024L
 const val CITY_CHILD_NAME = "name"
 const val CITY_CHILD_WIKI = "wiki"
 const val CITY_CHILD_ID = "id"
+const val CITY_CHILD_WWW = "www"
 
 const val WIKI_CHILD_CITIZENS = "citizens"
 const val WIKI_CHILD_HEADLINE = "headline"
 const val WIKI_CHILD_LOGO = "logo"
+const val WIKI_CHILD_GPS = "gps"
+
+const val GPS_CHILD_LAT = "lat"
+const val GPS_CHILD_LNG = "lng"

@@ -12,6 +12,12 @@
             android:id="@+id/city_picker_fragment"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/nav_menu_cities" />
+
+        <item
+            android:id="@+id/map_fragment"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/nav_menu_map" />
+
     </group>
     <!--    <item android:title="@string/more">-->
     <!--        <menu>-->
