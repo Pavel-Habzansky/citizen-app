@@ -1,5 +1,6 @@
 package com.pavelhabzansky.citizenapp.features.cities.detail.view
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -50,12 +52,40 @@ class CityDetailFragment : BaseFragment() {
 
         binding.showOnMapButton.setOnClickListener { showOnMap() }
         binding.cityWebPageButton.setOnClickListener { showWeb() }
+        binding.setResidentialButton.setOnClickListener { setResidential() }
     }
 
     private fun updateViewState(state: CityDetailViewStates) {
         when (state) {
             is CityDetailViewStates.CityInformationLoaded -> setCityData(city = state.info)
+            is CityDetailViewStates.ResidentialCityExists -> showResidenceExistsDialog(name = state.name)
         }
+    }
+
+    private fun showResidenceExistsDialog(name: String) {
+
+        val dialog = activity?.let {
+            val builder = AlertDialog.Builder(it)
+
+            builder.apply {
+                setMessage(
+                    getString(
+                        R.string.city_detail_residential_already_set,
+                        name,
+                        viewModel.cityInfo.name
+                    )
+                )?.setTitle(R.string.warning)
+
+                setPositiveButton(R.string.yes) { dialog, _ ->
+                    dialog?.dismiss()
+                    viewModel.setCityAsResidentialForce()
+                }
+                setNegativeButton(R.string.no) { dialog, _ -> dialog?.dismiss() }
+            }
+
+            builder.create()
+        }
+        dialog?.show()
     }
 
     private fun setCityData(city: CityInformationVO) {
@@ -101,7 +131,10 @@ class CityDetailFragment : BaseFragment() {
         } else {
             Toast.makeText(context, "Město nemá webové stránky", Toast.LENGTH_LONG).show()
         }
+    }
 
+    private fun setResidential() {
+        viewModel.setCityAsResidential()
     }
 
 }

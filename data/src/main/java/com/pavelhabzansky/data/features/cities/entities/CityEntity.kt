@@ -6,5 +6,7 @@ import androidx.room.Entity
 data class CityEntity(
     var key: String = "",
     var id: String = "",
-    var name: String = ""
+    var name: String = "",
+
+    var residential: Boolean = false
 )

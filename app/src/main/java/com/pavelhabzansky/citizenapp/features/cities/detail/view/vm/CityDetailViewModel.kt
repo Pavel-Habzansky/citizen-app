@@ -10,14 +10,21 @@ import com.pavelhabzansky.citizenapp.features.cities.detail.states.CityDetailVie
 import com.pavelhabzansky.citizenapp.features.cities.detail.view.mapper.CityInformationVOMapper
 import com.pavelhabzansky.citizenapp.features.cities.detail.view.vo.CityInformationVO
 import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
+import com.pavelhabzansky.domain.features.cities.usecase.GetResidentialCityNameUseCase
 import com.pavelhabzansky.domain.features.cities.usecase.LoadCityInfoUseCase
+import com.pavelhabzansky.domain.features.cities.usecase.SetCityResidentialForceUseCase
+import com.pavelhabzansky.domain.features.cities.usecase.SetCityResidentialUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.inject
+import timber.log.Timber
 
 class CityDetailViewModel : BaseViewModel() {
 
     private val loadCityInfoUseCase by inject<LoadCityInfoUseCase>()
+    private val setCityResidentialUseCase by inject<SetCityResidentialUseCase>()
+    private val setCityResidentialForceUseCase by inject<SetCityResidentialForceUseCase>()
+    private val getResidentialCityNameUseCase by inject<GetResidentialCityNameUseCase>()
 
     private var cityInfoLiveData: LiveData<CityInformationDO>? = null
 
@@ -37,6 +44,40 @@ class CityDetailViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             cityInfoLiveData = loadCityInfoUseCase(params = key)
             launch(Dispatchers.Main) { cityInfoLiveData?.observeForever(cityInfoObserver) }
+        }
+    }
+
+    fun setCityAsResidential() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = setCityResidentialUseCase(
+                params = SetCityResidentialUseCase.Params(
+                    key = cityInfo.key,
+                    name = cityInfo.name,
+                    id = cityInfo.id
+                )
+            )
+
+            when (result) {
+                SetCityResidentialUseCase.UseCaseResult.SUCCESS -> {
+                    Timber.i("City ${cityInfo.name}/${cityInfo.key} set as Residential")
+                }
+                else -> {
+                    val currentResidential = getResidentialCityNameUseCase(Unit)
+                    cityDetailViewState.postValue(CityDetailViewStates.ResidentialCityExists(name = currentResidential))
+                }
+            }
+        }
+    }
+
+    fun setCityAsResidentialForce() {
+        viewModelScope.launch(Dispatchers.IO) {
+            setCityResidentialForceUseCase(
+                params = SetCityResidentialForceUseCase.Params(
+                    key = cityInfo.key,
+                    name = cityInfo.name,
+                    id = cityInfo.id
+                )
+            )
         }
     }
 

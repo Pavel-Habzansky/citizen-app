@@ -35,7 +35,8 @@ val appModule = module {
         CityRepository(
             cityReference = get(named(QUAL_FIREBASE_CITIES)),
             storageReference = get(),
-            lastSearchDao = get<AppDatabase>().lastSearchDao
+            lastSearchDao = get<AppDatabase>().lastSearchDao,
+            cityDao = get<AppDatabase>().cityDao
         ) as ICityRepository
     }
 

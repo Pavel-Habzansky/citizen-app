@@ -10,18 +10,23 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import com.pavelhabzansky.data.core.*
+import com.pavelhabzansky.data.features.cities.dao.CityDao
 import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
+import com.pavelhabzansky.data.features.cities.entities.CityEntity
+import com.pavelhabzansky.data.features.cities.mapper.CityMapper
 import com.pavelhabzansky.data.features.cities.mapper.LastSearchMapper
 import com.pavelhabzansky.domain.features.cities.domain.CityDO
 import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
 import com.pavelhabzansky.domain.features.cities.domain.LastSearchItemDO
 import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
+import com.pavelhabzansky.domain.features.cities.usecase.SetCityResidentialUseCase
 import timber.log.Timber
 
 class CityRepository(
     private val cityReference: DatabaseReference,
     private val storageReference: StorageReference,
-    private val lastSearchDao: LastSearchDao
+    private val lastSearchDao: LastSearchDao,
+    private val cityDao: CityDao
 ) : ICityRepository {
 
     override suspend fun loadLastSearches(): LiveData<List<LastSearchItemDO>> {
@@ -71,7 +76,8 @@ class CityRepository(
         val city = cityReference.child(cityKey)
         city.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val name = snapshot.child(CITY_CHILD_NAME).value?.toString()
+                val name = snapshot.child(CITY_CHILD_NAME).value?.toString() ?: ""
+                val id = snapshot.child(CITY_CHILD_ID).value?.toString() ?: ""
                 val www = snapshot.child(CITY_CHILD_WWW).value?.toString() ?: ""
                 val wikiInfo = snapshot.child(CITY_CHILD_WIKI)
                 val population = wikiInfo.child(WIKI_CHILD_CITIZENS).value?.toString()?.toLong()
@@ -84,6 +90,7 @@ class CityRepository(
 
                 val cityObject = CityInformationDO(
                     key = cityKey,
+                    id = id,
                     name = name,
                     population = population,
                     lat = lat,
@@ -113,6 +120,23 @@ class CityRepository(
         })
 
         return cityInfo
+    }
+
+    override suspend fun setAsResidential(key: String, name: String, id: String) {
+        val cityEntity = CityEntity(
+            key = key,
+            id = id,
+            name = name,
+            residential = true
+        )
+
+        cityDao.unsetResidential()
+        cityDao.insert(entity = cityEntity)
+    }
+
+    override suspend fun getResidentialCity(): CityDO? {
+        val residential = cityDao.getResidential()
+        return residential?.let { CityMapper.mapFrom(from = residential) }
     }
 
 }

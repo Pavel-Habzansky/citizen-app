@@ -6,7 +6,6 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class CityDO(
     var key: String = "",
     var id: String = "",
-    var name: String = ""
-) {
-
-}
+    var name: String = "",
+    var residential: Boolean = false
+)
