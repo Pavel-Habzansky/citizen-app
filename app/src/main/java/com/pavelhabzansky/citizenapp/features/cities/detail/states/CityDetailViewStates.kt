@@ -8,6 +8,8 @@ sealed class CityDetailViewStates {
 
     class ResidentialCityExists(val name: String) : CityDetailViewStates()
 
+    class NoResidentialCity : CityDetailViewStates()
+
 }
 
 sealed class CityDetailErrorStates(val error: Throwable? = null) {

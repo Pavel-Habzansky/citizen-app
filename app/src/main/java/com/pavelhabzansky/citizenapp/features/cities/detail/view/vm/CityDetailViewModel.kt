@@ -10,10 +10,7 @@ import com.pavelhabzansky.citizenapp.features.cities.detail.states.CityDetailVie
 import com.pavelhabzansky.citizenapp.features.cities.detail.view.mapper.CityInformationVOMapper
 import com.pavelhabzansky.citizenapp.features.cities.detail.view.vo.CityInformationVO
 import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
-import com.pavelhabzansky.domain.features.cities.usecase.GetResidentialCityNameUseCase
-import com.pavelhabzansky.domain.features.cities.usecase.LoadCityInfoUseCase
-import com.pavelhabzansky.domain.features.cities.usecase.SetCityResidentialForceUseCase
-import com.pavelhabzansky.domain.features.cities.usecase.SetCityResidentialUseCase
+import com.pavelhabzansky.domain.features.cities.usecase.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.inject
@@ -25,6 +22,7 @@ class CityDetailViewModel : BaseViewModel() {
     private val setCityResidentialUseCase by inject<SetCityResidentialUseCase>()
     private val setCityResidentialForceUseCase by inject<SetCityResidentialForceUseCase>()
     private val getResidentialCityNameUseCase by inject<GetResidentialCityNameUseCase>()
+    private val getResidentialCityUseCase by inject<GetResidentialCityUseCase>()
 
     private var cityInfoLiveData: LiveData<CityInformationDO>? = null
 
@@ -78,6 +76,17 @@ class CityDetailViewModel : BaseViewModel() {
                     id = cityInfo.id
                 )
             )
+        }
+    }
+
+    fun loadResidentialCity() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val residential = getResidentialCityUseCase(Unit)
+            residential?.let {
+                loadCityInfo(key = it.key)
+            } ?: run {
+                cityDetailViewState.postValue(CityDetailViewStates.NoResidentialCity())
+            }
         }
     }
 

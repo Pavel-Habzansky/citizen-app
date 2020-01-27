@@ -1,6 +1,5 @@
 package com.pavelhabzansky.citizenapp.features.cities.detail.view
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -48,7 +47,12 @@ class CityDetailFragment : BaseFragment() {
         registerEvents()
 
         val cityKey = arguments?.getString(ARG_CITY_KEY)
-        cityKey?.let { viewModel.loadCityInfo(key = it) }
+        if (cityKey != null) {
+            viewModel.loadCityInfo(key = cityKey)
+        } else {
+            viewModel.loadResidentialCity()
+        }
+
 
         binding.showOnMapButton.setOnClickListener { showOnMap() }
         binding.cityWebPageButton.setOnClickListener { showWeb() }
@@ -59,7 +63,29 @@ class CityDetailFragment : BaseFragment() {
         when (state) {
             is CityDetailViewStates.CityInformationLoaded -> setCityData(city = state.info)
             is CityDetailViewStates.ResidentialCityExists -> showResidenceExistsDialog(name = state.name)
+            is CityDetailViewStates.NoResidentialCity -> showNoResidenceDialog()
         }
+    }
+
+    private fun showNoResidenceDialog() {
+        val dialog = activity?.let {
+            val builder = AlertDialog.Builder(it)
+
+            builder.apply {
+                setMessage(
+                    getString(R.string.city_detail_residential_not_set_message)
+                )?.setTitle(R.string.city_detail_residential_not_set_title)
+
+                setPositiveButton(R.string.ok) { dialog, _ ->
+                    dialog?.dismiss()
+                    findNavController().navigateUp()
+                }
+            }
+
+            builder.create()
+        }
+        dialog?.setCancelable(false)
+        dialog?.show()
     }
 
     private fun showResidenceExistsDialog(name: String) {
@@ -85,6 +111,7 @@ class CityDetailFragment : BaseFragment() {
 
             builder.create()
         }
+        dialog?.setCancelable(false)
         dialog?.show()
     }
 
