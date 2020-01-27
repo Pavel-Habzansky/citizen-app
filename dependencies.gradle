@@ -38,10 +38,14 @@ ext {
             koin               : '2.0.1',
             constraintLayout   : '2.0.0-beta2',
             viewPager2         : '1.0.0',
-
             facebook           : '5.13.0',
             firebaseDb         : '19.2.0',
-            firebase           : '4.3.2',
+            firebaseAuth       : '19.2.0',
+            firebaseStorage    : '19.1.0',
+            gms                : '4.3.3',
+
+
+            debugDb            : '1.0.6',
             espresso           : '3.1.0',
             junit              : '4.12',
             testRunner         : '1.1.0',
@@ -120,18 +124,21 @@ ext {
     ]
 
     thirdPartyDependencies = [
-            facebook     : "com.facebook.android:facebook-android-sdk:${versions.facebook}",
-            firebaseDb   : "com.google.firebase:firebase-database:${versions.firebaseDb}",
-            firebase     : "com.google.gms:google-services:${versions.firebase}",
-            material     : "com.google.android.material:material:${versions.material}",
-            koinScope    : "org.koin:koin-android-scope:${versions.koin}", // Koin Android Scope feature
-            koinAndroid  : "org.koin:koin-android:${versions.koin}",
-            koinViewModel: "org.koin:koin-android-viewmodel:${versions.koin}", // Koin Android ViewModel feature
-            timber       : "com.jakewharton.timber:timber:${versions.timber}",
-            sentry       : "io.sentry:sentry-android:${versions.sentry}",
-            gsonConverter: "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
-            gson         : "com.google.code.gson:gson:${versions.gson}",
-            kotpref      : "com.chibatching.kotpref:kotpref:${versions.kotpref}",
-            safeRoom     : "com.commonsware.cwac:saferoom:${versions.safeRoom}"
+            facebook       : "com.facebook.android:facebook-android-sdk:${versions.facebook}",
+            firebaseStorage: "com.google.firebase:firebase-storage:${versions.firebaseStorage}",
+            firebaseAuth   : "com.google.firebase:firebase-auth:${versions.firebaseAuth}",
+            firebaseDb     : "com.google.firebase:firebase-database:${versions.firebaseDb}",
+            firebase       : "com.google.gms:google-services:${versions.gms}",
+            material       : "com.google.android.material:material:${versions.material}",
+            koinScope      : "org.koin:koin-android-scope:${versions.koin}", // Koin Android Scope feature
+            koinAndroid    : "org.koin:koin-android:${versions.koin}",
+            koinViewModel  : "org.koin:koin-android-viewmodel:${versions.koin}", // Koin Android ViewModel feature
+            timber         : "com.jakewharton.timber:timber:${versions.timber}",
+            sentry         : "io.sentry:sentry-android:${versions.sentry}",
+            gsonConverter  : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
+            gson           : "com.google.code.gson:gson:${versions.gson}",
+            kotpref        : "com.chibatching.kotpref:kotpref:${versions.kotpref}",
+            safeRoom       : "com.commonsware.cwac:saferoom:${versions.safeRoom}",
+            debugDb        : "com.amitshekhar.android:debug-db:${versions.debugDb}"
     ]
 }

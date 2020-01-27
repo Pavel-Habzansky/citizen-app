@@ -4,6 +4,8 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.commonsware.cwac.saferoom.SafeHelperFactory
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.pavelhabzansky.data.core.room.AppDatabase
 import com.pavelhabzansky.data.features.cities.repository.CityRepository
 import com.pavelhabzansky.data.features.news.repository.NewsRepository
@@ -25,11 +27,14 @@ val appModule = module {
 
     single(qualifier = named(QUAL_FIREBASE_INCIDENTS)) { provideFirebaseReference(path = "incidents") }
 
+    single { provideFirebaseStorageReference() }
+
     single { AppDatabase.getInstance(context = get(), factory = provideSQLiteHelperFactory()) }
 
     single {
         CityRepository(
             cityReference = get(named(QUAL_FIREBASE_CITIES)),
+            storageReference = get(),
             lastSearchDao = get<AppDatabase>().lastSearchDao
         ) as ICityRepository
     }
@@ -48,6 +53,10 @@ fun provideFirebaseReference(path: String? = null): DatabaseReference {
         return reference.child(it)
     }
     return reference
+}
+
+fun provideFirebaseStorageReference(): StorageReference {
+    return FirebaseStorage.getInstance().reference
 }
 
 fun provideSQLiteHelperFactory(): SupportSQLiteOpenHelper.Factory? {

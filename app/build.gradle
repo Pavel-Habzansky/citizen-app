@@ -66,6 +66,12 @@ dependencies {
     implementation androidDependencies.viewPager2
     implementation androidDependencies.constraintLayout
 
+    implementation thirdPartyDependencies.debugDb
+
+    implementation thirdPartyDependencies.firebaseAuth
+    implementation thirdPartyDependencies.firebaseStorage
+
+
     testImplementation testDependencies.junit
     testImplementation testDependencies.koinTest
     androidTestImplementation testDependencies.testRunner

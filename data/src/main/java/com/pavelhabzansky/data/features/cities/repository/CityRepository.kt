@@ -3,25 +3,32 @@ package com.pavelhabzansky.data.features.cities.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.StorageReference
+import com.pavelhabzansky.data.core.*
 import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
 import com.pavelhabzansky.data.features.cities.mapper.LastSearchMapper
 import com.pavelhabzansky.domain.features.cities.domain.CityDO
+import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
 import com.pavelhabzansky.domain.features.cities.domain.LastSearchItemDO
 import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
 import timber.log.Timber
 
 class CityRepository(
     private val cityReference: DatabaseReference,
+    private val storageReference: StorageReference,
     private val lastSearchDao: LastSearchDao
 ) : ICityRepository {
 
-    override suspend fun loadLastSearches(): List<LastSearchItemDO> {
+    override suspend fun loadLastSearches(): LiveData<List<LastSearchItemDO>> {
         val lastSearches = lastSearchDao.getLastSearches()
-        return lastSearches.map { LastSearchMapper.mapFrom(from = it) }
+        return Transformations.map(lastSearches) {
+            it.map { LastSearchMapper.mapFrom(from = it) }
+        }
     }
 
     override suspend fun loadCitiesBy(startsWith: String): LiveData<List<CityDO>> {
@@ -29,12 +36,11 @@ class CityRepository(
         cityReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val cityList = snapshot.children.map {
-                    Timber.i("Loaded: ${it.key}")
 
                     CityDO(
                         key = requireNotNull(it.key),
-                        id = requireNotNull(it.child("id").value.toString()),
-                        name = requireNotNull(it.child("name").value.toString())
+                        id = requireNotNull(it.child(CITY_CHILD_ID).value.toString()),
+                        name = requireNotNull(it.child(CITY_CHILD_NAME).value.toString())
                     )
 
                 }
@@ -53,6 +59,52 @@ class CityRepository(
         })
 
         return cities
+    }
+
+    override suspend fun saveSearch(search: LastSearchItemDO) {
+        val entity = LastSearchMapper.mapTo(to = search)
+        lastSearchDao.insert(entity = entity)
+    }
+
+    override suspend fun loadCityInformation(cityKey: String): LiveData<CityInformationDO> {
+        val cityInfo = MutableLiveData<CityInformationDO>()
+        val city = cityReference.child(cityKey)
+        city.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val name = snapshot.child(CITY_CHILD_NAME).value?.toString()
+                val wikiInfo = snapshot.child(CITY_CHILD_WIKI)
+                val population = wikiInfo.child(WIKI_CHILD_CITIZENS).value?.toString()?.toLong()
+                val description = wikiInfo.child(WIKI_CHILD_HEADLINE).value?.toString()
+                val logo = wikiInfo.child(WIKI_CHILD_LOGO).value?.toString()
+
+                val cityObject = CityInformationDO(
+                    key = cityKey,
+                    name = name,
+                    population = population,
+                    description = description
+                )
+
+                cityInfo.postValue(cityObject)
+
+                logo?.let { logo ->
+                    val logoReference = storageReference.child(logo)
+                    logoReference.getBytes(LOGO_MAX_SIZE).addOnSuccessListener {
+                        Timber.i("Loaded ${it.size} bytes for city logo")
+                        cityInfo.postValue(
+                            cityObject.copy(logoBytes = it)
+                        )
+                    }.addOnFailureListener {
+                        Timber.i("Unable to load logo: $it")
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                return
+            }
+        })
+
+        return cityInfo
     }
 
 }

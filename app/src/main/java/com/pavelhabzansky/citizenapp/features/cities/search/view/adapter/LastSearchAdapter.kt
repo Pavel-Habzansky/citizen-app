@@ -1,4 +1,4 @@
-package com.pavelhabzansky.citizenapp.features.cities.view.adapter
+package com.pavelhabzansky.citizenapp.features.cities.search.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.databinding.ItemLastSearchBinding
-import com.pavelhabzansky.citizenapp.features.cities.view.vo.LastCitySearchVO
+import com.pavelhabzansky.citizenapp.features.cities.search.view.vo.LastCitySearchVO
 
 class LastSearchAdapter(
+    private val onClick: (item: LastCitySearchVO) -> Unit,
     private var items: List<LastCitySearchVO> = emptyList()
 ) : RecyclerView.Adapter<LastSearchAdapter.LastSearchViewHolder>() {
 
@@ -41,7 +42,11 @@ class LastSearchAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: LastCitySearchVO) {
+            binding.lastSearchText.text = item.name
 
+            binding.root.setOnClickListener {
+                onClick(item)
+            }
         }
 
     }

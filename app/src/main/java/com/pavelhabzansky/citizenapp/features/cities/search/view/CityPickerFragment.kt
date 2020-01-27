@@ -1,21 +1,24 @@
-package com.pavelhabzansky.citizenapp.features.cities.view
+package com.pavelhabzansky.citizenapp.features.cities.search.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.pavelhabzansky.citizenapp.R
+import com.pavelhabzansky.citizenapp.core.ARG_CITY_KEY
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
+import com.pavelhabzansky.citizenapp.core.fragment.findParentNavController
 import com.pavelhabzansky.citizenapp.databinding.FragmentCityPickBinding
-import com.pavelhabzansky.citizenapp.features.cities.states.CityPickerViewStates
-import com.pavelhabzansky.citizenapp.features.cities.view.adapter.LastSearchAdapter
-import com.pavelhabzansky.citizenapp.features.cities.view.vm.CityPickerViewModel
-import com.pavelhabzansky.citizenapp.features.cities.view.vo.AutoCompleteItem
+import com.pavelhabzansky.citizenapp.features.cities.search.states.CityPickerViewStates
+import com.pavelhabzansky.citizenapp.features.cities.search.view.adapter.CityAutocompleteArrayAdapter
+import com.pavelhabzansky.citizenapp.features.cities.search.view.adapter.LastSearchAdapter
+import com.pavelhabzansky.citizenapp.features.cities.search.view.vm.CityPickerViewModel
+import com.pavelhabzansky.citizenapp.features.cities.search.view.vo.AutoCompleteItem
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -26,7 +29,9 @@ class CityPickerFragment : BaseFragment() {
     private val viewModel by viewModel<CityPickerViewModel>()
 
     private val lastSearchAdapter: LastSearchAdapter by lazy {
-        LastSearchAdapter()
+        LastSearchAdapter(
+            onClick = { item -> goToCityDetail(cityKey = item.key) }
+        )
     }
 
     override fun onCreateView(
@@ -65,23 +70,23 @@ class CityPickerFragment : BaseFragment() {
         })
     }
 
+    private fun updateAutoComplete(items: List<AutoCompleteItem>) {
+        val cityPick = binding.cityPick
+        cityPick.apply {
+            setAdapter(
+                CityAutocompleteArrayAdapter(context!!).also { it.addAll(items) }
+            )
+            if (cityPick.hasFocus()) showDropDown()
+        }
+    }
+
     private fun updateViewState(event: CityPickerViewStates) {
         when (event) {
             is CityPickerViewStates.LastUsedItemsLoadedEvent -> {
                 lastSearchAdapter.updateItems(newItems = event.items)
             }
             is CityPickerViewStates.AutoCompleteLoadedEvent -> {
-                val cityPick = binding.cityPick
-                cityPick.apply {
-                    setAdapter(
-                        ArrayAdapter<String>(
-                            context!!,
-                            android.R.layout.simple_list_item_1,
-                            event.items.map { it.name }
-                        )
-                    )
-                    if (cityPick.hasFocus()) showDropDown()
-                }
+                updateAutoComplete(items = event.items)
             }
         }
     }
@@ -92,7 +97,14 @@ class CityPickerFragment : BaseFragment() {
         recycler.apply {
             setHasFixedSize(true)
             adapter = lastSearchAdapter
+            addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
         }
+    }
+
+    private fun goToCityDetail(cityKey: String) {
+        val args = Bundle()
+        args.putString(ARG_CITY_KEY, cityKey)
+        findParentNavController().navigate(R.id.cityDetailFragment, args)
     }
 
     private fun setupAutocomplete() {
@@ -102,6 +114,15 @@ class CityPickerFragment : BaseFragment() {
             setOnClickListener { showDropDown() }
             setOnFocusChangeListener { _, hasFocus -> if (hasFocus) showDropDown() }
             doOnTextChanged { text, _, _, _ -> viewModel.onCityPickerTextUpdate(newText = text.toString()) }
+            setOnItemClickListener { _, _, position, _ ->
+                val adapter = adapter as CityAutocompleteArrayAdapter
+                val selected = adapter.getItem(position)
+                Timber.i("Selected Item: ${selected.toString()}")
+                selected?.let {
+                    viewModel.itemSelected(item = it)
+                    goToCityDetail(cityKey = selected.key)
+                }
+            }
         }
 
     }

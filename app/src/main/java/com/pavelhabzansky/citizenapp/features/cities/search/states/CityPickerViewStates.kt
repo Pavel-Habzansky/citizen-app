@@ -1,7 +1,7 @@
-package com.pavelhabzansky.citizenapp.features.cities.states
+package com.pavelhabzansky.citizenapp.features.cities.search.states
 
-import com.pavelhabzansky.citizenapp.features.cities.view.vo.AutoCompleteItem
-import com.pavelhabzansky.citizenapp.features.cities.view.vo.LastCitySearchVO
+import com.pavelhabzansky.citizenapp.features.cities.search.view.vo.AutoCompleteItem
+import com.pavelhabzansky.citizenapp.features.cities.search.view.vo.LastCitySearchVO
 
 sealed class CityPickerViewStates {
 

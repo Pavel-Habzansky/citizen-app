@@ -11,7 +11,7 @@
             android:id="@+id/cityPickLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_item_16">
+            android:layout_marginBottom="@dimen/margin_item_12">
 
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/cityPick"
@@ -20,6 +20,14 @@
                 android:completionThreshold="0" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lastSearchTitle"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_item_12"
+            android:text="@string/city_pick_last_search_title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lastSearchesRecycler"
