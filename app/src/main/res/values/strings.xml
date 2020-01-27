@@ -5,14 +5,19 @@
     <!--  1058543571164824|_J-big1hLg4lp8fRPZdnzhllIFk  -->
     <string name="facebook_app_id">1058543571164824</string>
 
+    <!--  Maps API Key  -->
+    <string name="maps_api_key">AIzaSyBnhRiB4J1pHrFa7Ex8p4jIcoLElac6JAM</string>
+
     <!--  NAVIGATION  -->
     <string name="nav_label_news">Novinky</string>
     <string name="nav_label_cities">Města</string>
     <string name="nav_label_city_detail">Detail města</string>
+    <string name="nav_label_map">Mapa</string>
 
     <!--  NAV MENU  -->
     <string name="nav_menu_news">Novinky</string>
     <string name="nav_menu_cities">Města</string>
+    <string name="nav_menu_map">Mapa</string>
 
     <!--  CITY PICKER  -->
     <string name="city_pick_last_search_title">Poslední vyhledávání</string>

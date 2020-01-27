@@ -16,9 +16,14 @@
         android:label="@string/nav_menu_cities" />
 
     <fragment
-        android:id="@+id/cityDetailFragment"
+        android:id="@+id/city_detail_fragment"
         android:name="com.pavelhabzansky.citizenapp.features.cities.detail.view.CityDetailFragment"
         android:label="@string/nav_label_city_detail" />
+
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.map.view.MapFragment"
+        android:label="@string/nav_label_map" />
 
     <action
         android:id="@+id/toCityPickerFragment"

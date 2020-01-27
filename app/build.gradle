@@ -48,6 +48,7 @@ dependencies {
     implementation thirdPartyDependencies.safeRoom
     implementation thirdPartyDependencies.firebaseDb
     implementation thirdPartyDependencies.facebook
+    implementation thirdPartyDependencies.googleMaps
 
     implementation architectureComponents.navigationFragment
     implementation architectureComponents.navigationUi

@@ -13,15 +13,10 @@ class NewsRepository(
     override suspend fun connectFirebase() {
         val cityReference = citiesReference.child("pilsen")
 
-        Timber.i(cityReference.key)
-
         cityReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val city = snapshot.getValue(CityDO::class.java)
-                Timber.i(snapshot.value?.toString())
-                Timber.i(city?.name)
                 city?.key = requireNotNull(snapshot.key)
-                Timber.i(city?.key)
             }
 
             override fun onCancelled(error: DatabaseError) {

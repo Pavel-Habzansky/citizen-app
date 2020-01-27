@@ -104,7 +104,7 @@ class CityPickerFragment : BaseFragment() {
     private fun goToCityDetail(cityKey: String) {
         val args = Bundle()
         args.putString(ARG_CITY_KEY, cityKey)
-        findParentNavController().navigate(R.id.cityDetailFragment, args)
+        findParentNavController().navigate(R.id.city_detail_fragment, args)
     }
 
     private fun setupAutocomplete() {

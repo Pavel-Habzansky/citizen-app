@@ -43,6 +43,7 @@ ext {
             firebaseAuth       : '19.2.0',
             firebaseStorage    : '19.1.0',
             gms                : '4.3.3',
+            googleMaps         : '16.1.0',
 
 
             debugDb            : '1.0.6',
@@ -124,6 +125,7 @@ ext {
     ]
 
     thirdPartyDependencies = [
+            googleMaps     : "com.google.android.gms:play-services-maps:${versions.googleMaps}",
             facebook       : "com.facebook.android:facebook-android-sdk:${versions.facebook}",
             firebaseStorage: "com.google.firebase:firebase-storage:${versions.firebaseStorage}",
             firebaseAuth   : "com.google.firebase:firebase-auth:${versions.firebaseAuth}",
