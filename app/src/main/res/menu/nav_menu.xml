@@ -9,6 +9,11 @@
             android:title="@string/nav_menu_news" />
 
         <item
+            android:id="@+id/city_detail_fragment"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/nav_menu_my_city" />
+
+        <item
             android:id="@+id/city_picker_fragment"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/nav_menu_cities" />
@@ -19,12 +24,5 @@
             android:title="@string/nav_menu_map" />
 
     </group>
-    <!--    <item android:title="@string/more">-->
-    <!--        <menu>-->
-    <!--            <item-->
-    <!--                android:id="@+id/nav_finish"-->
-    <!--                android:icon="@drawable/ic_exit_to_app_dark_grey_24dp"-->
-    <!--                android:title="@string/finish" />-->
-    <!--        </menu>-->
-    <!--    </item>-->
+
 </menu>

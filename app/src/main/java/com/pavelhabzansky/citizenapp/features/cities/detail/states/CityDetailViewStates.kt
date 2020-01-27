@@ -6,6 +6,10 @@ sealed class CityDetailViewStates {
 
     class CityInformationLoaded(val info: CityInformationVO) : CityDetailViewStates()
 
+    class ResidentialCityExists(val name: String) : CityDetailViewStates()
+
+    class NoResidentialCity : CityDetailViewStates()
+
 }
 
 sealed class CityDetailErrorStates(val error: Throwable? = null) {

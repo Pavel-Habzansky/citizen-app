@@ -8,7 +8,8 @@ object CityInformationVOMapper : Mapper<CityInformationDO, CityInformationVO>() 
 
     override fun mapFrom(from: CityInformationDO) = CityInformationVO(
         key = from.key,
-        name = from.key,
+        id = from.id,
+        name = from.name,
         description = from.description,
         population = from.population,
         logoBytes = from.logoBytes,

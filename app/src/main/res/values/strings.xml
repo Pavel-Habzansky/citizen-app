@@ -16,8 +16,15 @@
 
     <!--  NAV MENU  -->
     <string name="nav_menu_news">Novinky</string>
+    <string name="nav_menu_my_city">Moje město</string>
     <string name="nav_menu_cities">Města</string>
     <string name="nav_menu_map">Mapa</string>
+
+    <!--  ALL  -->
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+    <string name="ok">OK</string>
+    <string name="warning">Varování</string>
 
     <!--  CITY PICKER  -->
     <string name="city_pick_last_search_title">Poslední vyhledávání</string>
@@ -29,5 +36,8 @@
     <string name="city_detail_residential_button">Nastavit jako rezidentní</string>
     <string name="city_detail_map_button">Zobrazit na mapě</string>
     <string name="city_detail_web_button">Webové stránky</string>
+    <string name="city_detail_residential_already_set">Již máte nastavené rezidentní město: %1$s. Opravdu chcete nastavit %2$s jako nové rezidentní město?</string>
+    <string name="city_detail_residential_not_set_message">Rezidentní město není nastavené. Nejprve si vyberte město a nastavte jej jako reezidentní.</string>
+    <string name="city_detail_residential_not_set_title">Rezidentní město nebylo nalezeno</string>
 
 </resources>

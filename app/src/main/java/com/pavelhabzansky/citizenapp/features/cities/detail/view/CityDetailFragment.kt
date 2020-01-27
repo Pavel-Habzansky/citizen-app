@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -46,16 +47,72 @@ class CityDetailFragment : BaseFragment() {
         registerEvents()
 
         val cityKey = arguments?.getString(ARG_CITY_KEY)
-        cityKey?.let { viewModel.loadCityInfo(key = it) }
+        if (cityKey != null) {
+            viewModel.loadCityInfo(key = cityKey)
+        } else {
+            viewModel.loadResidentialCity()
+        }
+
 
         binding.showOnMapButton.setOnClickListener { showOnMap() }
         binding.cityWebPageButton.setOnClickListener { showWeb() }
+        binding.setResidentialButton.setOnClickListener { setResidential() }
     }
 
     private fun updateViewState(state: CityDetailViewStates) {
         when (state) {
             is CityDetailViewStates.CityInformationLoaded -> setCityData(city = state.info)
+            is CityDetailViewStates.ResidentialCityExists -> showResidenceExistsDialog(name = state.name)
+            is CityDetailViewStates.NoResidentialCity -> showNoResidenceDialog()
         }
+    }
+
+    private fun showNoResidenceDialog() {
+        val dialog = activity?.let {
+            val builder = AlertDialog.Builder(it)
+
+            builder.apply {
+                setMessage(
+                    getString(R.string.city_detail_residential_not_set_message)
+                )?.setTitle(R.string.city_detail_residential_not_set_title)
+
+                setPositiveButton(R.string.ok) { dialog, _ ->
+                    dialog?.dismiss()
+                    findNavController().navigateUp()
+                }
+            }
+
+            builder.create()
+        }
+        dialog?.setCancelable(false)
+        dialog?.show()
+    }
+
+    private fun showResidenceExistsDialog(name: String) {
+
+        val dialog = activity?.let {
+            val builder = AlertDialog.Builder(it)
+
+            builder.apply {
+                setMessage(
+                    getString(
+                        R.string.city_detail_residential_already_set,
+                        name,
+                        viewModel.cityInfo.name
+                    )
+                )?.setTitle(R.string.warning)
+
+                setPositiveButton(R.string.yes) { dialog, _ ->
+                    dialog?.dismiss()
+                    viewModel.setCityAsResidentialForce()
+                }
+                setNegativeButton(R.string.no) { dialog, _ -> dialog?.dismiss() }
+            }
+
+            builder.create()
+        }
+        dialog?.setCancelable(false)
+        dialog?.show()
     }
 
     private fun setCityData(city: CityInformationVO) {
@@ -101,7 +158,10 @@ class CityDetailFragment : BaseFragment() {
         } else {
             Toast.makeText(context, "Město nemá webové stránky", Toast.LENGTH_LONG).show()
         }
+    }
 
+    private fun setResidential() {
+        viewModel.setCityAsResidential()
     }
 
 }

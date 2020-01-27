@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.pavelhabzansky.domain.features.cities.domain.CityDO
 import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
 import com.pavelhabzansky.domain.features.cities.domain.LastSearchItemDO
+import com.pavelhabzansky.domain.features.cities.usecase.SetCityResidentialUseCase
 
 interface ICityRepository {
 
@@ -14,5 +15,9 @@ interface ICityRepository {
     suspend fun saveSearch(search: LastSearchItemDO)
 
     suspend fun loadCityInformation(cityKey: String): LiveData<CityInformationDO>
+
+    suspend fun setAsResidential(key: String, name: String, id: String)
+
+    suspend fun getResidentialCity(): CityDO?
 
 }
