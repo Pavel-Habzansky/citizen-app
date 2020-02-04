@@ -1,5 +1,6 @@
 package com.pavelhabzansky.citizenapp.features.map.view
 
+import android.Manifest
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -9,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,11 +21,17 @@ import com.google.android.gms.maps.model.LatLng
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_CITY_LAT
 import com.pavelhabzansky.citizenapp.core.ARG_CITY_LNG
+import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.databinding.FragmentMapBinding
+import com.pavelhabzansky.citizenapp.features.map.states.MapViewStates
+import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
 class MapFragment : BaseFragment(), OnMapReadyCallback {
+
+    private val viewModel by sharedViewModel<MapViewModel>()
 
     private lateinit var googleMap: GoogleMap
     private lateinit var binding: FragmentMapBinding
@@ -45,7 +54,34 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        registerEvents()
 
+        viewModel.requestLocationPermission()
+    }
+
+    private fun registerEvents() {
+        viewModel.mapViewState.observe(this, Observer {
+            updateViewState(it)
+        })
+
+        viewModel.mapErrorState.observe(this, Observer {
+            Timber.e(it.t, "Unexpected error event on MapFragment")
+        })
+    }
+
+    private fun updateViewState(event: MapViewStates) {
+        when (event) {
+            is MapViewStates.LocationPermissionGranted -> {
+                googleMap.isMyLocationEnabled = true
+            }
+            is MapViewStates.LocationPermissionNotGranted -> {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    FINE_LOCATION_REQ
+                )
+            }
+        }
     }
 
     override fun onMapReady(map: GoogleMap?) {
