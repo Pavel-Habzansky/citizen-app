@@ -2,6 +2,8 @@ package com.pavelhabzansky.citizenapp.features.map.view
 
 import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -11,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -32,6 +35,10 @@ import timber.log.Timber
 class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     private val viewModel by sharedViewModel<MapViewModel>()
+
+    private val locationClient by lazy {
+        context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    }
 
     private lateinit var googleMap: GoogleMap
     private lateinit var binding: FragmentMapBinding
@@ -96,11 +103,27 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 val longitude = args.getDouble(ARG_CITY_LNG)
 
                 navigateToLocation(lat = latitude, lng = longitude)
+            } ?: run {
+                targetUser()
             }
         } ?: run {
             Timber.w("Couldn't obtain map - GoogleMap is null")
         }
     }
+
+    private fun targetUser() {
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val location = locationClient.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            location?.let {
+                navigateToObject(lat = it.latitude, lng = it.longitude)
+            }
+        }
+    }
+
 
     private fun navigateToLocation(lat: Double, lng: Double) {
         googleMap.let {
@@ -108,6 +131,17 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             val cameraPos = CameraPosition.Builder()
                 .target(location)
                 .zoom(CITY_ZOOM_LEVEL)
+                .build()
+            it.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPos))
+        }
+    }
+
+    private fun navigateToObject(lat: Double, lng: Double) {
+        googleMap.let {
+            val location = LatLng(lat, lng)
+            val cameraPos = CameraPosition.Builder()
+                .target(location)
+                .zoom(OBJECT_ZOOM_LEVEL)
                 .build()
             it.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPos))
         }
@@ -133,6 +167,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     companion object {
 
         const val CITY_ZOOM_LEVEL = 10f
+        const val OBJECT_ZOOM_LEVEL = 15f
 
     }
 
