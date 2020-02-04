@@ -55,6 +55,10 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         mapView.onResume()
         mapView.getMapAsync(this)
 
+        binding.mapFab.setOnClickListener {
+
+        }
+
         return binding.root
     }
 
