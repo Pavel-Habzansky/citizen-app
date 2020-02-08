@@ -1,6 +1,8 @@
 package com.pavelhabzansky.citizenapp.features.map.view
 
 import android.Manifest
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
@@ -11,9 +13,12 @@ import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -43,6 +48,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private lateinit var binding: FragmentMapBinding
 
+    private var fabOpen = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,9 +62,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         mapView.onResume()
         mapView.getMapAsync(this)
 
-        binding.mapFab.setOnClickListener {
-
-        }
+        binding.mainFab.setOnClickListener { toggleFabMenu() }
 
         return binding.root
     }
@@ -68,6 +73,55 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         registerEvents()
 
         viewModel.requestLocationPermission()
+    }
+
+    private fun toggleFabMenu() {
+        if (fabOpen) {
+            animateRotateClose(binding.mainFab)
+            animateFade(binding.mapSettingsFab)
+            animateFade(binding.newIssueFab)
+        } else {
+            animateRotateOpen(binding.mainFab)
+            animateShow(binding.mapSettingsFab)
+            animateShow(binding.newIssueFab)
+        }
+        fabOpen = !fabOpen
+    }
+
+    private fun animateFade(view: View) {
+        view.animate()
+            .alpha(0f)
+            .setDuration(150)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    view.visibility = View.INVISIBLE
+                }
+            })
+    }
+
+    private fun animateShow(view: View) {
+        view.visibility = View.VISIBLE
+        view.alpha = 0f
+        view.animate()
+            .alpha(1f)
+            .setDuration(150)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    view.visibility = View.VISIBLE
+                }
+            })
+    }
+
+    private fun animateRotateOpen(view: View) {
+        view.animate()
+            .rotation(45f)
+            .setDuration(150)
+    }
+
+    private fun animateRotateClose(view: View) {
+        view.animate()
+            .rotation(0f)
+            .setDuration(150)
     }
 
     private fun registerEvents() {
