@@ -49,6 +49,7 @@ dependencies {
     implementation thirdPartyDependencies.firebaseDb
     implementation thirdPartyDependencies.facebook
     implementation thirdPartyDependencies.googleMaps
+    implementation thirdPartyDependencies.retrofit
 
     implementation architectureComponents.navigationFragment
     implementation architectureComponents.navigationUi

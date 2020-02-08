@@ -14,6 +14,7 @@ import com.pavelhabzansky.domain.features.news.repository.INewsRepository
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import retrofit2.Retrofit
 
 const val QUAL_FIREBASE_ROOT = "FIREBASE_ROOT"
 const val QUAL_FIREBASE_CITIES = "FIREBASE_CITIES"

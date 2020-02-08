@@ -4,4 +4,6 @@ interface INewsRepository {
 
     suspend fun connectFirebase()
 
+    suspend fun loadNews()
+
 }

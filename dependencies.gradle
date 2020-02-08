@@ -44,7 +44,7 @@ ext {
             firebaseStorage    : '19.1.0',
             gms                : '4.3.3',
             googleMaps         : '16.1.0',
-
+            retrofit           : '2.7.1',
 
             debugDb            : '1.0.6',
             espresso           : '3.1.0',
@@ -138,6 +138,7 @@ ext {
             timber         : "com.jakewharton.timber:timber:${versions.timber}",
             sentry         : "io.sentry:sentry-android:${versions.sentry}",
             gsonConverter  : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
+            retrofit       : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
             gson           : "com.google.code.gson:gson:${versions.gson}",
             kotpref        : "com.chibatching.kotpref:kotpref:${versions.kotpref}",
             safeRoom       : "com.commonsware.cwac:saferoom:${versions.safeRoom}",

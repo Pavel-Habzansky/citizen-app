@@ -44,6 +44,10 @@ dependencies {
     implementation thirdPartyDependencies.firebase
     implementation thirdPartyDependencies.firebaseDb
     implementation thirdPartyDependencies.firebaseStorage
+    implementation thirdPartyDependencies.retrofit
+
+    implementation "org.simpleframework:simple-xml:2.7.1"
+    implementation "com.squareup.retrofit2:converter-simplexml:2.7.1"
 
     kapt architectureComponents.roomCompiler
     implementation architectureComponents.roomRxJava

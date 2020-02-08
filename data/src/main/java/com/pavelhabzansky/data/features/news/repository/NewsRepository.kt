@@ -1,8 +1,11 @@
 package com.pavelhabzansky.data.features.news.repository
 
 import com.google.firebase.database.*
+import com.pavelhabzansky.data.features.news.api.RssApi
 import com.pavelhabzansky.domain.features.cities.domain.CityDO
 import com.pavelhabzansky.domain.features.news.repository.INewsRepository
+import retrofit2.Retrofit
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import timber.log.Timber
 
 class NewsRepository(
@@ -23,24 +26,21 @@ class NewsRepository(
                 Timber.i(error.message)
             }
         })
-
-//        val database = FirebaseDatabase.getInstance().reference
-//
-//        database.child("users").child("1").setValue("Hello world")
-//
-//        Log.i("Database", database.root.toString())
-//
-//        val userRef = database.child("users")
-//
-//        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(p0: DataSnapshot) {
-//                Log.i("DataChange", "Data change triggered - Key: ${p0.key}, Value: ${p0.value}")
-//            }
-//
-//            override fun onCancelled(p0: DatabaseError) {
-//                return
-//            }
-//        })
     }
+
+    override suspend fun loadNews() {
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://www.plzen.eu/")
+            .addConverterFactory(SimpleXmlConverterFactory.create())
+            .build()
+
+        val rssApi = retrofit.create(RssApi::class.java)
+
+        val response = rssApi.fetchNews().execute()
+        Timber.i(response.body().toString())
+    }
+
+
 
 }

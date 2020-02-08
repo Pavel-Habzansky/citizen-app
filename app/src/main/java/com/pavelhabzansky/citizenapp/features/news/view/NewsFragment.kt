@@ -45,6 +45,7 @@ class NewsFragment : BaseFragment() {
         }
 
 //        viewModel.callFirebase()
+        viewModel.loadNews()
     }
 
     private fun initViewPager() {
