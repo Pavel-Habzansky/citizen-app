@@ -1,46 +1,67 @@
 package com.pavelhabzansky.data.features.news.repository
 
-import com.google.firebase.database.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.pavelhabzansky.data.features.cities.dao.CityDao
 import com.pavelhabzansky.data.features.news.api.RssApi
-import com.pavelhabzansky.domain.features.cities.domain.CityDO
+import com.pavelhabzansky.data.features.news.dao.NewsDao
+import com.pavelhabzansky.data.features.news.entities.NewsEntity
+import com.pavelhabzansky.data.features.news.mapper.NewsMapper
+import com.pavelhabzansky.domain.features.news.domain.NewsDO
 import com.pavelhabzansky.domain.features.news.repository.INewsRepository
 import retrofit2.Retrofit
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import timber.log.Timber
 
 class NewsRepository(
-    private val citiesReference: DatabaseReference
+    private val cityDao: CityDao,
+    private val newsDao: NewsDao
 ) : INewsRepository {
 
-
-    override suspend fun connectFirebase() {
-        val cityReference = citiesReference.child("pilsen")
-
-        cityReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val city = snapshot.getValue(CityDO::class.java)
-                city?.key = requireNotNull(snapshot.key)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Timber.i(error.message)
-            }
-        })
-    }
-
     override suspend fun loadNews() {
+        if (newsDao.getCount() != 0) {
+            return
+        }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://www.plzen.eu/")
-            .addConverterFactory(SimpleXmlConverterFactory.create())
-            .build()
+        val residentialCity = cityDao.getResidential()
 
-        val rssApi = retrofit.create(RssApi::class.java)
+        residentialCity?.let {
+            val retrofit = Retrofit.Builder()
+                .baseUrl(it.rssFeed)
+                .addConverterFactory(SimpleXmlConverterFactory.create())
+                .build()
 
-        val response = rssApi.fetchNews().execute()
-        Timber.i(response.body().toString())
+            val rssApi = retrofit.create(RssApi::class.java)
+
+            val response = rssApi.fetchNews(it.rssUrl)
+                .execute()
+
+            Timber.i(response.body()?.channel?.item?.size?.toString())
+
+            val items = response.body()
+                ?.channel
+                ?.item
+                ?.take(50) ?: emptyList()
+
+            val news = items.map {
+                NewsEntity(
+                    title = it.title,
+                    description = it.description,
+                    url = it.link,
+                    date = it.pubDate
+                )
+            }
+
+            newsDao.insertAll(news = news)
+        }
     }
 
+    override suspend fun loadCachedNews(): LiveData<List<NewsDO>> {
+        val entities = newsDao.getAll()
 
+        return Transformations.map(entities) {
+            it.map { NewsMapper.mapFrom(from = it) }
+        }
+    }
 
 }

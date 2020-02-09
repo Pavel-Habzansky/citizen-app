@@ -7,5 +7,7 @@ data class CityDO(
     var key: String = "",
     var id: String = "",
     var name: String = "",
-    var residential: Boolean = false
+    var residential: Boolean = false,
+    val rssFeed: String? = null,
+    val rssUrl: String? = null
 )

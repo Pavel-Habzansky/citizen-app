@@ -26,6 +26,9 @@
     <string name="ok">OK</string>
     <string name="warning">Varování</string>
 
+    <!--  NEWS  -->
+    <string name="news_residential_empty">Po výběru residentního města bude moct vidět poslední novinky</string>
+
     <!--  CITY PICKER  -->
     <string name="city_pick_last_search_title">Poslední vyhledávání</string>
 

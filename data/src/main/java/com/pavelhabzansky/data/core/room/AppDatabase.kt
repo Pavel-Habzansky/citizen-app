@@ -4,24 +4,26 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.pavelhabzansky.data.features.cities.dao.CityDao
 import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
 import com.pavelhabzansky.data.features.cities.entities.CityEntity
 import com.pavelhabzansky.data.features.cities.entities.LastSearchCityEntity
+import com.pavelhabzansky.data.features.news.dao.NewsDao
+import com.pavelhabzansky.data.features.news.entities.NewsEntity
 
 @Database(
     entities = [
         LastSearchCityEntity::class,
-        CityEntity::class
+        CityEntity::class,
+        NewsEntity::class
     ],
-    version = 1
+    version = 2
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val cityDao: CityDao
+    abstract val newsDao: NewsDao
     abstract val lastSearchDao: LastSearchDao
 
     companion object {

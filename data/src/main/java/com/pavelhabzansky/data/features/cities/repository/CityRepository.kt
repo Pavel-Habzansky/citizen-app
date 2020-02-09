@@ -79,6 +79,8 @@ class CityRepository(
                 val name = snapshot.child(CITY_CHILD_NAME).value?.toString() ?: ""
                 val id = snapshot.child(CITY_CHILD_ID).value?.toString() ?: ""
                 val www = snapshot.child(CITY_CHILD_WWW).value?.toString() ?: ""
+                val rssFeed = snapshot.child(CITY_CHILD_RSS_FEED).value?.toString() ?: ""
+                val rssUrl = snapshot.child(CITY_CHILD_RSS_URL).value?.toString() ?: ""
                 val wikiInfo = snapshot.child(CITY_CHILD_WIKI)
                 val population = wikiInfo.child(WIKI_CHILD_CITIZENS).value?.toString()?.toLong()
                 val description = wikiInfo.child(WIKI_CHILD_HEADLINE).value?.toString()
@@ -96,7 +98,9 @@ class CityRepository(
                     lat = lat,
                     lng = lng,
                     description = description,
-                    www = www
+                    www = www,
+                    rssFeed = rssFeed,
+                    rssUrl = rssUrl
                 )
 
                 cityInfo.postValue(cityObject)
@@ -122,12 +126,14 @@ class CityRepository(
         return cityInfo
     }
 
-    override suspend fun setAsResidential(key: String, name: String, id: String) {
+    override suspend fun setAsResidential(city: CityInformationDO) {
         val cityEntity = CityEntity(
-            key = key,
-            id = id,
-            name = name,
-            residential = true
+            key = city.key,
+            id = city.id,
+            name = city.name,
+            residential = true,
+            rssFeed = city.rssFeed ?: "",
+            rssUrl = city.rssUrl ?: ""
         )
 
         cityDao.unsetResidential()

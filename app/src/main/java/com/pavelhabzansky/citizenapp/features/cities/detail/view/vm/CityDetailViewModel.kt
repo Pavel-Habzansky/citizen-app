@@ -49,9 +49,7 @@ class CityDetailViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = setCityResidentialUseCase(
                 params = SetCityResidentialUseCase.Params(
-                    key = cityInfo.key,
-                    name = cityInfo.name,
-                    id = cityInfo.id
+                    city = CityInformationVOMapper.mapTo(to = cityInfo)
                 )
             )
 
@@ -71,9 +69,7 @@ class CityDetailViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             setCityResidentialForceUseCase(
                 params = SetCityResidentialForceUseCase.Params(
-                    key = cityInfo.key,
-                    name = cityInfo.name,
-                    id = cityInfo.id
+                    city = CityInformationVOMapper.mapTo(to = cityInfo)
                 )
             )
         }

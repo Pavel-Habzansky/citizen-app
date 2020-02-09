@@ -1,6 +1,6 @@
-package com.pavelhabzansky.citizenapp.features.news.view.vo
+package com.pavelhabzansky.domain.features.news.domain
 
-data class NewsItemViewObject(
+data class NewsDO(
     val title: String,
     val description: String,
     val url: String,

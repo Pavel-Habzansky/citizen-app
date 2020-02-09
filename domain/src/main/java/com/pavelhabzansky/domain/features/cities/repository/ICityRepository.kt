@@ -16,7 +16,7 @@ interface ICityRepository {
 
     suspend fun loadCityInformation(cityKey: String): LiveData<CityInformationDO>
 
-    suspend fun setAsResidential(key: String, name: String, id: String)
+    suspend fun setAsResidential(city: CityInformationDO)
 
     suspend fun getResidentialCity(): CityDO?
 

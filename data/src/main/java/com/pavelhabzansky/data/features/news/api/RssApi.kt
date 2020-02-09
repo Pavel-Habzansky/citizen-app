@@ -2,11 +2,12 @@ package com.pavelhabzansky.data.features.news.api
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Url
 
 
 interface RssApi {
 
-    @GET("rsshandlerext.aspx?exportId=34&dontparse=false")
-    fun fetchNews(): Call<RssFeed>
+    @GET
+    fun fetchNews(@Url url: String): Call<RssFeed>
 
 }
