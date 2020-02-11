@@ -1,9 +1,12 @@
 package com.pavelhabzansky.citizenapp.features.news.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.pavelhabzansky.citizenapp.R
@@ -22,7 +25,9 @@ class CitizenNewsFragment : BaseFragment() {
     private val viewModel by sharedViewModel<NewsViewModel>()
 
     private val newsSourceAdapter: NewsSourceAdapter by lazy {
-        NewsSourceAdapter()
+        NewsSourceAdapter(
+            onLinkClick = this::onLinkClick
+        )
     }
 
     override fun onCreateView(
@@ -70,6 +75,15 @@ class CitizenNewsFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    private fun onLinkClick(url: String?) {
+        if (url == null) {
+            Toast.makeText(context, R.string.news_link_invalid, Toast.LENGTH_LONG).show()
+            return
+        }
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
 }

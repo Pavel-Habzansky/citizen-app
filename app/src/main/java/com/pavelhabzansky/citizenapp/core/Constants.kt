@@ -8,3 +8,7 @@ const val ARG_CITY_LAT = "CITY_LAT"
 const val ARG_CITY_LNG = "CITY_LNG"
 
 const val FINE_LOCATION_REQ = 0
+
+const val NEWS_CLOSED_HEIGHT = 200
+const val NEWS_ANIMATE_SPEED = 300L
+const val NEWS_MAX_LINES = 5

@@ -28,6 +28,8 @@
 
     <!--  NEWS  -->
     <string name="news_residential_empty">Po výběru residentního města bude moct vidět poslední novinky</string>
+    <string name="news_link_invalid">Neplatný link</string>
+    <string name="news_link_open">Otevřít</string>
 
     <!--  CITY PICKER  -->
     <string name="city_pick_last_search_title">Poslední vyhledávání</string>

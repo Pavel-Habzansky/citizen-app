@@ -22,4 +22,7 @@ abstract class NewsDao {
     @Query("SELECT COUNT(*) FROM NewsEntity")
     abstract fun getCount(): Int
 
+    @Query("DELETE FROM NewsEntity")
+    abstract fun removeAll()
+
 }

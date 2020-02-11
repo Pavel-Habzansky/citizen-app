@@ -52,7 +52,7 @@ class NewsFragment : BaseFragment() {
         val tabLayout = binding.newsTabLayout
 
         viewPager.adapter = newsPagerAdapter
-        viewPager.offscreenPageLimit = NewsPagerAdapter.SCREEN_OFFSCREEN_LIMIT as Int
+        viewPager.offscreenPageLimit = NewsPagerAdapter.SCREEN_OFFSCREEN_LIMIT
 
         tabLayout.apply {
             setupWithViewPager(viewPager)

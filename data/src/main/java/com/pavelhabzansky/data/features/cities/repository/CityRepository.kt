@@ -15,6 +15,7 @@ import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
 import com.pavelhabzansky.data.features.cities.entities.CityEntity
 import com.pavelhabzansky.data.features.cities.mapper.CityMapper
 import com.pavelhabzansky.data.features.cities.mapper.LastSearchMapper
+import com.pavelhabzansky.data.features.news.dao.NewsDao
 import com.pavelhabzansky.domain.features.cities.domain.CityDO
 import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
 import com.pavelhabzansky.domain.features.cities.domain.LastSearchItemDO
@@ -26,6 +27,7 @@ class CityRepository(
     private val cityReference: DatabaseReference,
     private val storageReference: StorageReference,
     private val lastSearchDao: LastSearchDao,
+    private val newsDao: NewsDao,
     private val cityDao: CityDao
 ) : ICityRepository {
 
@@ -138,6 +140,7 @@ class CityRepository(
 
         cityDao.unsetResidential()
         cityDao.insert(entity = cityEntity)
+        newsDao.removeAll()
     }
 
     override suspend fun getResidentialCity(): CityDO? {
