@@ -66,13 +66,15 @@ class NewsSourceAdapter(
             binding.setVariable(BR.item, model)
             binding.executePendingBindings()
 
+            val scale = binding.root.context.resources.displayMetrics.density
+            closedHeight = (NEWS_CLOSED_HEIGHT * scale + 0.5f).toInt()
+
+            // TODO Find a better way - fast scroll = some Views are opened and weird
             binding.root.viewTreeObserver.addOnGlobalLayoutListener(object :
                 ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     originalHeight = binding.root.height
 
-                    val scale = binding.root.context.resources.displayMetrics.density
-                    closedHeight = (NEWS_CLOSED_HEIGHT * scale + 0.5f).toInt()
                     binding.root.layoutParams.height = closedHeight
                     binding.newsText.maxLines = NEWS_MAX_LINES
                     binding.newsText.ellipsize = TextUtils.TruncateAt.END

@@ -18,8 +18,8 @@ class NewsRepository(
     private val newsDao: NewsDao
 ) : INewsRepository {
 
-    override suspend fun loadNews() {
-        if (newsDao.getCount() != 0) {
+    override suspend fun loadNews(force: Boolean) {
+        if (newsDao.getCount() != 0 && !force) {
             return
         }
 

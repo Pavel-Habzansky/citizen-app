@@ -49,6 +49,10 @@ class CitizenNewsFragment : BaseFragment() {
         recycler.setHasFixedSize(true)
         recycler.adapter = newsSourceAdapter
 
+        binding.swipeContainer.setOnRefreshListener {
+            viewModel.loadNews(force = true)
+        }
+
         registerEvents()
 
         viewModel.loadCachedNews()
@@ -68,10 +72,11 @@ class CitizenNewsFragment : BaseFragment() {
         when (event) {
             is NewsViewState.NewsCacheLoadedViewState -> {
                 newsSourceAdapter.setItems(newItems = event.news)
+                binding.swipeContainer.isRefreshing = false
 
                 if (event.news.isNotEmpty()) {
                     binding.title.visibility = View.GONE
-                    binding.newsSourceRecycler.visibility = View.VISIBLE
+                    binding.swipeContainer.visibility = View.VISIBLE
                 }
             }
         }

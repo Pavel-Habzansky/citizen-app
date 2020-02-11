@@ -39,9 +39,9 @@ class NewsViewModel : BaseViewModel() {
         }
     }
 
-    fun loadNews() {
+    fun loadNews(force: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
-            loadNewsUseCase(Unit)
+            loadNewsUseCase(LoadNewsUseCase.Params(force))
         }
     }
 
