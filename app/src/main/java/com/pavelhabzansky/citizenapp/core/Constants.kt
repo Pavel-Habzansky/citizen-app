@@ -14,3 +14,4 @@ const val NEWS_ANIMATE_SPEED = 300L
 const val NEWS_MAX_LINES = 5
 
 const val ARG_KEY_NEWS_TITLE = "NEWS_TITLE"
+const val ARG_KEY_NEWS_SOURCE = "NEWS_SOURCE"

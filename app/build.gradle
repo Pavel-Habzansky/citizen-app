@@ -50,6 +50,7 @@ dependencies {
     implementation thirdPartyDependencies.facebook
     implementation thirdPartyDependencies.googleMaps
     implementation thirdPartyDependencies.retrofit
+    implementation thirdPartyDependencies.gson
 
     implementation architectureComponents.navigationFragment
     implementation architectureComponents.navigationUi

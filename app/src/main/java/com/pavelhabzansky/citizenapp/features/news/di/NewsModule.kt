@@ -3,6 +3,7 @@ package com.pavelhabzansky.citizenapp.features.news.di
 import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsDetailViewModel
 import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
 import com.pavelhabzansky.domain.features.news.usecase.LoadCachedNewsUseCase
+import com.pavelhabzansky.domain.features.news.usecase.LoadNewsForCityUseCase
 import com.pavelhabzansky.domain.features.news.usecase.LoadNewsItemUseCase
 import com.pavelhabzansky.domain.features.news.usecase.LoadNewsUseCase
 import org.koin.android.viewmodel.dsl.viewModel
@@ -19,5 +20,7 @@ val newsModule = module {
     single { LoadCachedNewsUseCase(newsRepository = get()) }
 
     single { LoadNewsItemUseCase(newsRepository = get()) }
+
+    single { LoadNewsForCityUseCase(newsRepository =  get()) }
 
 }

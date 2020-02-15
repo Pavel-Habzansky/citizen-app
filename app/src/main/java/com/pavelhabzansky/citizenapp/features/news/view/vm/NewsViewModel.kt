@@ -5,11 +5,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import com.pavelhabzansky.citizenapp.core.model.SingleLiveEvent
 import com.pavelhabzansky.citizenapp.core.vm.BaseViewModel
+import com.pavelhabzansky.citizenapp.features.cities.detail.view.mapper.CityInformationVOMapper
+import com.pavelhabzansky.citizenapp.features.cities.detail.view.vo.CityInformationVO
+import com.pavelhabzansky.citizenapp.features.cities.search.view.mapper.CityVOMapper
 import com.pavelhabzansky.citizenapp.features.news.states.NewsErrorState
 import com.pavelhabzansky.citizenapp.features.news.states.NewsViewState
 import com.pavelhabzansky.citizenapp.features.news.view.mapper.NewsVOMapper
 import com.pavelhabzansky.domain.features.news.domain.NewsDO
 import com.pavelhabzansky.domain.features.news.usecase.LoadCachedNewsUseCase
+import com.pavelhabzansky.domain.features.news.usecase.LoadNewsForCityUseCase
 import com.pavelhabzansky.domain.features.news.usecase.LoadNewsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +23,7 @@ class NewsViewModel : BaseViewModel() {
 
     private val loadNewsUseCase by inject<LoadNewsUseCase>()
     private val loadCachedNewsUseCase by inject<LoadCachedNewsUseCase>()
+    private val loadNewsForCityUseCase by inject<LoadNewsForCityUseCase>()
 
     val newsViewState = SingleLiveEvent<NewsViewState>()
     val newsErrorState = SingleLiveEvent<NewsErrorState>()
@@ -42,6 +47,15 @@ class NewsViewModel : BaseViewModel() {
     fun loadNews(force: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
             loadNewsUseCase(LoadNewsUseCase.Params(force))
+        }
+    }
+
+    fun loadNewsForCity(city: CityInformationVO) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val cityDom = CityInformationVOMapper.mapTo(to = city)
+            val news = loadNewsForCityUseCase(LoadNewsForCityUseCase.Params(cityDom))
+            val newsVo = news.map { NewsVOMapper.mapFrom(from = it) }
+            newsViewState.postValue(NewsViewState.NewsLoadedViewState(newsVo))
         }
     }
 

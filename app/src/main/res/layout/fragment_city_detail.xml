@@ -14,125 +14,185 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="@dimen/margin_item_32"
-        android:paddingTop="@dimen/margin_item_32"
-        android:paddingEnd="@dimen/margin_item_32"
-        android:paddingBottom="@dimen/margin_item_12">
+        android:paddingTop="@dimen/margin_item_32">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/cityLogo"
-            android:layout_width="112dp"
-            android:layout_height="112dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_item_32"
+            android:paddingEnd="@dimen/margin_item_32"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_launcher_background" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/cityNameLabel"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_item_12"
-            android:text="@string/city_detail_name_title"
-            app:layout_constraintStart_toEndOf="@id/cityLogo"
-            app:layout_constraintTop_toTopOf="@id/cityLogo"
-            tools:text="@string/city_detail_name_title" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/cityLogo"
+                android:layout_width="112dp"
+                android:layout_height="112dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_launcher_background" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/cityName"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{ info.name }"
-            app:layout_constraintStart_toStartOf="@id/cityNameLabel"
-            app:layout_constraintTop_toBottomOf="@id/cityNameLabel"
-            tools:text="@string/city_detail_name_title" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/cityNameLabel"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_item_12"
+                android:text="@string/city_detail_name_title"
+                app:layout_constraintStart_toEndOf="@id/cityLogo"
+                app:layout_constraintTop_toTopOf="@id/cityLogo"
+                tools:text="@string/city_detail_name_title" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/populationLabel"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_item_12"
-            android:text="@string/city_detail_population_title"
-            app:layout_constraintStart_toEndOf="@id/cityLogo"
-            app:layout_constraintTop_toBottomOf="@id/cityName"
-            tools:text="@string/city_detail_population_title" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/cityName"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ info.name }"
+                app:layout_constraintStart_toStartOf="@id/cityNameLabel"
+                app:layout_constraintTop_toBottomOf="@id/cityNameLabel"
+                tools:text="@string/city_detail_name_title" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/populationText"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{ info.population.toString() }"
-            app:layout_constraintStart_toEndOf="@id/cityLogo"
-            app:layout_constraintStart_toStartOf="@id/populationLabel"
-            app:layout_constraintTop_toBottomOf="@id/populationLabel"
-            tools:text="-12345" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/populationLabel"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_item_12"
+                android:text="@string/city_detail_population_title"
+                app:layout_constraintStart_toEndOf="@id/cityLogo"
+                app:layout_constraintTop_toBottomOf="@id/cityName"
+                tools:text="@string/city_detail_population_title" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/cityDescriptionTitle"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/populationText"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ info.population.toString() }"
+                app:layout_constraintStart_toEndOf="@id/cityLogo"
+                app:layout_constraintStart_toStartOf="@id/populationLabel"
+                app:layout_constraintTop_toBottomOf="@id/populationLabel"
+                tools:text="-12345" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bodyContent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_item_12"
-            android:text="@string/city_detail_description_title"
+            android:paddingStart="@dimen/margin_item_32"
+            android:paddingEnd="@dimen/margin_item_32"
+            android:paddingBottom="@dimen/margin_item_12"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cityLogo"
-            tools:text="Popis:" />
+            app:layout_constraintTop_toBottomOf="@id/headerContent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/cityDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_item_12"
-            android:text="@{ info.description }"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cityDescriptionTitle"
-            tools:text="sldkjfsldkfjsdlkfjsfkjsldkjfsldkfjsdlkfjsfkjsldkjfsldkfjsdlkfjsf
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/cityDescriptionTitle"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_item_12"
+                android:text="@string/city_detail_description_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Popis:" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/cityDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_item_12"
+                android:text="@{ info.description }"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cityDescriptionTitle"
+                tools:text="sldkjfsldkfjsdlkfjsfkjsldkjfsldkfjsdlkfjsfkjsldkjfsldkfjsdlkfjsf
             kjsldkjfsldkfjsdlkfjsfkjsldkjfsldkfjsdlkfjsfkjsldkjfsldkfjsdlkfjsfkjsldkjfsl
             dkfjsdlkfjsfkjsldkjfsldkfjsdlkfjsfkj" />
 
-        <Button
-            android:id="@+id/setResidentialButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_item_12"
-            android:background="@drawable/bg_news_button"
-            android:text="@string/city_detail_residential_button"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toTopOf="@id/showOnMapButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Nastavit jako rezidentní" />
 
-        <Button
-            android:id="@+id/showOnMapButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_item_12"
-            android:background="@drawable/bg_news_button"
-            android:text="@string/city_detail_map_button"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toTopOf="@id/cityWebPageButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Zobrazit na mapě" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/cityWebPageButton"
-            android:layout_width="match_parent"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/newsFab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_news_button"
-            android:text="@string/city_detail_web_button"
-            android:textAllCaps="false"
-            android:textColor="#fff"
+            android:layout_marginEnd="@dimen/margin_item_16"
+            android:layout_marginBottom="@dimen/margin_item_16"
+            android:background="?android:selectableItemBackground"
+            android:backgroundTint="@color/btn_news"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:src="@drawable/ic_feed_24px"
+            android:visibility="invisible"
+            app:backgroundTint="@color/browser_actions_bg_grey"
+            app:layout_constraintBottom_toTopOf="@id/setResidentialFab"
+            app:layout_constraintStart_toStartOf="@id/mainFab" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/setResidentialFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_item_16"
+            android:layout_marginBottom="@dimen/margin_item_16"
+            android:background="?android:selectableItemBackground"
+            android:backgroundTint="@color/btn_news"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:src="@drawable/ic_home_24px"
+            android:visibility="invisible"
+            app:backgroundTint="@color/browser_actions_bg_grey"
+            app:layout_constraintBottom_toTopOf="@id/showOnMapFab"
+            app:layout_constraintStart_toStartOf="@id/mainFab" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/showOnMapFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_item_16"
+            android:layout_marginBottom="@dimen/margin_item_16"
+            android:background="?android:selectableItemBackground"
+            android:backgroundTint="@color/btn_news"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:src="@drawable/ic_map_24px"
+            android:visibility="invisible"
+            app:backgroundTint="@color/browser_actions_bg_grey"
+            app:layout_constraintBottom_toTopOf="@id/webPageFab"
+            app:layout_constraintStart_toStartOf="@id/mainFab" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/webPageFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_item_16"
+            android:layout_marginBottom="@dimen/margin_item_16"
+            android:background="?android:selectableItemBackground"
+            android:backgroundTint="@color/btn_news"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:src="@drawable/ic_web_24px"
+            android:visibility="invisible"
+            app:backgroundTint="@color/browser_actions_bg_grey"
+            app:layout_constraintBottom_toTopOf="@id/mainFab"
+            app:layout_constraintStart_toStartOf="@id/mainFab" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mainFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_item_16"
+            android:layout_marginBottom="@dimen/margin_item_16"
+            android:background="?android:selectableItemBackground"
+            android:backgroundTint="@color/btn_news"
+            android:src="@drawable/ic_add_circle_outline_24px"
+            android:visibility="gone"
+            app:backgroundTint="@color/browser_actions_bg_grey"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Webové stránky" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

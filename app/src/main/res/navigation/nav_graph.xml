@@ -30,6 +30,11 @@
         android:name="com.pavelhabzansky.citizenapp.features.news.view.NewsDetailFragment"
         android:label="@string/news_detail_label" />
 
+    <fragment
+        android:id="@+id/news_citizen_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.news.view.CitizenNewsFragment"
+        android:label="@string/nav_menu_news" />
+
     <action
         android:id="@+id/toCityPickerFragment"
         app:destination="@id/city_picker_fragment" />
