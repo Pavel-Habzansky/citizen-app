@@ -4,5 +4,6 @@ data class NewsDO(
     val title: String,
     val description: String,
     val url: String,
-    val date: String
+    val date: String,
+    val read: Boolean = false
 )

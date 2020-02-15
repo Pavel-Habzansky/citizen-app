@@ -17,12 +17,21 @@ abstract class NewsDao {
     abstract fun insertAll(news: List<NewsEntity>)
 
     @Query("SELECT * FROM NewsEntity")
-    abstract fun getAll(): LiveData<List<NewsEntity>>
+    abstract fun getAllLive(): LiveData<List<NewsEntity>>
+
+    @Query("SELECT * FROM NewsEntity WHERE read = 1")
+    abstract fun getAllRead(): List<NewsEntity>
 
     @Query("SELECT COUNT(*) FROM NewsEntity")
     abstract fun getCount(): Int
 
     @Query("DELETE FROM NewsEntity")
     abstract fun removeAll()
+
+    @Query("SELECT * FROM NewsEntity WHERE title = :title LIMIT 1")
+    abstract fun getNewsLiveData(title: String): LiveData<NewsEntity>
+
+    @Query("UPDATE NewsEntity SET read = 1 WHERE title = :title")
+    abstract fun setAsRead(title: String)
 
 }

@@ -52,15 +52,27 @@ class NewsRepository(
                 )
             }
 
-            newsDao.insertAll(news = news)
+            val read = newsDao.getAllRead()
+            val updated = news.subtract(read).toList()
+
+            newsDao.insertAll(news = updated)
         }
     }
 
     override suspend fun loadCachedNews(): LiveData<List<NewsDO>> {
-        val entities = newsDao.getAll()
+        val entities = newsDao.getAllLive()
 
         return Transformations.map(entities) {
             it.map { NewsMapper.mapFrom(from = it) }
+        }
+    }
+
+    override suspend fun loadNewsItem(title: String): LiveData<NewsDO> {
+        newsDao.setAsRead(title = title)
+        val entity = newsDao.getNewsLiveData(title = title)
+
+        return Transformations.map(entity) {
+            NewsMapper.mapFrom(from = it)
         }
     }
 

@@ -10,7 +10,8 @@ object NewsMapper : Mapper<NewsEntity, NewsDO>() {
         title = from.title,
         description = from.description,
         url = from.url,
-        date = from.date
+        date = from.date,
+        read = from.read
     )
 
 }

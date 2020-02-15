@@ -12,3 +12,5 @@ const val FINE_LOCATION_REQ = 0
 const val NEWS_CLOSED_HEIGHT = 200
 const val NEWS_ANIMATE_SPEED = 300L
 const val NEWS_MAX_LINES = 5
+
+const val ARG_KEY_NEWS_TITLE = "NEWS_TITLE"

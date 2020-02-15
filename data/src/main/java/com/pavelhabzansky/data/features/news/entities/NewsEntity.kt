@@ -9,5 +9,20 @@ data class NewsEntity(
     val title: String,
     val description: String,
     val url: String,
-    val date: String
-)
+    val date: String,
+    val read: Boolean = false
+) {
+
+    override fun hashCode(): Int {
+        return title.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is NewsEntity) {
+            return other.title == this.title
+        }
+
+        return super.equals(other)
+    }
+
+}

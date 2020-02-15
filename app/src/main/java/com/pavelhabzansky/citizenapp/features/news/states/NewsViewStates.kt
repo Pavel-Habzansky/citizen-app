@@ -6,6 +6,8 @@ sealed class NewsViewState {
 
     class NewsCacheLoadedViewState(val news: List<NewsItemViewObject>) : NewsViewState()
 
+    class NewsItemLoadedViewState(val item: NewsItemViewObject) : NewsViewState()
+
     class NoResidentialViewState : NewsViewState()
 
 }

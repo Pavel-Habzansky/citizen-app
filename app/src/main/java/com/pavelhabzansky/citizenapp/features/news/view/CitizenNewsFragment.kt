@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.pavelhabzansky.citizenapp.R
+import com.pavelhabzansky.citizenapp.core.ARG_KEY_NEWS_TITLE
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.databinding.FragmentCitizenNewsBinding
 import com.pavelhabzansky.citizenapp.features.news.states.NewsViewState
@@ -26,7 +28,7 @@ class CitizenNewsFragment : BaseFragment() {
 
     private val newsSourceAdapter: NewsSourceAdapter by lazy {
         NewsSourceAdapter(
-            onLinkClick = this::onLinkClick
+            onItemClick = this::onItemClick
         )
     }
 
@@ -82,13 +84,9 @@ class CitizenNewsFragment : BaseFragment() {
         }
     }
 
-    private fun onLinkClick(url: String?) {
-        if (url == null) {
-            Toast.makeText(context, R.string.news_link_invalid, Toast.LENGTH_LONG).show()
-            return
-        }
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        startActivity(intent)
+    private fun onItemClick(title: String) {
+        val args = Bundle().also { it.putString(ARG_KEY_NEWS_TITLE, title) }
+        findNavController().navigate(R.id.news_detail_fragment, args)
     }
 
 }

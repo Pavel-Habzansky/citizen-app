@@ -18,7 +18,7 @@ import com.pavelhabzansky.data.features.news.entities.NewsEntity
         CityEntity::class,
         NewsEntity::class
     ],
-    version = 2
+    version = 3
 )
 abstract class AppDatabase : RoomDatabase() {
 

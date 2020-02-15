@@ -9,4 +9,6 @@ interface INewsRepository {
 
     suspend fun loadCachedNews(): LiveData<List<NewsDO>>
 
+    suspend fun loadNewsItem(title: String): LiveData<NewsDO>
+
 }

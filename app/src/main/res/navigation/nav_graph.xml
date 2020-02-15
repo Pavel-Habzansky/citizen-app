@@ -25,6 +25,11 @@
         android:name="com.pavelhabzansky.citizenapp.features.map.view.MapFragment"
         android:label="@string/nav_label_map" />
 
+    <fragment
+        android:id="@+id/news_detail_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.news.view.NewsDetailFragment"
+        android:label="@string/news_detail_label" />
+
     <action
         android:id="@+id/toCityPickerFragment"
         app:destination="@id/city_picker_fragment" />
