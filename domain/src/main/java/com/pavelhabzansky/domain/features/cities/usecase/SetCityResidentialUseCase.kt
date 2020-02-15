@@ -1,6 +1,7 @@
 package com.pavelhabzansky.domain.features.cities.usecase
 
 import com.pavelhabzansky.domain.core.UseCase
+import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
 import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
 
 class SetCityResidentialUseCase(
@@ -10,7 +11,7 @@ class SetCityResidentialUseCase(
     override suspend fun doWork(params: Params): UseCaseResult {
         val residential = cityRepository.getResidentialCity()
         return if (residential == null) {
-            cityRepository.setAsResidential(key = params.key, id = params.id, name = params.name)
+            cityRepository.setAsResidential(city = params.city)
             UseCaseResult.SUCCESS
         } else {
             UseCaseResult.RESIDENTIAL_EXISTS
@@ -18,9 +19,7 @@ class SetCityResidentialUseCase(
     }
 
     data class Params(
-        val key: String,
-        val name: String,
-        val id: String
+        val city: CityInformationDO
     )
 
     enum class UseCaseResult {

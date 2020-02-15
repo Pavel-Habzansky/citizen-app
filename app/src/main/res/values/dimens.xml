@@ -14,6 +14,7 @@
     <dimen name="margin_item_42">42dp</dimen>
     <dimen name="margin_item_48">48dp</dimen>
     <dimen name="margin_item_52">52dp</dimen>
+    <dimen name="margin_item_64">64dp</dimen>
 
     <dimen name="news_ic_size">64dp</dimen>
 

@@ -14,6 +14,7 @@ import com.pavelhabzansky.domain.features.news.repository.INewsRepository
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import retrofit2.Retrofit
 
 const val QUAL_FIREBASE_ROOT = "FIREBASE_ROOT"
 const val QUAL_FIREBASE_CITIES = "FIREBASE_CITIES"
@@ -36,13 +37,15 @@ val appModule = module {
             cityReference = get(named(QUAL_FIREBASE_CITIES)),
             storageReference = get(),
             lastSearchDao = get<AppDatabase>().lastSearchDao,
+            newsDao = get<AppDatabase>().newsDao,
             cityDao = get<AppDatabase>().cityDao
         ) as ICityRepository
     }
 
     single {
         NewsRepository(
-            citiesReference = get(named(QUAL_FIREBASE_CITIES))
+            cityDao = get<AppDatabase>().cityDao,
+            newsDao = get<AppDatabase>().newsDao
         ) as INewsRepository
     }
 

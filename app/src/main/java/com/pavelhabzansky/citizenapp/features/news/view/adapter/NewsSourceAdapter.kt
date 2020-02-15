@@ -1,18 +1,24 @@
 package com.pavelhabzansky.citizenapp.features.news.view.adapter
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.pavelhabzansky.citizenapp.BR
 import com.pavelhabzansky.citizenapp.R
-import com.pavelhabzansky.citizenapp.databinding.ItemNewsSourceBinding
-import com.pavelhabzansky.citizenapp.features.news.view.vo.NewsSourceViewObject
+import com.pavelhabzansky.citizenapp.core.fromRssDate
+import com.pavelhabzansky.citizenapp.databinding.ItemNewsItemBinding
+import com.pavelhabzansky.citizenapp.features.news.view.vo.NewsItemViewObject
+import kotlinx.android.synthetic.main.item_news_item.view.*
 
-class NewsSourceAdapter : RecyclerView.Adapter<NewsSourceAdapter.NewsSourceViewHolder>() {
+class NewsSourceAdapter(
+    private val onItemClick: (String) -> Unit
+) : RecyclerView.Adapter<NewsSourceAdapter.NewsSourceViewHolder>() {
 
-    private var items: List<NewsSourceViewObject> = emptyList()
+    private var items: List<NewsItemViewObject> = emptyList()
 
-    fun setItems(newItems: List<NewsSourceViewObject>) {
+    fun setItems(newItems: List<NewsItemViewObject>) {
         items = newItems
         notifyDataSetChanged()
     }
@@ -26,21 +32,30 @@ class NewsSourceAdapter : RecyclerView.Adapter<NewsSourceAdapter.NewsSourceViewH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsSourceViewHolder {
-        val binding = DataBindingUtil.inflate<ItemNewsSourceBinding>(
+        val binding = DataBindingUtil.inflate<ItemNewsItemBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.item_news_source,
+            R.layout.item_news_item,
             parent,
             false
         )
 
-        return NewsSourceViewHolder(binding = binding)
+        return NewsSourceViewHolder(binding = binding, onItemClick = onItemClick)
     }
 
-    inner class NewsSourceViewHolder(private val binding: ItemNewsSourceBinding) :
+    inner class NewsSourceViewHolder(
+        private val binding: ItemNewsItemBinding,
+        private val onItemClick: (String) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(model: NewsSourceViewObject) {
+        fun bind(model: NewsItemViewObject) {
+            binding.setVariable(BR.item, model)
+            binding.executePendingBindings()
 
+            binding.root.setOnClickListener { onItemClick(model.title) }
+            if (model.read) {
+                binding.root.messageTitle.setTypeface(null, Typeface.NORMAL)
+            }
         }
 
     }

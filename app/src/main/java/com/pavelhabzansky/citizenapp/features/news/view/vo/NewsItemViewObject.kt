@@ -4,6 +4,8 @@ import java.util.*
 
 data class NewsItemViewObject(
     val title: String,
-    val text: String,
-    val data: Date
+    val description: String,
+    val url: String,
+    val date: Date?,
+    val read: Boolean = false
 )

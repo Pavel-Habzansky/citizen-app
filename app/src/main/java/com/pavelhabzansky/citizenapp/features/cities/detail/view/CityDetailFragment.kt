@@ -1,5 +1,7 @@
 package com.pavelhabzansky.citizenapp.features.cities.detail.view
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -14,9 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.pavelhabzansky.citizenapp.BR
 import com.pavelhabzansky.citizenapp.R
-import com.pavelhabzansky.citizenapp.core.ARG_CITY_KEY
-import com.pavelhabzansky.citizenapp.core.ARG_CITY_LAT
-import com.pavelhabzansky.citizenapp.core.ARG_CITY_LNG
+import com.pavelhabzansky.citizenapp.core.*
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.databinding.FragmentCityDetailBinding
 import com.pavelhabzansky.citizenapp.features.cities.detail.states.CityDetailViewStates
@@ -30,6 +30,8 @@ class CityDetailFragment : BaseFragment() {
     private lateinit var binding: FragmentCityDetailBinding
 
     private val viewModel by viewModel<CityDetailViewModel>()
+
+    private var fabOpen = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,10 +55,12 @@ class CityDetailFragment : BaseFragment() {
             viewModel.loadResidentialCity()
         }
 
+        binding.mainFab.setOnClickListener { toggleFabMenu() }
 
-        binding.showOnMapButton.setOnClickListener { showOnMap() }
-        binding.cityWebPageButton.setOnClickListener { showWeb() }
-        binding.setResidentialButton.setOnClickListener { setResidential() }
+        binding.newsFab.setOnClickListener { showNews() }
+        binding.showOnMapFab.setOnClickListener { showOnMap() }
+        binding.webPageFab.setOnClickListener { showWeb() }
+        binding.setResidentialFab.setOnClickListener { setResidential() }
     }
 
     private fun updateViewState(state: CityDetailViewStates) {
@@ -115,9 +119,17 @@ class CityDetailFragment : BaseFragment() {
         dialog?.show()
     }
 
+    private fun showNews() {
+        val args = Bundle().also { it.putString(ARG_KEY_NEWS_SOURCE, viewModel.cityInfo.toJson()) }
+        findNavController().navigate(R.id.news_citizen_fragment, args)
+        toggleFabMenu()
+    }
+
     private fun setCityData(city: CityInformationVO) {
         binding.setVariable(BR.info, city)
         binding.executePendingBindings()
+
+        binding.mainFab.show()
 
         val bytes = city.logoBytes
         bytes?.let {
@@ -148,6 +160,7 @@ class CityDetailFragment : BaseFragment() {
         }
 
         findNavController().navigate(R.id.map_fragment, args)
+        toggleFabMenu()
     }
 
     private fun showWeb() {
@@ -158,10 +171,65 @@ class CityDetailFragment : BaseFragment() {
         } else {
             Toast.makeText(context, "Město nemá webové stránky", Toast.LENGTH_LONG).show()
         }
+        toggleFabMenu()
     }
 
     private fun setResidential() {
         viewModel.setCityAsResidential()
+        toggleFabMenu()
+    }
+
+    private fun toggleFabMenu() {
+        if (fabOpen) {
+            animateRotateClose(binding.mainFab)
+            animateFade(binding.newsFab)
+            animateFade(binding.setResidentialFab)
+            animateFade(binding.showOnMapFab)
+            animateFade(binding.webPageFab)
+        } else {
+            animateRotateOpen(binding.mainFab)
+            animateShow(binding.newsFab)
+            animateShow(binding.setResidentialFab)
+            animateShow(binding.showOnMapFab)
+            animateShow(binding.webPageFab)
+        }
+        fabOpen = !fabOpen
+    }
+
+    private fun animateFade(view: View) {
+        view.animate()
+            .alpha(0f)
+            .setDuration(150)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    view.visibility = View.INVISIBLE
+                }
+            })
+    }
+
+    private fun animateShow(view: View) {
+        view.visibility = View.VISIBLE
+        view.alpha = 0f
+        view.animate()
+            .alpha(1f)
+            .setDuration(150)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    view.visibility = View.VISIBLE
+                }
+            })
+    }
+
+    private fun animateRotateOpen(view: View) {
+        view.animate()
+            .rotation(45f)
+            .setDuration(150)
+    }
+
+    private fun animateRotateClose(view: View) {
+        view.animate()
+            .rotation(0f)
+            .setDuration(150)
     }
 
 }

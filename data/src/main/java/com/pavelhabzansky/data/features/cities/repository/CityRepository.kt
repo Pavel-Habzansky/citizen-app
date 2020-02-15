@@ -15,6 +15,7 @@ import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
 import com.pavelhabzansky.data.features.cities.entities.CityEntity
 import com.pavelhabzansky.data.features.cities.mapper.CityMapper
 import com.pavelhabzansky.data.features.cities.mapper.LastSearchMapper
+import com.pavelhabzansky.data.features.news.dao.NewsDao
 import com.pavelhabzansky.domain.features.cities.domain.CityDO
 import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
 import com.pavelhabzansky.domain.features.cities.domain.LastSearchItemDO
@@ -26,6 +27,7 @@ class CityRepository(
     private val cityReference: DatabaseReference,
     private val storageReference: StorageReference,
     private val lastSearchDao: LastSearchDao,
+    private val newsDao: NewsDao,
     private val cityDao: CityDao
 ) : ICityRepository {
 
@@ -79,6 +81,8 @@ class CityRepository(
                 val name = snapshot.child(CITY_CHILD_NAME).value?.toString() ?: ""
                 val id = snapshot.child(CITY_CHILD_ID).value?.toString() ?: ""
                 val www = snapshot.child(CITY_CHILD_WWW).value?.toString() ?: ""
+                val rssFeed = snapshot.child(CITY_CHILD_RSS_FEED).value?.toString() ?: ""
+                val rssUrl = snapshot.child(CITY_CHILD_RSS_URL).value?.toString() ?: ""
                 val wikiInfo = snapshot.child(CITY_CHILD_WIKI)
                 val population = wikiInfo.child(WIKI_CHILD_CITIZENS).value?.toString()?.toLong()
                 val description = wikiInfo.child(WIKI_CHILD_HEADLINE).value?.toString()
@@ -96,7 +100,9 @@ class CityRepository(
                     lat = lat,
                     lng = lng,
                     description = description,
-                    www = www
+                    www = www,
+                    rssFeed = rssFeed,
+                    rssUrl = rssUrl
                 )
 
                 cityInfo.postValue(cityObject)
@@ -122,16 +128,19 @@ class CityRepository(
         return cityInfo
     }
 
-    override suspend fun setAsResidential(key: String, name: String, id: String) {
+    override suspend fun setAsResidential(city: CityInformationDO) {
         val cityEntity = CityEntity(
-            key = key,
-            id = id,
-            name = name,
-            residential = true
+            key = city.key,
+            id = city.id,
+            name = city.name,
+            residential = true,
+            rssFeed = city.rssFeed ?: "",
+            rssUrl = city.rssUrl ?: ""
         )
 
         cityDao.unsetResidential()
         cityDao.insert(entity = cityEntity)
+        newsDao.removeAll()
     }
 
     override suspend fun getResidentialCity(): CityDO? {

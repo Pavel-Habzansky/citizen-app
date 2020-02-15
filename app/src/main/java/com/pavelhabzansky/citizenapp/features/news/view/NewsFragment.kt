@@ -15,6 +15,7 @@ import com.pavelhabzansky.citizenapp.databinding.FragmentNewsBinding
 import com.pavelhabzansky.citizenapp.features.news.view.adapter.NewsPagerAdapter
 import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_news.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class NewsFragment : BaseFragment() {
@@ -25,7 +26,7 @@ class NewsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentNewsBinding
 
-    private val viewModel by viewModel<NewsViewModel>()
+    private val viewModel by sharedViewModel<NewsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +45,6 @@ class NewsFragment : BaseFragment() {
             initViewPager()
         }
 
-//        viewModel.callFirebase()
     }
 
     private fun initViewPager() {
@@ -52,14 +52,7 @@ class NewsFragment : BaseFragment() {
         val tabLayout = binding.newsTabLayout
 
         viewPager.adapter = newsPagerAdapter
-        viewPager.offscreenPageLimit = NewsPagerAdapter.SCREEN_OFFSCREEN_LIMIT as Int
-
-//        TabLayoutMediator(tabLayout, viewPager) { currentTab, currentPosition ->
-//            currentTab.text = when (currentPosition) {
-//                NewsPagerAdapter.CITIZEN_NEWS_POSITION -> "Rezident"
-//                else -> "Turista"
-//            }
-//        }.attach()
+        viewPager.offscreenPageLimit = NewsPagerAdapter.SCREEN_OFFSCREEN_LIMIT
 
         tabLayout.apply {
             setupWithViewPager(viewPager)

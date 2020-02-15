@@ -9,5 +9,7 @@ data class CityInformationDO(
     val lat: Double?,
     val lng: Double?,
     val www: String,
-    val logoBytes: ByteArray? = null
+    val logoBytes: ByteArray? = null,
+    val rssFeed: String? = null,
+    val rssUrl: String? = null
 )
