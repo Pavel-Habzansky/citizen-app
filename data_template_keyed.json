@@ -1,63 +1,8 @@
 {
   "cities": {
-    "pilsen": {
-      "name": "Plzeň",
-      "id": "EFCD2EC0-765C-4F7E-9D9B-A0723D7AF623",
-      "wiki": {
-        "headline": "... wiki ...",
-        "gps": {
-          "lat": 0.0,
-          "lng": 0.1
-        },
-        "citizens": 1100
-      },
-      "event_feeds": {
-        "facebook": {
-          "id": "id12345",
-          "events": {
-            "event-1": {
-              "title-name": "stranka 1",
-              "type": "facebook  rss  twitter  ...",
-              "url": "..."
-            },
-            "event-2": {
-              "title-name": "stranka 1",
-              "type": "facebook rss  twitter  ...",
-              "url": "..."
-            }
-          }
-        },
-        "twitter": {
-          "id": "id12345",
-          "events": {
-            "event-1": {
-              "title-name": "stranka 1",
-              "type": "facebook  rss  twitter  ...",
-              "url": "..."
-            },
-            "event-2": {
-              "title-name": "stranka 1",
-              "type": "facebook rss  twitter  ...",
-              "url": "..."
-            }
-          }
-        }
-      }
-    },
     "city-name2": {
-      "name": "jmeno",
-      "id": "EFCD2EC0-765C-4F7E-9D9B-A0723D7AF623",
-      "wiki": {
-        "headline": "... wiki ...",
-        "gps": {
-          "lat": 0.0,
-          "lng": 0.1
-        },
-        "citizens": 1100
-      },
       "event_feeds": {
         "facebook": {
-          "id": "id12345",
           "events": {
             "event-1": {
               "title-name": "stranka 1",
@@ -69,10 +14,10 @@
               "type": "facebook rss  twitter  ...",
               "url": "..."
             }
-          }
+          },
+          "id": "id12345"
         },
         "twitter": {
-          "id": "id12345",
           "events": {
             "event-1": {
               "title-name": "stranka 1",
@@ -84,20 +29,97 @@
               "type": "facebook rss  twitter  ...",
               "url": "..."
             }
-          }
+          },
+          "id": "id12345"
         }
-      }
+      },
+      "id": "EFCD2EC0-765C-4F7E-9D9B-A0723D7AF623",
+      "name": "Praha",
+      "rssFeed": "https://prazsky.denik.cz/",
+      "rssUrl": "rss/z_regionu.html",
+      "wiki": {
+        "citizens": 1100,
+        "gps": {
+          "lat": 50.071093,
+          "lng": 14.4241225
+        },
+        "headline": "... wiki ...",
+        "logo": "plzen_logo.jpg"
+      },
+      "www": "http://www.praha.eu/jnp/cz/index.html"
+    },
+    "pilsen": {
+      "event_feeds": {
+        "facebook": {
+          "events": {
+            "event-1": {
+              "title-name": "stranka 1",
+              "type": "facebook  rss  twitter  ...",
+              "url": "..."
+            },
+            "event-2": {
+              "title-name": "stranka 1",
+              "type": "facebook rss  twitter  ...",
+              "url": "..."
+            }
+          },
+          "id": "236961629753649"
+        },
+        "twitter": {
+          "events": {
+            "event-1": {
+              "title-name": "stranka 1",
+              "type": "facebook  rss  twitter  ...",
+              "url": "..."
+            },
+            "event-2": {
+              "title-name": "stranka 1",
+              "type": "facebook rss  twitter  ...",
+              "url": "..."
+            }
+          },
+          "id": "id12345"
+        }
+      },
+      "id": "EFCD2EC0-765C-4F7E-9D9B-A0723D7AF623",
+      "name": "Plzeň",
+      "rssFeed": "https://www.plzen.eu/",
+      "rssUrl": "rsshandlerext.aspx?exportId=34&dontparse=false",
+      "wiki": {
+        "citizens": 1100,
+        "gps": {
+          "lat": 49.7455665,
+          "lng": 13.3636333
+        },
+        "headline": "... wiki ..."
+      },
+      "www": "https://www.plzen.eu/"
     }
   },
   "incidents": {
-    "title": {
-      "title": "titulek 1",
-      "description": "popisek afsdf",
+    "INC12345": {
+      "description": "Incident 1235",
+      "createTime": 123456,
+      "type": "PUBLIC_DAMAGE",
       "gps": {
-        "lat": 0.0,
-        "lng": 0.1
+        "lat": 49.7455665,
+        "lng": 13.3636333
       },
-      "time": 1234566
+      "time": 1234566,
+      "title": "Titulek 1",
+      "img": "img.img"
+    },
+    "INC12346": {
+      "description": "Incident 12346",
+      "createTime": 123456,
+      "type": "LOST_ITEM",
+      "gps": {
+        "lat": 50.071093,
+        "lng": 14.4241225
+      },
+      "time": 1234566,
+      "title": "Titulek 2",
+      "img": "img.img"
     }
   }
 }
