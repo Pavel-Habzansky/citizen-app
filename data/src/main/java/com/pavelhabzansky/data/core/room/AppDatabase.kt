@@ -9,6 +9,8 @@ import com.pavelhabzansky.data.features.cities.dao.CityDao
 import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
 import com.pavelhabzansky.data.features.cities.entities.CityEntity
 import com.pavelhabzansky.data.features.cities.entities.LastSearchCityEntity
+import com.pavelhabzansky.data.features.issues.dao.IssueDao
+import com.pavelhabzansky.data.features.issues.entities.IssueEntity
 import com.pavelhabzansky.data.features.news.dao.NewsDao
 import com.pavelhabzansky.data.features.news.entities.NewsEntity
 
@@ -16,7 +18,8 @@ import com.pavelhabzansky.data.features.news.entities.NewsEntity
     entities = [
         LastSearchCityEntity::class,
         CityEntity::class,
-        NewsEntity::class
+        NewsEntity::class,
+        IssueEntity::class
     ],
     version = 3
 )
@@ -25,6 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val cityDao: CityDao
     abstract val newsDao: NewsDao
     abstract val lastSearchDao: LastSearchDao
+    abstract val issueDao: IssueDao
 
     companion object {
         @Volatile

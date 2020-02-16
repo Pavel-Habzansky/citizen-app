@@ -164,6 +164,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             } ?: run {
                 targetUser()
             }
+
+            viewModel.fetchIssues()
         } ?: run {
             Timber.w("Couldn't obtain map - GoogleMap is null")
         }
