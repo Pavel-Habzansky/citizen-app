@@ -1,6 +1,7 @@
 package com.pavelhabzansky.data.features.issues.mapper
 
 import com.pavelhabzansky.data.core.mapper.MapperDirectional
+import com.pavelhabzansky.data.features.api.Issue
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
 import com.pavelhabzansky.domain.features.issues.domain.IssueDO
 import com.pavelhabzansky.domain.features.issues.domain.IssueType
@@ -26,5 +27,29 @@ object IssueMapper : MapperDirectional<IssueEntity, IssueDO>() {
         lng = to.lng,
         img = to.img
     )
+
+    fun mapApiToIssueDom(issue: Issue): IssueDO {
+        return IssueDO(
+            title = issue.title,
+            createTime = issue.createTime,
+            type = IssueType.fromString(type = issue.type),
+            description = issue.description,
+            lat = issue.gps.lat,
+            lng = issue.gps.lng,
+            img = issue.img
+        )
+    }
+
+    fun mapApiToIssueEntity(issue: Issue): IssueEntity {
+        return IssueEntity(
+            title = issue.title,
+            createTime = issue.createTime,
+            type = com.pavelhabzansky.data.features.issues.model.IssueType.fromString(type = issue.type),
+            description = issue.description,
+            lat = issue.gps.lat,
+            lng = issue.gps.lng,
+            img = issue.img
+        )
+    }
 
 }

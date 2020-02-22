@@ -26,6 +26,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_CITY_LAT
 import com.pavelhabzansky.citizenapp.core.ARG_CITY_LNG
@@ -34,6 +36,8 @@ import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.databinding.FragmentMapBinding
 import com.pavelhabzansky.citizenapp.features.map.states.MapViewStates
 import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
+import com.pavelhabzansky.citizenapp.features.map.view.vo.IssueVO
+import com.pavelhabzansky.domain.features.issues.domain.Bounds
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
@@ -44,6 +48,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private val locationClient by lazy {
         context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
+
+    private val markers = mutableListOf<Pair<Marker, IssueVO>>()
 
     private lateinit var googleMap: GoogleMap
     private lateinit var binding: FragmentMapBinding
@@ -146,7 +152,24 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                     FINE_LOCATION_REQ
                 )
             }
+            is MapViewStates.IssuesUpdatedEvent -> {
+                markers.onEach { it.first.remove() }.clear()
+                val item = event.issues.firstOrNull()
+                item?.let {
+                    val marker = googleMap.addMarker(
+                        MarkerOptions().position(
+                            LatLng(it.lat, it.lng)
+                        ).title(it.title)
+                    )
+                    markers.add(marker to it)
+                }
+            }
         }
+    }
+
+    private fun onMarkerClick(marker: Marker): Boolean {
+        val data = markers.find { it.first == marker }
+        return true
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -155,6 +178,12 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
             googleMap = it
             googleMap.setOnMapLongClickListener { onMapLongClick() }
+            googleMap.setOnMarkerClickListener { onMarkerClick(it) }
+
+            googleMap.setOnCameraMoveListener {
+                val bounds = getCurrentBounds()
+                viewModel.loadIssues(bounds)
+            }
 
             arguments?.let { args ->
                 val latitude = args.getDouble(ARG_CITY_LAT)
@@ -165,23 +194,34 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 targetUser()
             }
 
-            viewModel.fetchIssues()
         } ?: run {
             Timber.w("Couldn't obtain map - GoogleMap is null")
         }
     }
 
+    private fun getCurrentBounds(): Bounds {
+        val west = googleMap.projection.visibleRegion.latLngBounds.southwest.longitude
+        val north = googleMap.projection.visibleRegion.latLngBounds.northeast.latitude
+        val east = googleMap.projection.visibleRegion.latLngBounds.northeast.longitude
+        val south = googleMap.projection.visibleRegion.latLngBounds.southwest.latitude
+
+        return Bounds(west, north, east, south)
+    }
+
     private fun targetUser() {
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (locationProvided()) {
             val location = locationClient.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             location?.let {
                 navigateToObject(lat = it.latitude, lng = it.longitude)
             }
         }
+    }
+
+    private fun locationProvided(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireActivity(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
 
@@ -219,7 +259,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         } else {
             vibrator.vibrate(100)
         }
-
 
         Toast.makeText(context, "Long click on map", Toast.LENGTH_LONG).show()
     }

@@ -16,6 +16,6 @@ sealed class NewsViewState {
 
 sealed class NewsErrorState(val t: Throwable) {
 
-
+    class UnexpectedErrorEvent(val e: Exception) : NewsErrorState(e)
 
 }

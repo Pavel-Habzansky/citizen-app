@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.pavelhabzansky.data.core.NEWS_LOAD_SIZE
 import com.pavelhabzansky.data.features.cities.dao.CityDao
-import com.pavelhabzansky.data.features.news.api.RssApi
-import com.pavelhabzansky.data.features.news.api.RssItem
+import com.pavelhabzansky.data.features.api.RssApi
+import com.pavelhabzansky.data.features.api.RssItem
 import com.pavelhabzansky.data.features.news.dao.NewsDao
 import com.pavelhabzansky.data.features.news.entities.NewsEntity
 import com.pavelhabzansky.data.features.news.mapper.NewsMapper

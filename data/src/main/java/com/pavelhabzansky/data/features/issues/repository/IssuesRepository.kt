@@ -2,17 +2,22 @@ package com.pavelhabzansky.data.features.issues.repository
 
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
+import com.google.gson.Gson
+import com.pavelhabzansky.data.features.api.Issue
+import com.pavelhabzansky.data.features.api.IssueMap
 import com.pavelhabzansky.data.features.issues.dao.IssueDao
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
 import com.pavelhabzansky.data.features.issues.mapper.IssueMapper
 import com.pavelhabzansky.data.features.issues.model.Gps
 import com.pavelhabzansky.data.features.issues.model.IssueType
+import com.pavelhabzansky.domain.features.issues.domain.Bounds
 import com.pavelhabzansky.domain.features.issues.domain.IssueDO
 import com.pavelhabzansky.domain.features.issues.repository.IIssuesRepository
 import timber.log.Timber
@@ -64,6 +69,38 @@ class IssuesRepository(
                 return
             }
         })
+    }
+
+    override suspend fun getBoundIssues(bounds: Bounds): LiveData<List<IssueDO>> {
+        val liveIssues = MutableLiveData<List<IssueDO>>()
+
+        issuesReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val issues = mutableListOf<IssueDO>()
+
+                snapshot.children.forEach { snap ->
+                    val gps = snap.child("gps").getValue(Gps::class.java)
+
+                    gps?.let {
+                        if (bounds.isInBounds(it.lat, it.lng)) {
+                            val issue = snap.getValue(Issue::class.java)
+                            issue?.gps = it
+                            issue?.let {
+                                issues.add(element = IssueMapper.mapApiToIssueDom(issue = it))
+                            }
+                        }
+                    }
+                }
+
+                liveIssues.postValue(issues)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                return
+            }
+        })
+
+        return liveIssues
     }
 
     override suspend fun getAllIssues(): LiveData<List<IssueDO>> {

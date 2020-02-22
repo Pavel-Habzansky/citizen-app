@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteOpenHelper
+import com.pavelhabzansky.data.core.Converters
 import com.pavelhabzansky.data.features.cities.dao.CityDao
 import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
 import com.pavelhabzansky.data.features.cities.entities.CityEntity
@@ -21,8 +23,9 @@ import com.pavelhabzansky.data.features.news.entities.NewsEntity
         NewsEntity::class,
         IssueEntity::class
     ],
-    version = 3
+    version = 4
 )
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val cityDao: CityDao
