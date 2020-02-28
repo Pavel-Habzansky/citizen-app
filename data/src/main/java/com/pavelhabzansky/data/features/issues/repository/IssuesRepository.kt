@@ -2,6 +2,7 @@ package com.pavelhabzansky.data.features.issues.repository
 
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -10,6 +11,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.StorageReference
 import com.pavelhabzansky.data.core.CONTENT_TYPE_JPG
+import com.pavelhabzansky.data.core.IMG_MAX_SIZE
 import com.pavelhabzansky.data.features.api.Issue
 import com.pavelhabzansky.data.features.issues.dao.IssueDao
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
@@ -89,6 +91,16 @@ class IssuesRepository(
         attachment.compress(Bitmap.CompressFormat.JPEG, 100, stream)
         val bytes = stream.toByteArray()
         storageReference.child("${issueReference.key}.jpg").putBytes(bytes, metaData)
+    }
+
+    override suspend fun downloadImage(name: String): LiveData<ByteArray> {
+        val data = MutableLiveData<ByteArray>()
+        val task = storageReference.child(name).getBytes(IMG_MAX_SIZE)
+        task.addOnSuccessListener {
+            data.postValue(it)
+        }
+
+        return data
     }
 
 }

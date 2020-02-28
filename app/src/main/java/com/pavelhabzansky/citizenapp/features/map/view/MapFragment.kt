@@ -31,6 +31,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
+import com.google.gson.Gson
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.*
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
@@ -186,11 +187,17 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun onMarkerClick(marker: Marker): Boolean {
-        val data = markers.find { it.first == marker }
+        val data = markers.find { it.first == marker }?.second
 
+        data?.let {
+            val issueJson = it.toJson()
+            val args = Bundle().also { it.putString(ARG_ISSUE_DATA, issueJson) }
+            findParentNavController().navigate(R.id.issue_detail_fragment, args)
 
+            return true
+        }
 
-        return true
+        return false
     }
 
     private fun bitmapFromVector(context: Context, id: Int): Bitmap {

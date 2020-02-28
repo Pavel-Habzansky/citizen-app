@@ -13,7 +13,7 @@ import com.pavelhabzansky.citizenapp.core.CAMERA_PERMISSION_REQ
 import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ
 import com.pavelhabzansky.citizenapp.core.REQUEST_IMAGE_CAPTURE
 import com.pavelhabzansky.citizenapp.core.activity.BaseActivity
-import com.pavelhabzansky.citizenapp.features.issues.view.vm.CreateIssueViewModel
+import com.pavelhabzansky.citizenapp.features.issues.create.view.vm.CreateIssueViewModel
 import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel

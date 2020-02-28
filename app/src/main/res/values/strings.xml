@@ -60,6 +60,10 @@
     <string name="issue_create_invalid_type">Typ hlášení musí být vybrán</string>
     <string name="issue_create_invalid_attachment">Před založením vyfoťe přílohu</string>
 
+    <!--  ISSUE DETAIL  -->
+    <string name="issue_detail_label">Detail hlášení</string>
+    <string name="issue_detail_description_title">Popis: </string>
+
     <!--  ISSUE TYPE  -->
     <string name="issue_type_public_damage">Veřejné škody</string>
     <string name="issue_type_lost_item">Ztráta věci</string>

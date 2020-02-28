@@ -15,4 +15,6 @@ interface IIssuesRepository {
 
     suspend fun createIssue(issue: IssueDO, attachment: Bitmap)
 
+    suspend fun downloadImage(name: String): LiveData<ByteArray>
+
 }

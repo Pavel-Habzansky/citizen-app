@@ -5,7 +5,7 @@ const val FIREBASE_ROOT = "https://citizen-app-be.firebaseio.com/"
 
 const val CONTENT_TYPE_JPG = "image/jpg"
 
-const val LOGO_MAX_SIZE = 1024*1024L
+const val IMG_MAX_SIZE = 1024*1024L
 
 const val CITY_CHILD_NAME = "name"
 const val CITY_CHILD_WIKI = "wiki"

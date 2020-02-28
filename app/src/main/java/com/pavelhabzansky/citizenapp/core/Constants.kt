@@ -25,3 +25,5 @@ const val ARG_KEY_NEWS_SOURCE = "NEWS_SOURCE"
 
 const val ARG_KEY_LAT = "LAT"
 const val ARG_KEY_LNG = "LNG"
+
+const val ARG_ISSUE_DATA = "ISSUE_JSON"

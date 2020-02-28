@@ -1,4 +1,4 @@
-package com.pavelhabzansky.citizenapp.features.issues.view.vm
+package com.pavelhabzansky.citizenapp.features.issues.create.view.vm
 
 import android.Manifest
 import android.app.Application
@@ -8,8 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewModelScope
 import com.pavelhabzansky.citizenapp.core.model.SingleLiveEvent
 import com.pavelhabzansky.citizenapp.core.vm.BaseAndroidViewModel
-import com.pavelhabzansky.citizenapp.features.issues.states.CreateIssueErrorStates
-import com.pavelhabzansky.citizenapp.features.issues.states.CreateIssueViewStates
+import com.pavelhabzansky.citizenapp.features.issues.create.states.CreateIssueErrorStates
+import com.pavelhabzansky.citizenapp.features.issues.create.states.CreateIssueViewStates
 import com.pavelhabzansky.citizenapp.features.map.view.mapper.IssueVOMapper
 import com.pavelhabzansky.citizenapp.features.map.view.vo.IssueVO
 import com.pavelhabzansky.data.features.issues.model.Gps

@@ -1,4 +1,4 @@
-package com.pavelhabzansky.citizenapp.features.issues.view
+package com.pavelhabzansky.citizenapp.features.issues.create.view
 
 import android.Manifest
 import android.content.Intent
@@ -17,12 +17,11 @@ import com.pavelhabzansky.citizenapp.core.*
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.core.fragment.findParentNavController
 import com.pavelhabzansky.citizenapp.databinding.FragmentCreateIssueBinding
-import com.pavelhabzansky.citizenapp.features.issues.states.CreateIssueViewStates
-import com.pavelhabzansky.citizenapp.features.issues.view.vm.CreateIssueViewModel
+import com.pavelhabzansky.citizenapp.features.issues.create.states.CreateIssueViewStates
+import com.pavelhabzansky.citizenapp.features.issues.create.view.vm.CreateIssueViewModel
 import com.pavelhabzansky.citizenapp.features.map.view.vo.IssueTypeVO
 import com.pavelhabzansky.citizenapp.features.map.view.vo.IssueVO
 import com.pavelhabzansky.data.features.issues.model.Gps
-import kotlinx.android.synthetic.main.fragment_create_issue.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 

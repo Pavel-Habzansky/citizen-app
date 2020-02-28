@@ -1,4 +1,4 @@
-package com.pavelhabzansky.citizenapp.features.issues.states
+package com.pavelhabzansky.citizenapp.features.issues.create.states
 
 import android.graphics.Bitmap
 
