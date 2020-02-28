@@ -18,7 +18,7 @@ object IssueTypeVOMapper : MapperDirectional<IssueTypeVO, IssueType>() {
         return when(to) {
             IssueType.PUBLIC_DAMAGE -> IssueTypeVO.PUBLIC_DAMAGE
             IssueType.LOST_ITEM -> IssueTypeVO.LOST_ITEM
-            else -> IssueTypeVO.UNKNOWN
+            else -> IssueTypeVO.OTHERS
         }
     }
 

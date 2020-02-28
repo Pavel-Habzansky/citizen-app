@@ -11,7 +11,7 @@ data class IssueEntity(
     val createTime: Long,
     val type: IssueType,
     val description: String,
-    val lat: Double,
-    val lng: Double,
+    var lat: Double,
+    var lng: Double,
     val img: String
 )

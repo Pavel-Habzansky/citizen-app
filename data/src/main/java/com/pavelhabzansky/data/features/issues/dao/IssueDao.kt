@@ -22,4 +22,7 @@ abstract class IssueDao {
     @Query("DELETE FROM IssueEntity")
     abstract fun removeAll()
 
+    @Query("SELECT * FROM IssueEntity")
+    abstract fun getAllInBounds(): List<IssueEntity>
+
 }

@@ -49,4 +49,24 @@
     <string name="city_detail_residential_not_set_message">Rezidentní město není nastavené. Nejprve si vyberte město a nastavte jej jako reezidentní.</string>
     <string name="city_detail_residential_not_set_title">Rezidentní město nebylo nalezeno</string>
 
+    <!--  ISSUE CREATE  -->
+    <string name="issue_create_label">Nové hlášení</string>
+    <string name="issue_create_input_title_hint">Název</string>
+    <string name="issue_create_input_desc_hint">Popis</string>
+    <string name="issue_create_attachment_title">Příloha</string>
+    <string name="issue_create_type_title">Typ hlášení</string>
+    <string name="issue_create_invalid_title">Titulek hlášení musí být vyplněn</string>
+    <string name="issue_create_invalid_description">Popis hlášení musí být vyplněn</string>
+    <string name="issue_create_invalid_type">Typ hlášení musí být vybrán</string>
+    <string name="issue_create_invalid_attachment">Před založením vyfoťe přílohu</string>
+
+    <!--  ISSUE TYPE  -->
+    <string name="issue_type_public_damage">Veřejné škody</string>
+    <string name="issue_type_lost_item">Ztráta věci</string>
+    <string name="issue_type_pavements">Chodníky</string>
+    <string name="issue_type_lights">Osvětlení</string>
+    <string name="issue_type_trash">Odpadky</string>
+    <string name="issue_type_others">Jiné</string>
+    <string name="issue_type_unknown">Neznámé</string>
+
 </resources>

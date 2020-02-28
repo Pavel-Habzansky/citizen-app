@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_item_16">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/titleInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_create_input_title_hint"
+            app:errorEnabled="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/titleInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_item_16"
+            android:hint="@string/issue_create_input_desc_hint"
+            app:errorEnabled="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/descriptionInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/typeTitle"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_item_16"
+            android:text="@string/issue_create_type_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/descriptionInputLayout" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/typeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_item_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/typeTitle" />
+
+        <TextView
+            android:id="@+id/attachmentTitle"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_item_16"
+            android:layout_marginBottom="@dimen/margin_item_16"
+            android:text="@string/issue_create_attachment_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/typeSpinner" />
+
+        <ImageView
+            android:id="@+id/addPhotoImg"
+            android:layout_width="128dp"
+            android:layout_height="256dp"
+            android:layout_marginTop="@dimen/margin_item_16"
+            android:background="@drawable/bg_bordered"
+            android:src="@drawable/ic_add_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attachmentTitle" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/createButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_news_button"
+            android:padding="@dimen/margin_item_8"
+            android:src="@drawable/ic_check_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

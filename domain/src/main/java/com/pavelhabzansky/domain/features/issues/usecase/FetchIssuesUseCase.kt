@@ -8,7 +8,7 @@ class FetchIssuesUseCase(
 ) : UseCase<Unit, Unit>() {
 
     override suspend fun doWork(params: Unit) {
-        issueRepository.getAllIssues()
+        issueRepository.fetchIssues()
     }
 
 }

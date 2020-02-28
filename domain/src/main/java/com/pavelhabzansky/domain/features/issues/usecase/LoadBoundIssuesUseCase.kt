@@ -6,11 +6,11 @@ import com.pavelhabzansky.domain.features.issues.domain.Bounds
 import com.pavelhabzansky.domain.features.issues.domain.IssueDO
 import com.pavelhabzansky.domain.features.issues.repository.IIssuesRepository
 
-class LoadLiveIssuesUseCase(
+class LoadBoundIssuesUseCase(
     private val issueRepository: IIssuesRepository
-) : UseCase<LiveData<List<IssueDO>>, Bounds>() {
+) : UseCase<List<IssueDO>, Bounds>() {
 
-    override suspend fun doWork(params: Bounds): LiveData<List<IssueDO>> {
+    override suspend fun doWork(params: Bounds): List<IssueDO> {
         return issueRepository.getBoundIssues(bounds = params)
     }
 

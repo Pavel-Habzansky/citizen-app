@@ -6,6 +6,7 @@ import com.pavelhabzansky.citizenapp.core.config.LogConsumer
 import com.pavelhabzansky.citizenapp.core.di.appModule
 import com.pavelhabzansky.citizenapp.features.cities.detail.di.cityDetailModule
 import com.pavelhabzansky.citizenapp.features.cities.search.di.cityPickerModule
+import com.pavelhabzansky.citizenapp.features.issues.di.createIssueModule
 import com.pavelhabzansky.citizenapp.features.map.di.mapsModule
 import com.pavelhabzansky.citizenapp.features.news.di.newsModule
 import org.koin.android.ext.koin.androidContext
@@ -42,7 +43,8 @@ class CitizenApp : Application() {
                     newsModule,
                     cityPickerModule,
                     cityDetailModule,
-                    mapsModule
+                    mapsModule,
+                    createIssueModule
                 )
             )
         }

@@ -15,7 +15,7 @@ import com.pavelhabzansky.citizenapp.features.map.view.mapper.IssueVOMapper
 import com.pavelhabzansky.domain.features.issues.domain.Bounds
 import com.pavelhabzansky.domain.features.issues.domain.IssueDO
 import com.pavelhabzansky.domain.features.issues.usecase.FetchIssuesUseCase
-import com.pavelhabzansky.domain.features.issues.usecase.LoadLiveIssuesUseCase
+import com.pavelhabzansky.domain.features.issues.usecase.LoadBoundIssuesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.inject
@@ -23,24 +23,16 @@ import org.koin.core.inject
 class MapViewModel(val app: Application) : BaseAndroidViewModel(app) {
 
     private val fetchIssuesUseCase by inject<FetchIssuesUseCase>()
-    private val loadLiveIssuesViewModel by inject<LoadLiveIssuesUseCase>()
-
-    private var issuesLiveData: LiveData<List<IssueDO>>? = null
+    private val loadBoundIssuesUseCase by inject<LoadBoundIssuesUseCase>()
 
     val mapViewState = SingleLiveEvent<MapViewStates>()
     val mapErrorState = SingleLiveEvent<MapErrorStates>()
 
-    private val issuesObserver: Observer<List<IssueDO>> by lazy {
-        Observer<List<IssueDO>> {
-            mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(it.map { IssueVOMapper.mapTo(to = it) }))
-        }
-    }
-
     fun requestLocationPermission() {
         if (ContextCompat.checkSelfPermission(
-                app.applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+                        app.applicationContext,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
         ) {
             mapViewState.postValue(MapViewStates.LocationPermissionGranted())
         } else {
@@ -56,15 +48,9 @@ class MapViewModel(val app: Application) : BaseAndroidViewModel(app) {
 
     fun loadIssues(bounds: Bounds) {
         viewModelScope.launch(Dispatchers.IO) {
-            issuesLiveData = loadLiveIssuesViewModel(bounds)
-            launch(Dispatchers.Main) { issuesLiveData?.observeForever(issuesObserver) }
+            val issues = loadBoundIssuesUseCase(bounds)
+            mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(issues.map { IssueVOMapper.mapTo(to = it) }))
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        issuesLiveData?.removeObserver(issuesObserver)
     }
 
 }
