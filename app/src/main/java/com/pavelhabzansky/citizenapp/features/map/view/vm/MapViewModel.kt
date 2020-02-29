@@ -20,7 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.inject
 
-class MapViewModel(val app: Application) : BaseAndroidViewModel(app) {
+class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
 
     private val fetchIssuesUseCase by inject<FetchIssuesUseCase>()
     private val loadBoundIssuesUseCase by inject<LoadBoundIssuesUseCase>()
@@ -29,11 +29,7 @@ class MapViewModel(val app: Application) : BaseAndroidViewModel(app) {
     val mapErrorState = SingleLiveEvent<MapErrorStates>()
 
     fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(
-                        app.applicationContext,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
             mapViewState.postValue(MapViewStates.LocationPermissionGranted())
         } else {
             mapViewState.postValue(MapViewStates.LocationPermissionNotGranted())
@@ -49,7 +45,11 @@ class MapViewModel(val app: Application) : BaseAndroidViewModel(app) {
     fun loadIssues(bounds: Bounds) {
         viewModelScope.launch(Dispatchers.IO) {
             val issues = loadBoundIssuesUseCase(bounds)
-            mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(issues.map { IssueVOMapper.mapTo(to = it) }))
+            mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(issues.map {
+                IssueVOMapper.mapTo(
+                    to = it
+                )
+            }))
         }
     }
 

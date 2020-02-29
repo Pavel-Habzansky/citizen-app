@@ -18,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.inject
 
-class CreateIssueViewModel(val app: Application) : BaseAndroidViewModel(app) {
+class CreateIssueViewModel(app: Application) : BaseAndroidViewModel(app) {
 
     private val createIssueUseCase by inject<CreateIssueUseCase>()
 
@@ -33,11 +33,7 @@ class CreateIssueViewModel(val app: Application) : BaseAndroidViewModel(app) {
         }
 
     fun requestCameraPermission() {
-        if (ContextCompat.checkSelfPermission(
-                app.applicationContext,
-                Manifest.permission.CAMERA
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (hasPermission(Manifest.permission.CAMERA)) {
             createIssueViewState.postValue(CreateIssueViewStates.CameraPermissionGranted())
         } else {
             createIssueViewState.postValue(CreateIssueViewStates.CameraPermissionNotGranted())

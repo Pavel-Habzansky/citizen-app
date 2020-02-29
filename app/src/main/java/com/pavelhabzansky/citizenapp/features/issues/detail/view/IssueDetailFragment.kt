@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.pavelhabzansky.citizenapp.BR
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_ISSUE_DATA
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
@@ -40,6 +41,8 @@ class IssueDetailFragment : BaseFragment() {
         arguments?.let {
             val issueJson = requireNotNull(it.getString(ARG_ISSUE_DATA))
             viewModel.issue = issueJson.fromJson(IssueVO::class.java)
+            binding.setVariable(BR.issue, viewModel.issue)
+            binding.executePendingBindings()
 
             registerEvents()
 

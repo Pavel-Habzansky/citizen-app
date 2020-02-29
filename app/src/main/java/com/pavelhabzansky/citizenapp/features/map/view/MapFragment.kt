@@ -222,11 +222,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             googleMap = it
             googleMap.setOnMapLongClickListener { onMapLongClick(it) }
             googleMap.setOnMarkerClickListener { onMarkerClick(it) }
-
-            googleMap.setOnCameraMoveListener {
-                val bounds = getCurrentBounds()
-                viewModel.loadIssues(bounds)
-            }
+            googleMap.setOnCameraMoveListener { loadIssueInBounds() }
 
             arguments?.let { args ->
                 val latitude = args.getDouble(ARG_CITY_LAT)
@@ -236,9 +232,16 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             } ?: run {
                 targetUser()
             }
+
+            loadIssueInBounds()
         } ?: run {
             Timber.w("Couldn't obtain map - GoogleMap is null")
         }
+    }
+
+    private fun loadIssueInBounds() {
+        val bounds = getCurrentBounds()
+        viewModel.loadIssues(bounds)
     }
 
     private fun createNewIssue() {
