@@ -7,7 +7,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.pavelhabzansky.citizenapp.R
+import com.pavelhabzansky.citizenapp.core.ARG_ISSUE_DATA
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
+import com.pavelhabzansky.citizenapp.core.fragment.findParentNavController
+import com.pavelhabzansky.citizenapp.core.toJson
 import com.pavelhabzansky.citizenapp.databinding.FragmentIssueListBinding
 import com.pavelhabzansky.citizenapp.features.issues.list.states.IssueListViewStates
 import com.pavelhabzansky.citizenapp.features.issues.list.view.adapter.IssueListAdapter
@@ -23,7 +28,7 @@ class IssueListFragment : BaseFragment() {
     private val viewModel by viewModel<IssueListViewModel>()
 
     private val adapter: IssueListAdapter by lazy {
-        IssueListAdapter()
+        IssueListAdapter(onClick = this::onItemClick)
     }
 
     override fun onCreateView(
@@ -65,7 +70,14 @@ class IssueListFragment : BaseFragment() {
     }
 
     private fun updateItems(issues: List<IssueVO>) {
-        // TODO Update items
+        adapter.updateItems(newItems = issues)
     }
+
+    private fun onItemClick(issue: IssueVO) {
+        val issueJson = issue.toJson()
+        val args = Bundle().also { it.putString(ARG_ISSUE_DATA, issueJson) }
+        findParentNavController().navigate(R.id.issue_detail_fragment, args)
+    }
+
 
 }

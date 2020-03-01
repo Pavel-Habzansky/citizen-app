@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/itemImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="92dp"
+            android:layout_height="92dp"
             android:layout_marginEnd="@dimen/margin_item_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_item_16"
+            android:text="@{ item.title }"
             app:layout_constraintStart_toEndOf="@id/itemImage"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Nadpis" />
@@ -41,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_item_16"
+            android:text="@{ item.description }"
             app:layout_constraintStart_toEndOf="@id/itemImage"
             app:layout_constraintTop_toBottomOf="@id/itemTitle"
             tools:text="Popis" />

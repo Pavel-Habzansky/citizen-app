@@ -25,9 +25,9 @@ import kotlinx.coroutines.runBlocking
 import java.io.ByteArrayOutputStream
 
 class IssuesRepository(
-    private val issuesReference: DatabaseReference,
-    private val storageReference: StorageReference,
-    private val issueDao: IssueDao
+        private val issuesReference: DatabaseReference,
+        private val storageReference: StorageReference,
+        private val issueDao: IssueDao
 ) : IIssuesRepository {
 
     override suspend fun fetchIssues() {
@@ -64,16 +64,21 @@ class IssuesRepository(
     override suspend fun getBoundIssues(bounds: Bounds): List<IssueDO> {
         val issues = issueDao.getAllInBounds()
         return issues
-            .filter { bounds.isInBounds(it.lat, it.lng) }
-            .map { IssueMapper.mapFrom(from = it) }
+                .filter { bounds.isInBounds(it.lat, it.lng) }
+                .map { IssueMapper.mapFrom(from = it) }
     }
 
     override suspend fun getAllIssues(): LiveData<List<IssueDO>> {
-        val entities = issueDao.getAll()
+        val entities = issueDao.getAllLive()
 
         return Transformations.map(entities) {
             it.map { IssueMapper.mapFrom(from = it) }
         }
+    }
+
+    override suspend fun loadIssues(): List<IssueDO> {
+        val issues = issueDao.getAll()
+        return issues.map { IssueMapper.mapFrom(from = it) }
     }
 
     override suspend fun createIssue(issue: IssueDO, attachment: Bitmap) {
@@ -84,8 +89,8 @@ class IssuesRepository(
         issueReference.setValue(issueApiObj)
 
         val metaData = StorageMetadata.Builder()
-            .setContentType(CONTENT_TYPE_JPG)
-            .build()
+                .setContentType(CONTENT_TYPE_JPG)
+                .build()
 
         val stream = ByteArrayOutputStream()
         attachment.compress(Bitmap.CompressFormat.JPEG, 100, stream)

@@ -60,9 +60,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private var fabOpen = false
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false)
 
@@ -74,6 +74,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         binding.mainFab.setOnClickListener { toggleFabMenu() }
         binding.mapSettingsFab.setOnClickListener { }
         binding.newIssueFab.setOnClickListener { createNewIssue() }
+        binding.toListFab.setOnClickListener { toIssueList() }
 
         return binding.root
     }
@@ -92,48 +93,50 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             animateRotateClose(binding.mainFab)
             animateFade(binding.mapSettingsFab)
             animateFade(binding.newIssueFab)
+            animateFade(binding.toListFab)
         } else {
             animateRotateOpen(binding.mainFab)
             animateShow(binding.mapSettingsFab)
             animateShow(binding.newIssueFab)
+            animateShow(binding.toListFab)
         }
         fabOpen = !fabOpen
     }
 
     private fun animateFade(view: View) {
         view.animate()
-            .alpha(0f)
-            .setDuration(FAB_ANIMATE_DURATION)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    view.visibility = View.INVISIBLE
-                }
-            })
+                .alpha(0f)
+                .setDuration(FAB_ANIMATE_DURATION)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        view.visibility = View.INVISIBLE
+                    }
+                })
     }
 
     private fun animateShow(view: View) {
         view.visibility = View.VISIBLE
         view.alpha = 0f
         view.animate()
-            .alpha(1f)
-            .setDuration(FAB_ANIMATE_DURATION)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    view.visibility = View.VISIBLE
-                }
-            })
+                .alpha(1f)
+                .setDuration(FAB_ANIMATE_DURATION)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        view.visibility = View.VISIBLE
+                    }
+                })
     }
 
     private fun animateRotateOpen(view: View) {
         view.animate()
-            .rotation(45f)
-            .setDuration(FAB_ANIMATE_DURATION)
+                .rotation(45f)
+                .setDuration(FAB_ANIMATE_DURATION)
     }
 
     private fun animateRotateClose(view: View) {
         view.animate()
-            .rotation(0f)
-            .setDuration(FAB_ANIMATE_DURATION)
+                .rotation(0f)
+                .setDuration(FAB_ANIMATE_DURATION)
     }
 
     private fun registerEvents() {
@@ -153,9 +156,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             }
             is MapViewStates.LocationPermissionNotGranted -> {
                 ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    FINE_LOCATION_REQ
+                        requireActivity(),
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        FINE_LOCATION_REQ
                 )
             }
             is MapViewStates.IssuesUpdatedEvent -> updateMarkers(issues = event.issues)
@@ -168,14 +171,14 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
         newIssues.forEach {
             val marker = googleMap.addMarker(
-                MarkerOptions()
-                    .position(LatLng(it.lat, it.lng))
-                    .title(it.title)
-                    .icon(
-                        BitmapDescriptorFactory.fromBitmap(
-                            bitmapFromVector(requireContext(), it.type.icon)
-                        )
-                    )
+                    MarkerOptions()
+                            .position(LatLng(it.lat, it.lng))
+                            .title(it.title)
+                            .icon(
+                                    BitmapDescriptorFactory.fromBitmap(
+                                            bitmapFromVector(requireContext(), it.type.icon)
+                                    )
+                            )
             )
             markers.add(marker to it)
         }
@@ -204,9 +207,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         val drawable = ContextCompat.getDrawable(context, id)
 
         val bitmap = Bitmap.createBitmap(
-            drawable?.intrinsicWidth ?: 0,
-            drawable?.intrinsicHeight ?: 0,
-            Bitmap.Config.ARGB_8888
+                drawable?.intrinsicWidth ?: 0,
+                drawable?.intrinsicHeight ?: 0,
+                Bitmap.Config.ARGB_8888
         )
         val canvas = Canvas(bitmap)
         drawable?.setBounds(0, 0, canvas.width, canvas.height)
@@ -263,6 +266,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
     }
 
+    private fun toIssueList() {
+        toggleFabMenu()
+        findParentNavController().navigate(R.id.to_issue_list)
+    }
+
     private fun getCurrentBounds(): Bounds {
         val west = googleMap.projection.visibleRegion.latLngBounds.southwest.longitude
         val north = googleMap.projection.visibleRegion.latLngBounds.northeast.latitude
@@ -283,8 +291,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     private fun locationProvided(): Boolean {
         return ContextCompat.checkSelfPermission(
-            requireActivity(),
-            Manifest.permission.ACCESS_FINE_LOCATION
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -293,9 +301,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         googleMap.let {
             val location = LatLng(lat, lng)
             val cameraPos = CameraPosition.Builder()
-                .target(location)
-                .zoom(CITY_ZOOM_LEVEL)
-                .build()
+                    .target(location)
+                    .zoom(CITY_ZOOM_LEVEL)
+                    .build()
             it.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPos))
         }
     }
@@ -304,9 +312,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         googleMap.let {
             val location = LatLng(lat, lng)
             val cameraPos = CameraPosition.Builder()
-                .target(location)
-                .zoom(OBJECT_ZOOM_LEVEL)
-                .build()
+                    .target(location)
+                    .zoom(OBJECT_ZOOM_LEVEL)
+                    .build()
             it.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPos))
         }
     }
@@ -315,10 +323,10 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrator.vibrate(
-                VibrationEffect.createOneShot(
-                    VIBRATE_LENGTH,
-                    VibrationEffect.DEFAULT_AMPLITUDE
-                )
+                    VibrationEffect.createOneShot(
+                            VIBRATE_LENGTH,
+                            VibrationEffect.DEFAULT_AMPLITUDE
+                    )
             )
         } else {
             vibrator.vibrate(VIBRATE_LENGTH)

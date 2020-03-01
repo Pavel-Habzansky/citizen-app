@@ -17,7 +17,10 @@ abstract class IssueDao {
     abstract fun insertAll(issues: List<IssueEntity>)
 
     @Query("SELECT * FROM IssueEntity")
-    abstract fun getAll(): LiveData<List<IssueEntity>>
+    abstract fun getAllLive(): LiveData<List<IssueEntity>>
+
+    @Query("SELECT * FROM IssueEntity")
+    abstract fun getAll(): List<IssueEntity>
 
     @Query("DELETE FROM IssueEntity")
     abstract fun removeAll()

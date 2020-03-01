@@ -73,4 +73,7 @@
     <string name="issue_type_others">Jiné</string>
     <string name="issue_type_unknown">Neznámé</string>
 
+    <!--  ISSUE LIST  -->
+    <string name="issue_list_label">Hlášení</string>
+
 </resources>

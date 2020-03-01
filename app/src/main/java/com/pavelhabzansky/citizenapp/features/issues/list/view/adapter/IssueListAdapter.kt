@@ -2,25 +2,34 @@ package com.pavelhabzansky.citizenapp.features.issues.list.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
+import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.databinding.ItemIssueBinding
 import com.pavelhabzansky.citizenapp.features.map.view.vo.IssueVO
 
-class IssueListAdapter : RecyclerView.Adapter<IssueListAdapter.IssueListViewHolder>() {
+class IssueListAdapter(
+        private val onClick: (IssueVO) -> Unit
+) : RecyclerView.Adapter<IssueListAdapter.IssueListViewHolder>() {
 
-    private var items: List<IssueVO> = emptyList()
+    private var items: MutableList<IssueVO> = mutableListOf()
 
     fun updateItems(newItems: List<IssueVO>) {
-        // TODO Update items, use DiffUtil
-    }
+        items = newItems.toMutableList()
 
+        notifyDataSetChanged()
+
+    }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IssueListViewHolder {
-        val binding = ItemIssueBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = DataBindingUtil.inflate<ItemIssueBinding>(
+                LayoutInflater.from(parent.context), R.layout.item_issue, parent, false
+        )
         return IssueListViewHolder(binding)
     }
 
@@ -32,7 +41,12 @@ class IssueListAdapter : RecyclerView.Adapter<IssueListAdapter.IssueListViewHold
             RecyclerView.ViewHolder(binding.root) {
 
         fun bind(issue: IssueVO) {
+            binding.setVariable(BR.item, issue)
+            binding.executePendingBindings()
 
+            binding.root.setOnClickListener { onClick(issue) }
+
+            binding.itemImage.setImageResource(issue.type.icon)
         }
 
     }

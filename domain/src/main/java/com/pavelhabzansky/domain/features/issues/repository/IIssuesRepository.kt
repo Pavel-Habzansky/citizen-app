@@ -9,6 +9,8 @@ interface IIssuesRepository {
 
     suspend fun fetchIssues()
 
+    suspend fun loadIssues(): List<IssueDO>
+
     suspend fun getAllIssues(): LiveData<List<IssueDO>>
 
     suspend fun getBoundIssues(bounds: Bounds): List<IssueDO>
