@@ -29,7 +29,7 @@ class NewsViewModel : BaseViewModel() {
 
     private val cachedNewsObserver: Observer<List<NewsDO>> by lazy {
         Observer<List<NewsDO>> {
-            val viewObjects = it.map { NewsVOMapper.mapFrom(from = it) }
+            val viewObjects = it.map { NewsVOMapper.mapFrom(from = it) }.sortedByDescending { it.date?.time }
             newsViewState.postValue(NewsViewState.NewsCacheLoadedViewState(news = viewObjects))
         }
     }

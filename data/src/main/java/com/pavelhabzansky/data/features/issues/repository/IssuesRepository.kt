@@ -3,7 +3,6 @@ package com.pavelhabzansky.data.features.issues.repository
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -12,6 +11,7 @@ import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.StorageReference
 import com.pavelhabzansky.data.core.CONTENT_TYPE_JPG
 import com.pavelhabzansky.data.core.IMG_MAX_SIZE
+import com.pavelhabzansky.data.core.transform
 import com.pavelhabzansky.data.features.api.Issue
 import com.pavelhabzansky.data.features.issues.dao.IssueDao
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
@@ -71,14 +71,16 @@ class IssuesRepository(
     override suspend fun getAllIssues(): LiveData<List<IssueDO>> {
         val entities = issueDao.getAllLive()
 
-        return Transformations.map(entities) {
+        return entities.transform {
             it.map { IssueMapper.mapFrom(from = it) }
         }
     }
 
-    override suspend fun loadIssues(): List<IssueDO> {
-        val issues = issueDao.getAll()
-        return issues.map { IssueMapper.mapFrom(from = it) }
+    override suspend fun loadIssues(): LiveData<List<IssueDO>> {
+        val issues = issueDao.getAllLive()
+        return issues.transform {
+            it.map { IssueMapper.mapFrom(from = it) }
+        }
     }
 
     override suspend fun createIssue(issue: IssueDO, attachment: Bitmap) {

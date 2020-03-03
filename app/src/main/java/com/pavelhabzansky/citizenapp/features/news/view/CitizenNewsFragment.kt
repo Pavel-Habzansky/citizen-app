@@ -56,13 +56,11 @@ class CitizenNewsFragment : BaseFragment() {
         registerEvents()
 
         val source = arguments?.getString(ARG_KEY_NEWS_SOURCE)
+        binding.swipeContainer.setOnRefreshListener { viewModel.loadNews(force = true) }
         if (source != null) {
             val city = source.fromJson(CityInformationVO::class.java)
             viewModel.loadNewsForCity(city = city)
-            binding.swipeContainer.setOnRefreshListener { viewModel.loadNews(force = true) }
         } else {
-            binding.swipeContainer.setOnRefreshListener { viewModel.loadNews(force = true) }
-
             viewModel.loadCachedNews()
             viewModel.loadNews()
         }

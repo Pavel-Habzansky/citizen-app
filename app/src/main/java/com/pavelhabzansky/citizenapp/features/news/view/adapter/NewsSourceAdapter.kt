@@ -39,7 +39,7 @@ class NewsSourceAdapter(
             false
         )
 
-        return NewsSourceViewHolder(binding = binding, onItemClick = onItemClick)
+        return NewsSourceViewHolder(binding = binding, onItemClick = onItemClick).also { it.setIsRecyclable(false) }
     }
 
     inner class NewsSourceViewHolder(

@@ -42,6 +42,8 @@ class IssueListFragment : BaseFragment() {
         binding.issueRecycler.addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
         binding.issueRecycler.adapter = adapter
 
+        binding.listRefresh.setOnRefreshListener { viewModel.syncIssues() }
+
         return binding.root
     }
 
@@ -70,6 +72,7 @@ class IssueListFragment : BaseFragment() {
     }
 
     private fun updateItems(issues: List<IssueVO>) {
+        binding.listRefresh.isRefreshing = false
         adapter.updateItems(newItems = issues)
     }
 

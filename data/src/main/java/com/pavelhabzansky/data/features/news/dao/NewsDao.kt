@@ -17,6 +17,9 @@ abstract class NewsDao {
     abstract fun insertAll(news: List<NewsEntity>)
 
     @Query("SELECT * FROM NewsEntity")
+    abstract fun getAll(): List<NewsEntity>
+
+    @Query("SELECT * FROM NewsEntity")
     abstract fun getAllLive(): LiveData<List<NewsEntity>>
 
     @Query("SELECT * FROM NewsEntity WHERE read = 1")

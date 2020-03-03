@@ -9,7 +9,7 @@ interface IIssuesRepository {
 
     suspend fun fetchIssues()
 
-    suspend fun loadIssues(): List<IssueDO>
+    suspend fun loadIssues(): LiveData<List<IssueDO>>
 
     suspend fun getAllIssues(): LiveData<List<IssueDO>>
 
