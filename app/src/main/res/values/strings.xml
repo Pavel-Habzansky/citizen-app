@@ -59,6 +59,7 @@
     <string name="issue_create_invalid_description">Popis hlášení musí být vyplněn</string>
     <string name="issue_create_invalid_type">Typ hlášení musí být vybrán</string>
     <string name="issue_create_invalid_attachment">Před založením vyfoťe přílohu</string>
+    <string name="issue_create_chooser_tittle">Vybrat přílohu</string>
 
     <!--  ISSUE DETAIL  -->
     <string name="issue_detail_label">Detail hlášení</string>

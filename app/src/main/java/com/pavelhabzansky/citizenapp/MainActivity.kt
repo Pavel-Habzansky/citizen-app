@@ -55,9 +55,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
     ) {
         when (requestCode) {
             FINE_LOCATION_REQ -> {
@@ -75,16 +75,4 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_IMAGE_CAPTURE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    val bitmap = data?.extras?.get("data") as Bitmap
-                    createIssueViewModel.attachment = bitmap
-                }
-            }
-        }
-
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 }

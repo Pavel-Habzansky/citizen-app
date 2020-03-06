@@ -5,6 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:orientation="vertical"
         android:padding="@dimen/margin_item_16">
 
@@ -76,8 +77,21 @@
             android:layout_height="@dimen/photo_view_small"
             android:layout_marginTop="@dimen/margin_item_16"
             android:background="@drawable/bg_bordered"
-            android:src="@drawable/ic_add_black_24dp"
+            android:padding="@dimen/margin_item_24"
+            android:src="@drawable/ic_camera_24dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attachmentTitle" />
+
+        <ImageView
+            android:id="@+id/addGalleryImg"
+            android:layout_width="@dimen/photo_view_small"
+            android:layout_height="@dimen/photo_view_small"
+            android:layout_marginStart="@dimen/margin_item_16"
+            android:layout_marginTop="@dimen/margin_item_16"
+            android:background="@drawable/bg_bordered"
+            android:padding="@dimen/margin_item_24"
+            android:src="@drawable/ic_image_24dp"
+            app:layout_constraintStart_toEndOf="@id/addPhotoImg"
             app:layout_constraintTop_toBottomOf="@id/attachmentTitle" />
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -85,6 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_news_button"
+            android:elevation="@dimen/margin_item_8"
             android:padding="@dimen/margin_item_8"
             android:src="@drawable/ic_check_24dp"
             app:layout_constraintBottom_toBottomOf="parent"

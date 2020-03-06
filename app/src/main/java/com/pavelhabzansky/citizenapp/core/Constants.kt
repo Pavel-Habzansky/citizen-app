@@ -9,6 +9,7 @@ const val ARG_CITY_LNG = "CITY_LNG"
 
 const val FINE_LOCATION_REQ = 0
 const val CAMERA_PERMISSION_REQ = 1
+const val IMAGE_CHOOSER_REQ = 2
 
 const val REQUEST_IMAGE_CAPTURE = 1
 
@@ -27,3 +28,7 @@ const val ARG_KEY_LAT = "LAT"
 const val ARG_KEY_LNG = "LNG"
 
 const val ARG_ISSUE_DATA = "ISSUE_JSON"
+
+const val CHOOSER_TYPE_IMAGES = "image/*"
+
+const val EXTRAS_IMG_KEY = "data"
