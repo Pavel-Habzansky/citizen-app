@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -55,13 +56,11 @@ class CitizenNewsFragment : BaseFragment() {
         registerEvents()
 
         val source = arguments?.getString(ARG_KEY_NEWS_SOURCE)
+        binding.swipeContainer.setOnRefreshListener { viewModel.loadNews(force = true) }
         if (source != null) {
             val city = source.fromJson(CityInformationVO::class.java)
             viewModel.loadNewsForCity(city = city)
-            binding.swipeContainer.setOnRefreshListener { viewModel.loadNews(force = true) }
         } else {
-            binding.swipeContainer.setOnRefreshListener { viewModel.loadNews(force = true) }
-
             viewModel.loadCachedNews()
             viewModel.loadNews()
         }
@@ -72,6 +71,7 @@ class CitizenNewsFragment : BaseFragment() {
             updateViewState(event = it)
         })
         viewModel.newsErrorState.observe(this, Observer {
+            Toast.makeText(context, "Došlo k chybě při stahování novinek", Toast.LENGTH_LONG).show()
             Timber.e(it.t, "Error occured")
         })
     }

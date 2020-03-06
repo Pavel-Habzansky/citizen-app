@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.pavelhabzansky.citizenapp.core.DateUtilsKt" />
+
+        <variable
+            name="issue"
+            type="com.pavelhabzansky.citizenapp.features.map.view.vo.IssueVO" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_item_16">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nadpis" />
+
+        <TextView
+            android:id="@+id/createDate"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{ DateUtilsKt.timestampToString(issue.createTime) }"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="Založeno: 1.1.2020" />
+
+        <TextView
+            android:id="@+id/descriptionTitle"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_item_16"
+            android:text="@string/city_detail_description_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/createDate"
+            tools:text="Popis" />
+
+        <TextView
+            android:id="@+id/description"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ issue.description }"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/descriptionTitle"
+            tools:text="Dlouhý popis" />
+
+        <TextView
+            android:id="@+id/imageTitle"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_item_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            tools:text="Příloha" />
+
+        <ImageView
+            android:id="@+id/issueImage"
+            android:layout_width="@dimen/photo_view_big"
+            android:layout_height="@dimen/photo_view_big"
+            android:layout_marginTop="@dimen/margin_item_8"
+            android:src="@drawable/ic_add_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageTitle" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

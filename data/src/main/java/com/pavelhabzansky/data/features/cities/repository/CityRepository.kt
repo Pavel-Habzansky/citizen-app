@@ -33,7 +33,7 @@ class CityRepository(
 
     override suspend fun loadLastSearches(): LiveData<List<LastSearchItemDO>> {
         val lastSearches = lastSearchDao.getLastSearches()
-        return Transformations.map(lastSearches) {
+        return lastSearches.transform {
             it.map { LastSearchMapper.mapFrom(from = it) }
         }
     }
@@ -109,7 +109,7 @@ class CityRepository(
 
                 logo?.let { logo ->
                     val logoReference = storageReference.child(logo)
-                    logoReference.getBytes(LOGO_MAX_SIZE).addOnSuccessListener {
+                    logoReference.getBytes(IMG_MAX_SIZE).addOnSuccessListener {
                         Timber.i("Loaded ${it.size} bytes for city logo")
                         cityInfo.postValue(
                             cityObject.copy(logoBytes = it)

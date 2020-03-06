@@ -1,4 +1,4 @@
-package com.pavelhabzansky.data.features.news.api
+package com.pavelhabzansky.data.features.api
 
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList

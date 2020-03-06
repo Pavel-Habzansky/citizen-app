@@ -21,4 +21,7 @@
     <dimen name="news_item_height_base">160dp</dimen>
     <dimen name="news_item_height_expand">280dp</dimen>
 
+    <dimen name="photo_view_small">128dp</dimen>
+    <dimen name="photo_view_big">256dp</dimen>
+
 </resources>

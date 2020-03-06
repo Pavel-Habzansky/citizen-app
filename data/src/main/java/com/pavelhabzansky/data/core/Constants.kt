@@ -3,7 +3,9 @@ package com.pavelhabzansky.data.core
 // https://console.firebase.google.com/u/0/project/citizen-app-be/database/citizen-app-be/data
 const val FIREBASE_ROOT = "https://citizen-app-be.firebaseio.com/"
 
-const val LOGO_MAX_SIZE = 1024*1024L
+const val CONTENT_TYPE_JPG = "image/jpg"
+
+const val IMG_MAX_SIZE = 1024*1024L
 
 const val CITY_CHILD_NAME = "name"
 const val CITY_CHILD_WIKI = "wiki"

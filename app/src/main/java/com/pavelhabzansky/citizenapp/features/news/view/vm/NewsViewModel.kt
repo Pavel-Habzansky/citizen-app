@@ -7,7 +7,6 @@ import com.pavelhabzansky.citizenapp.core.model.SingleLiveEvent
 import com.pavelhabzansky.citizenapp.core.vm.BaseViewModel
 import com.pavelhabzansky.citizenapp.features.cities.detail.view.mapper.CityInformationVOMapper
 import com.pavelhabzansky.citizenapp.features.cities.detail.view.vo.CityInformationVO
-import com.pavelhabzansky.citizenapp.features.cities.search.view.mapper.CityVOMapper
 import com.pavelhabzansky.citizenapp.features.news.states.NewsErrorState
 import com.pavelhabzansky.citizenapp.features.news.states.NewsViewState
 import com.pavelhabzansky.citizenapp.features.news.view.mapper.NewsVOMapper
@@ -30,7 +29,7 @@ class NewsViewModel : BaseViewModel() {
 
     private val cachedNewsObserver: Observer<List<NewsDO>> by lazy {
         Observer<List<NewsDO>> {
-            val viewObjects = it.map { NewsVOMapper.mapFrom(from = it) }
+            val viewObjects = it.map { NewsVOMapper.mapFrom(from = it) }.sortedByDescending { it.date?.time }
             newsViewState.postValue(NewsViewState.NewsCacheLoadedViewState(news = viewObjects))
         }
     }
@@ -46,16 +45,24 @@ class NewsViewModel : BaseViewModel() {
 
     fun loadNews(force: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
-            loadNewsUseCase(LoadNewsUseCase.Params(force))
+            try {
+                loadNewsUseCase(LoadNewsUseCase.Params(force))
+            } catch (e: Exception) {
+                newsErrorState.postValue(NewsErrorState.UnexpectedErrorEvent(e))
+            }
         }
     }
 
     fun loadNewsForCity(city: CityInformationVO) {
         viewModelScope.launch(Dispatchers.IO) {
-            val cityDom = CityInformationVOMapper.mapTo(to = city)
-            val news = loadNewsForCityUseCase(LoadNewsForCityUseCase.Params(cityDom))
-            val newsVo = news.map { NewsVOMapper.mapFrom(from = it) }
-            newsViewState.postValue(NewsViewState.NewsLoadedViewState(newsVo))
+            try {
+                val cityDom = CityInformationVOMapper.mapTo(to = city)
+                val news = loadNewsForCityUseCase(LoadNewsForCityUseCase.Params(cityDom))
+                val newsVo = news.map { NewsVOMapper.mapFrom(from = it) }
+                newsViewState.postValue(NewsViewState.NewsLoadedViewState(newsVo))
+            } catch (e: Exception) {
+                newsErrorState.postValue(NewsErrorState.UnexpectedErrorEvent(e))
+            }
         }
     }
 

@@ -8,8 +8,10 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.pavelhabzansky.data.core.room.AppDatabase
 import com.pavelhabzansky.data.features.cities.repository.CityRepository
+import com.pavelhabzansky.data.features.issues.repository.IssuesRepository
 import com.pavelhabzansky.data.features.news.repository.NewsRepository
 import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
+import com.pavelhabzansky.domain.features.issues.repository.IIssuesRepository
 import com.pavelhabzansky.domain.features.news.repository.INewsRepository
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.qualifier.named
@@ -31,6 +33,14 @@ val appModule = module {
     single { provideFirebaseStorageReference() }
 
     single { AppDatabase.getInstance(context = get(), factory = provideSQLiteHelperFactory()) }
+
+    single {
+        IssuesRepository(
+            issuesReference = get(named(QUAL_FIREBASE_INCIDENTS)),
+            storageReference = get(),
+            issueDao = get<AppDatabase>().issueDao
+        ) as IIssuesRepository
+    }
 
     single {
         CityRepository(

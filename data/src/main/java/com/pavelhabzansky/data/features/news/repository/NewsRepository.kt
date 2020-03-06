@@ -3,9 +3,10 @@ package com.pavelhabzansky.data.features.news.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.pavelhabzansky.data.core.NEWS_LOAD_SIZE
+import com.pavelhabzansky.data.core.transform
 import com.pavelhabzansky.data.features.cities.dao.CityDao
-import com.pavelhabzansky.data.features.news.api.RssApi
-import com.pavelhabzansky.data.features.news.api.RssItem
+import com.pavelhabzansky.data.features.api.RssApi
+import com.pavelhabzansky.data.features.api.RssItem
 import com.pavelhabzansky.data.features.news.dao.NewsDao
 import com.pavelhabzansky.data.features.news.entities.NewsEntity
 import com.pavelhabzansky.data.features.news.mapper.NewsMapper
@@ -17,21 +18,21 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import timber.log.Timber
 
 class NewsRepository(
-    private val cityDao: CityDao,
-    private val newsDao: NewsDao
+        private val cityDao: CityDao,
+        private val newsDao: NewsDao
 ) : INewsRepository {
 
     override suspend fun getNews(city: CityInformationDO): List<NewsDO> {
         val items = fetchNewsFromApi(
-            feed = requireNotNull(city.rssFeed), url = requireNotNull(city.rssUrl)
+                feed = requireNotNull(city.rssFeed), url = requireNotNull(city.rssUrl)
         )
 
         return items.map {
             NewsDO(
-                title = it.title,
-                description = it.description,
-                url = it.link,
-                date = it.pubDate
+                    title = it.title,
+                    description = it.description,
+                    url = it.link,
+                    date = it.pubDate
             )
         }
     }
@@ -48,16 +49,17 @@ class NewsRepository(
 
             val news = items.map {
                 NewsEntity(
-                    title = it.title,
-                    description = it.description,
-                    url = it.link,
-                    date = it.pubDate
+                        title = it.title,
+                        description = it.description,
+                        url = it.link,
+                        date = it.pubDate
                 )
             }
 
-            val read = newsDao.getAllRead()
-            val updated = news.subtract(read).toList()
+            val all = newsDao.getAll()
+            val updated = news.subtract(all).plus(all).take(NEWS_LOAD_SIZE)
 
+            newsDao.removeAll()
             newsDao.insertAll(news = updated)
         }
     }
@@ -65,7 +67,7 @@ class NewsRepository(
     override suspend fun loadCachedNews(): LiveData<List<NewsDO>> {
         val entities = newsDao.getAllLive()
 
-        return Transformations.map(entities) {
+        return entities.transform {
             it.map { NewsMapper.mapFrom(from = it) }
         }
     }
@@ -74,28 +76,28 @@ class NewsRepository(
         newsDao.setAsRead(title = title)
         val entity = newsDao.getNewsLiveData(title = title)
 
-        return Transformations.map(entity) {
+        return entity.transform {
             NewsMapper.mapFrom(from = it)
         }
     }
 
     private fun fetchNewsFromApi(feed: String, url: String): List<RssItem> {
         val retrofit = Retrofit.Builder()
-            .baseUrl(feed)
-            .addConverterFactory(SimpleXmlConverterFactory.create())
-            .build()
+                .baseUrl(feed)
+                .addConverterFactory(SimpleXmlConverterFactory.create())
+                .build()
 
         val rssApi = retrofit.create(RssApi::class.java)
 
         val response = rssApi.fetchNews(url)
-            .execute()
+                .execute()
 
         Timber.i(response.body()?.channel?.item?.size?.toString())
 
         return response.body()
-            ?.channel
-            ?.item
-            ?.take(NEWS_LOAD_SIZE) ?: emptyList()
+                ?.channel
+                ?.item
+                ?.take(NEWS_LOAD_SIZE) ?: emptyList()
     }
 
 }

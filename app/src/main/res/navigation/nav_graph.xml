@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/news_fragment">
 
@@ -23,7 +24,25 @@
     <fragment
         android:id="@+id/map_fragment"
         android:name="com.pavelhabzansky.citizenapp.features.map.view.MapFragment"
-        android:label="@string/nav_label_map" />
+        android:label="@string/nav_label_map">
+
+        <action
+            android:id="@+id/to_create_issue"
+            app:destination="@+id/issue_create_fragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/to_issue_list"
+            app:destination="@+id/issue_list_fragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/news_detail_fragment"
@@ -34,6 +53,21 @@
         android:id="@+id/news_citizen_fragment"
         android:name="com.pavelhabzansky.citizenapp.features.news.view.CitizenNewsFragment"
         android:label="@string/nav_menu_news" />
+
+    <fragment
+        android:id="@+id/issue_create_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.issues.create.view.CreateIssueFragment"
+        android:label="@string/issue_create_label" />
+
+    <fragment
+        android:id="@+id/issue_detail_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.issues.detail.view.IssueDetailFragment"
+        android:label="@string/issue_detail_label" />
+
+    <fragment
+        android:id="@+id/issue_list_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.issues.list.view.IssueListFragment"
+        android:label="@string/issue_list_label" />
 
     <action
         android:id="@+id/toCityPickerFragment"
