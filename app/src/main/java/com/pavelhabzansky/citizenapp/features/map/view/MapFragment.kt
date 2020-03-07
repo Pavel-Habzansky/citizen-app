@@ -29,6 +29,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
@@ -85,6 +86,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         registerEvents()
 
         viewModel.fetchIssues()
+        viewModel.loadPlaces()
         viewModel.requestLocationPermission()
     }
 
@@ -153,6 +155,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         when (event) {
             is MapViewStates.LocationPermissionGranted -> {
                 googleMap.isMyLocationEnabled = true
+                val location = locationClient.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                viewModel.fetchPlaces(location.latitude, location.longitude)
             }
             is MapViewStates.LocationPermissionNotGranted -> {
                 ActivityCompat.requestPermissions(
@@ -160,6 +164,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                         FINE_LOCATION_REQ
                 )
+            }
+            is MapViewStates.PlacesLoadedEvent -> {
+                Toast.makeText(context, "${event.places.size} places loaded", Toast.LENGTH_LONG).show()
             }
             is MapViewStates.IssuesUpdatedEvent -> updateMarkers(issues = event.issues)
         }
@@ -220,7 +227,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap?) {
         map?.let {
-            Timber.i("Map is obtained")
 
             googleMap = it
             googleMap.setOnMapLongClickListener { onMapLongClick(it) }

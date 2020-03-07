@@ -41,6 +41,7 @@ dependencies {
     implementation project(':data')
     implementation project(':infrastructure')
 
+    implementation thirdPartyDependencies.places
     implementation thirdPartyDependencies.timber
     implementation thirdPartyDependencies.koinScope
     implementation thirdPartyDependencies.koinAndroid
@@ -51,6 +52,7 @@ dependencies {
     implementation thirdPartyDependencies.googleMaps
     implementation thirdPartyDependencies.retrofit
     implementation thirdPartyDependencies.gson
+    implementation thirdPartyDependencies.gsonConverter
 
     implementation architectureComponents.navigationFragment
     implementation architectureComponents.navigationUi

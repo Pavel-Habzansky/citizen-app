@@ -1,7 +1,10 @@
 package com.pavelhabzansky.citizenapp.core.app
 
 import android.app.Application
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.pavelhabzansky.citizenapp.LogTree
+import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.config.LogConsumer
 import com.pavelhabzansky.citizenapp.core.di.appModule
 import com.pavelhabzansky.citizenapp.features.cities.detail.di.cityDetailModule
@@ -27,6 +30,9 @@ class CitizenApp : Application() {
 
         initMisc()
         initKoin()
+
+        Places.initialize(applicationContext, getString(R.string.maps_api_key))
+        val client = Places.createClient(this)
     }
 
     private fun initMisc() {
@@ -40,16 +46,16 @@ class CitizenApp : Application() {
             androidContext(this@CitizenApp)
 
             modules(
-                listOf(
-                    appModule,
-                    newsModule,
-                    cityPickerModule,
-                    cityDetailModule,
-                    mapsModule,
-                    createIssueModule,
-                    issueDetailModule,
-                    issueListModule
-                )
+                    listOf(
+                            appModule,
+                            newsModule,
+                            cityPickerModule,
+                            cityDetailModule,
+                            mapsModule,
+                            createIssueModule,
+                            issueDetailModule,
+                            issueListModule
+                    )
             )
         }
     }
