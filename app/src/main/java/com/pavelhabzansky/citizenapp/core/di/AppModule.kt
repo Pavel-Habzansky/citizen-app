@@ -71,7 +71,8 @@ val appModule = module {
     single {
         PlacesRepository(
                 placesApi = get(),
-                placesDao = get<AppDatabase>().placesDao
+                placesDao = get<AppDatabase>().placesDao,
+                placeSettingsDao = get<AppDatabase>().placeSettingDao
         ) as IPlacesRepository
     }
 

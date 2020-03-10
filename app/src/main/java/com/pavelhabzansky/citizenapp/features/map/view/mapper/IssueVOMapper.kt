@@ -17,7 +17,7 @@ object IssueVOMapper : MapperDirectional<IssueVO, IssueDO>() {
     )
 
     override fun mapTo(to: IssueDO) = IssueVO(
-        title = to.title,
+        issueTitle = to.title,
         createTime = to.createTime,
         type = IssueTypeVOMapper.mapTo(to = to.type),
         description = to.description,

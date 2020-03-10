@@ -9,9 +9,10 @@ interface PlacesApi {
     @GET("place/nearbysearch/json")
     fun fetchPlaces(
             @Query("location") location: String,
-            @Query("radius") radius: String = "50000",
+            @Query("radius") radius: String = "5000",
             @Query("type") type: String,
-            @Query("key") key: String
+            @Query("key") key: String,
+            @Query("pagetoken") pageToken: String = ""
     ): Call<PlacesResponse>
 
 }

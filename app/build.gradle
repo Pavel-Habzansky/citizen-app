@@ -52,6 +52,7 @@ dependencies {
     implementation thirdPartyDependencies.googleMaps
     implementation thirdPartyDependencies.retrofit
     implementation thirdPartyDependencies.gson
+    implementation thirdPartyDependencies.mapsUtil
     implementation thirdPartyDependencies.gsonConverter
 
     implementation architectureComponents.navigationFragment

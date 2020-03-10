@@ -5,10 +5,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
@@ -17,22 +13,17 @@ import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
-import com.google.gson.Gson
+import com.google.maps.android.clustering.ClusterItem
+import com.google.maps.android.clustering.ClusterManager
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.*
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
@@ -41,6 +32,7 @@ import com.pavelhabzansky.citizenapp.databinding.FragmentMapBinding
 import com.pavelhabzansky.citizenapp.features.map.states.MapViewStates
 import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
 import com.pavelhabzansky.citizenapp.features.map.view.vo.IssueVO
+import com.pavelhabzansky.citizenapp.features.place.view.vo.PlaceVO
 import com.pavelhabzansky.domain.features.issues.domain.Bounds
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -56,6 +48,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private val markers = mutableListOf<Pair<Marker, IssueVO>>()
 
     private lateinit var googleMap: GoogleMap
+    private lateinit var clusterManager: ClusterManager<ClusterItem>
     private lateinit var binding: FragmentMapBinding
 
     private var fabOpen = false
@@ -166,71 +159,51 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 )
             }
             is MapViewStates.PlacesLoadedEvent -> {
-                Toast.makeText(context, "${event.places.size} places loaded", Toast.LENGTH_LONG).show()
+                clusterManager.addItems(event.places)
             }
-            is MapViewStates.IssuesUpdatedEvent -> updateMarkers(issues = event.issues)
+            is MapViewStates.IssuesUpdatedEvent -> {
+                // TODO Change getting current markers
+                val currentIssues = markers.map { it.second }
+                val newIssues = event.issues.minus(currentIssues)
+
+                clusterManager.removeItems(currentIssues)
+                clusterManager.addItems(newIssues)
+            }
         }
     }
 
-    private fun updateMarkers(issues: List<IssueVO>) {
-        val currentIssues = markers.map { it.second }
-        val newIssues = issues.minus(currentIssues)
-
-        newIssues.forEach {
-            val marker = googleMap.addMarker(
-                    MarkerOptions()
-                            .position(LatLng(it.lat, it.lng))
-                            .title(it.title)
-                            .icon(
-                                    BitmapDescriptorFactory.fromBitmap(
-                                            bitmapFromVector(requireContext(), it.type.icon)
-                                    )
-                            )
-            )
-            markers.add(marker to it)
-        }
-
-        val oldIssues = currentIssues.minus(issues)
-        val oldMarkers = markers.filter { oldIssues.contains(it.second) }
-        oldMarkers.onEach { it.first.remove() }
-        markers.removeAll(oldMarkers)
+    private fun onIssueClick(issue: IssueVO) {
+        val issueJson = issue.toJson()
+        val args = Bundle().also { it.putString(ARG_ISSUE_DATA, issueJson) }
+        findParentNavController().navigate(R.id.issue_detail_fragment, args)
     }
 
-    private fun onMarkerClick(marker: Marker): Boolean {
-        val data = markers.find { it.first == marker }?.second
-
-        data?.let {
-            val issueJson = it.toJson()
-            val args = Bundle().also { it.putString(ARG_ISSUE_DATA, issueJson) }
-            findParentNavController().navigate(R.id.issue_detail_fragment, args)
-
-            return true
-        }
-
-        return false
+    private fun onPlaceClick(place: PlaceVO) {
+        val placeJson = place.toJson()
+        val args = Bundle().also { it.putString(ARG_PLACE_DATA, placeJson) }
+        findParentNavController().navigate(R.id.place_detail_fragment, args)
     }
 
-    private fun bitmapFromVector(context: Context, id: Int): Bitmap {
-        val drawable = ContextCompat.getDrawable(context, id)
+    private fun onClusterItemClick(item: ClusterItem): Boolean {
+        when (item) {
+            is IssueVO -> onIssueClick(item)
+            is PlaceVO -> onPlaceClick(item)
+        }
 
-        val bitmap = Bitmap.createBitmap(
-                drawable?.intrinsicWidth ?: 0,
-                drawable?.intrinsicHeight ?: 0,
-                Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        drawable?.setBounds(0, 0, canvas.width, canvas.height)
-        drawable?.draw(canvas)
-
-        return bitmap
+        return true
     }
 
     override fun onMapReady(map: GoogleMap?) {
         map?.let {
-
             googleMap = it
+
+            clusterManager = ClusterManager(context, googleMap)
+            clusterManager.renderer = PlaceClusterRenderer(requireContext(), googleMap, clusterManager)
+            clusterManager.setOnClusterItemClickListener { onClusterItemClick(it) }
+
+            googleMap.setOnCameraIdleListener(clusterManager)
             googleMap.setOnMapLongClickListener { onMapLongClick(it) }
-            googleMap.setOnMarkerClickListener { onMarkerClick(it) }
+            googleMap.setOnMarkerClickListener(clusterManager)
             googleMap.setOnCameraMoveListener { loadIssueInBounds() }
 
             arguments?.let { args ->

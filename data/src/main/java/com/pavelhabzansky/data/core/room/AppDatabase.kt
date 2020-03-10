@@ -15,8 +15,10 @@ import com.pavelhabzansky.data.features.issues.dao.IssueDao
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
 import com.pavelhabzansky.data.features.news.dao.NewsDao
 import com.pavelhabzansky.data.features.news.entities.NewsEntity
+import com.pavelhabzansky.data.features.places.dao.PlaceSettingsDao
 import com.pavelhabzansky.data.features.places.dao.PlacesDao
 import com.pavelhabzansky.data.features.places.entities.PlaceEntity
+import com.pavelhabzansky.data.features.places.entities.PlaceSettingsEntity
 
 @Database(
         entities = [
@@ -24,9 +26,10 @@ import com.pavelhabzansky.data.features.places.entities.PlaceEntity
             CityEntity::class,
             NewsEntity::class,
             IssueEntity::class,
-            PlaceEntity::class
+            PlaceEntity::class,
+            PlaceSettingsEntity::class
         ],
-        version = 5
+        version = 8
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -36,6 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val lastSearchDao: LastSearchDao
     abstract val issueDao: IssueDao
     abstract val placesDao: PlacesDao
+    abstract val placeSettingDao: PlaceSettingsDao
 
     companion object {
         @Volatile

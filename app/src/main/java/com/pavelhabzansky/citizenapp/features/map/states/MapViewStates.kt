@@ -1,7 +1,7 @@
 package com.pavelhabzansky.citizenapp.features.map.states
 
 import com.pavelhabzansky.citizenapp.features.map.view.vo.IssueVO
-import com.pavelhabzansky.citizenapp.features.map.view.vo.PlaceVO
+import com.pavelhabzansky.citizenapp.features.place.view.vo.PlaceVO
 
 sealed class MapViewStates {
 

@@ -46,6 +46,7 @@ ext {
             googleMaps         : '16.1.0',
             googlePlaces       : '2.2.0',
             retrofit           : '2.7.1',
+            mapsUtil           : '1.0.0',
 
             debugDb            : '1.0.6',
             espresso           : '3.1.0',
@@ -126,6 +127,7 @@ ext {
     ]
 
     thirdPartyDependencies = [
+            mapsUtil       : "com.google.maps.android:android-maps-utils:${versions.mapsUtil}",
             places         : "com.google.android.libraries.places:places:${versions.googlePlaces}",
             googleMaps     : "com.google.android.gms:play-services-maps:${versions.googleMaps}",
             facebook       : "com.facebook.android:facebook-android-sdk:${versions.facebook}",

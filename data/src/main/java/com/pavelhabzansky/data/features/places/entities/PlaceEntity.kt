@@ -10,6 +10,8 @@ data class PlaceEntity(
         val placeId: String,
         val location: Gps,
         val name: String,
-        val type: String,
+        var type: String = "",
+        val rating: Double = 5.0,
+        val open: Boolean = false,
         val vicinity: String
 )

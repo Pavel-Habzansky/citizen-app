@@ -9,6 +9,8 @@ data class PlacesSearchResult(
         var name: String? = null,
         @SerializedName("place_id")
         var placeId: String? = null,
+        var rating: Double? = null,
+        var photos: List<PlacePhoto> = emptyList(),
         var types: List<String> = emptyList(),
         var vicinity: String? = null
 )

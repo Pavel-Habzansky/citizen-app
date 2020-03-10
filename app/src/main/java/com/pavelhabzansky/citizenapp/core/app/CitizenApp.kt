@@ -14,6 +14,7 @@ import com.pavelhabzansky.citizenapp.features.issues.detail.di.issueDetailModule
 import com.pavelhabzansky.citizenapp.features.issues.list.di.issueListModule
 import com.pavelhabzansky.citizenapp.features.map.di.mapsModule
 import com.pavelhabzansky.citizenapp.features.news.di.newsModule
+import com.pavelhabzansky.citizenapp.features.place.di.placesModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -30,9 +31,6 @@ class CitizenApp : Application() {
 
         initMisc()
         initKoin()
-
-        Places.initialize(applicationContext, getString(R.string.maps_api_key))
-        val client = Places.createClient(this)
     }
 
     private fun initMisc() {
@@ -54,7 +52,8 @@ class CitizenApp : Application() {
                             mapsModule,
                             createIssueModule,
                             issueDetailModule,
-                            issueListModule
+                            issueListModule,
+                            placesModule
                     )
             )
         }
