@@ -65,9 +65,19 @@
         android:label="@string/issue_detail_label" />
 
     <fragment
+        android:id="@+id/place_detail_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.place.view.PlaceDetailFragment"
+        android:label="@string/place_detail_label" />
+
+    <fragment
         android:id="@+id/issue_list_fragment"
         android:name="com.pavelhabzansky.citizenapp.features.issues.list.view.IssueListFragment"
         android:label="@string/issue_list_label" />
+
+    <fragment
+        android:id="@+id/settings_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.settings.view.SettingsFragment"
+        android:label="@string/settings_label" />
 
     <action
         android:id="@+id/toCityPickerFragment"

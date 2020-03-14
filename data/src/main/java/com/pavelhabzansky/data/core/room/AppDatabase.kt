@@ -15,15 +15,26 @@ import com.pavelhabzansky.data.features.issues.dao.IssueDao
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
 import com.pavelhabzansky.data.features.news.dao.NewsDao
 import com.pavelhabzansky.data.features.news.entities.NewsEntity
+import com.pavelhabzansky.data.features.settings.dao.PlaceSettingsDao
+import com.pavelhabzansky.data.features.places.dao.PlacesDao
+import com.pavelhabzansky.data.features.places.entities.PhotoEntity
+import com.pavelhabzansky.data.features.places.entities.PlaceEntity
+import com.pavelhabzansky.data.features.settings.dao.IssueSettingsDao
+import com.pavelhabzansky.data.features.settings.entities.IssueSettingsEntity
+import com.pavelhabzansky.data.features.settings.entities.PlaceSettingsEntity
 
 @Database(
-    entities = [
-        LastSearchCityEntity::class,
-        CityEntity::class,
-        NewsEntity::class,
-        IssueEntity::class
-    ],
-    version = 4
+        entities = [
+            LastSearchCityEntity::class,
+            CityEntity::class,
+            NewsEntity::class,
+            IssueEntity::class,
+            PlaceEntity::class,
+            PlaceSettingsEntity::class,
+            IssueSettingsEntity::class,
+            PhotoEntity::class
+        ],
+        version = 11
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -32,6 +43,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val newsDao: NewsDao
     abstract val lastSearchDao: LastSearchDao
     abstract val issueDao: IssueDao
+    abstract val placesDao: PlacesDao
+    abstract val placeSettingDao: PlaceSettingsDao
+    abstract val issueSettingsDao: IssueSettingsDao
 
     companion object {
         @Volatile
@@ -40,23 +54,23 @@ abstract class AppDatabase : RoomDatabase() {
         const val DB_KEY_NAME = "DB_KEY"
 
         fun getInstance(context: Context, factory: SupportSQLiteOpenHelper.Factory?): AppDatabase =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context, factory).also {
-                    INSTANCE = it
+                INSTANCE ?: synchronized(this) {
+                    INSTANCE ?: buildDatabase(context, factory).also {
+                        INSTANCE = it
+                    }
                 }
-            }
 
         private fun buildDatabase(
-            context: Context,
-            factory: SupportSQLiteOpenHelper.Factory? = null
+                context: Context,
+                factory: SupportSQLiteOpenHelper.Factory? = null
         ): AppDatabase {
             return Room.databaseBuilder(
-                context.applicationContext,
-                AppDatabase::class.java, DB_NAME
+                    context.applicationContext,
+                    AppDatabase::class.java, DB_NAME
             ).addMigrations()
-                .openHelperFactory(factory)
-                .fallbackToDestructiveMigration()
-                .build()
+                    .openHelperFactory(factory)
+                    .fallbackToDestructiveMigration()
+                    .build()
         }
     }
 

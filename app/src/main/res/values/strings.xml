@@ -77,4 +77,30 @@
     <!--  ISSUE LIST  -->
     <string name="issue_list_label">Hlášení</string>
 
+    <!--  PLACE TYPE  -->
+    <string name="place_type_bar">Bar</string>
+    <string name="place_type_park">Park</string>
+    <string name="place_type_bus">Bus</string>
+    <string name="place_type_cafe">Kavárna</string>
+    <string name="place_type_church">Kostel</string>
+    <string name="place_type_museum">Muzeum</string>
+    <string name="place_type_police">Policie</string>
+    <string name="place_type_parking">Parkování</string>
+    <string name="place_type_poi">Zajímavá místa</string>
+
+    <!--  PLACE DETAIL  -->
+    <string name="place_detail_label">Detail místa</string>
+    <string name="place_detail_open">Otevřeno</string>
+    <string name="place_detail_closed">Zavřeno</string>
+    <string name="place_detail_show_on_map">Zobrazit na mapě</string>
+
+    <!--  SETTINGS  -->
+    <string name="settings_label">Nastavení</string>
+    <string name="settings_places_title">Nastavení míst</string>
+    <string name="settings_issues_title">Nastavení hlášení</string>
+    <string name="settings_save">Uložit</string>
+    <string name="settings_close">Zavřít</string>
+    <string name="settings_places_check_all">Všechna místa</string>
+    <string name="settings_issues_check_all">Všechna hlášení</string>
+
 </resources>

@@ -134,7 +134,7 @@ class CreateIssueFragment : BaseFragment() {
 
         val type = IssueTypeVO.values()[binding.typeSpinner.selectedItemPosition]
         val issue = IssueVO(
-                title = binding.titleInput.text.toString(),
+                issueTitle = binding.titleInput.text.toString(),
                 createTime = System.currentTimeMillis(),
                 type = type,
                 description = binding.descriptionInput.text.toString(),

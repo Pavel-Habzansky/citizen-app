@@ -28,6 +28,7 @@ const val ARG_KEY_LAT = "LAT"
 const val ARG_KEY_LNG = "LNG"
 
 const val ARG_ISSUE_DATA = "ISSUE_JSON"
+const val ARG_PLACE_DATA = "PLACE_JSON"
 
 const val CHOOSER_TYPE_IMAGES = "image/*"
 
