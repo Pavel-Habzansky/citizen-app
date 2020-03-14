@@ -10,7 +10,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/newsTabLayout"
             android:layout_width="match_parent"
-            app:tabIndicatorColor="@color/btn_news"
+            app:tabIndicatorColor="@color/green"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
