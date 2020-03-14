@@ -66,7 +66,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         mapView.getMapAsync(this)
 
         binding.mainFab.setOnClickListener { toggleFabMenu() }
-        binding.mapSettingsFab.setOnClickListener { }
+        binding.mapSettingsFab.setOnClickListener { toSettings() }
         binding.newIssueFab.setOnClickListener { createNewIssue() }
         binding.toListFab.setOnClickListener { toIssueList() }
 
@@ -79,7 +79,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         registerEvents()
 
         viewModel.fetchIssues()
-        viewModel.loadPlaces()
         viewModel.requestLocationPermission()
     }
 
@@ -160,6 +159,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             }
             is MapViewStates.PlacesLoadedEvent -> {
                 clusterManager.addItems(event.places)
+                clusterManager.cluster()
             }
             is MapViewStates.IssuesUpdatedEvent -> {
                 // TODO Change getting current markers
@@ -168,8 +168,13 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
                 clusterManager.removeItems(currentIssues)
                 clusterManager.addItems(newIssues)
+                clusterManager.cluster()
             }
         }
+    }
+
+    private fun toSettings() {
+        findParentNavController().navigate(R.id.settings_fragment)
     }
 
     private fun onIssueClick(issue: IssueVO) {
@@ -215,6 +220,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 targetUser()
             }
 
+            viewModel.loadPlaces()
             loadIssueInBounds()
         } ?: run {
             Timber.w("Couldn't obtain map - GoogleMap is null")

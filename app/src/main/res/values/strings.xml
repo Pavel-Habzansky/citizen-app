@@ -94,4 +94,13 @@
     <string name="place_detail_closed">Zavřeno</string>
     <string name="place_detail_show_on_map">Zobrazit na mapě</string>
 
+    <!--  SETTINGS  -->
+    <string name="settings_label">Nastavení</string>
+    <string name="settings_places_title">Nastavení míst</string>
+    <string name="settings_issues_title">Nastavení hlášení</string>
+    <string name="settings_save">Uložit</string>
+    <string name="settings_close">Zavřít</string>
+    <string name="settings_places_check_all">Všechna místa</string>
+    <string name="settings_issues_check_all">Všechna hlášení</string>
+
 </resources>

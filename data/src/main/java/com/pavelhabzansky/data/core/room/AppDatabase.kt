@@ -15,10 +15,13 @@ import com.pavelhabzansky.data.features.issues.dao.IssueDao
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
 import com.pavelhabzansky.data.features.news.dao.NewsDao
 import com.pavelhabzansky.data.features.news.entities.NewsEntity
-import com.pavelhabzansky.data.features.places.dao.PlaceSettingsDao
+import com.pavelhabzansky.data.features.settings.dao.PlaceSettingsDao
 import com.pavelhabzansky.data.features.places.dao.PlacesDao
+import com.pavelhabzansky.data.features.places.entities.PhotoEntity
 import com.pavelhabzansky.data.features.places.entities.PlaceEntity
-import com.pavelhabzansky.data.features.places.entities.PlaceSettingsEntity
+import com.pavelhabzansky.data.features.settings.dao.IssueSettingsDao
+import com.pavelhabzansky.data.features.settings.entities.IssueSettingsEntity
+import com.pavelhabzansky.data.features.settings.entities.PlaceSettingsEntity
 
 @Database(
         entities = [
@@ -27,9 +30,11 @@ import com.pavelhabzansky.data.features.places.entities.PlaceSettingsEntity
             NewsEntity::class,
             IssueEntity::class,
             PlaceEntity::class,
-            PlaceSettingsEntity::class
+            PlaceSettingsEntity::class,
+            IssueSettingsEntity::class,
+            PhotoEntity::class
         ],
-        version = 8
+        version = 11
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -40,6 +45,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val issueDao: IssueDao
     abstract val placesDao: PlacesDao
     abstract val placeSettingDao: PlaceSettingsDao
+    abstract val issueSettingsDao: IssueSettingsDao
 
     companion object {
         @Volatile

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_item_16"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/placesTitle"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_places_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/allCheckPlaces"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_item_8"
+                android:text="@string/settings_places_check_all"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/placesTitle"
+                tools:text="Všechna místa" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/placesSettingsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_item_12"
+                android:layout_marginTop="@dimen/margin_item_8"
+                app:layout_constraintStart_toStartOf="@+id/allCheckPlaces"
+                app:layout_constraintTop_toBottomOf="@id/allCheckPlaces" />
+
+            <TextView
+                android:id="@+id/issuesTitle"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_item_16"
+                android:text="@string/settings_issues_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/placesSettingsRecycler" />
+
+            <CheckBox
+                android:id="@+id/allCheckIssues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_item_8"
+                android:text="@string/settings_issues_check_all"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/issuesTitle"
+                tools:text="Všechna místa" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/issuesSettingsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_item_12"
+                android:layout_marginTop="@dimen/margin_item_8"
+                app:layout_constraintTop_toBottomOf="@id/allCheckIssues" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_item_16"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/issuesSettingsRecycler">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/closeButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_news_button"
+                    android:text="@string/settings_close"
+                    android:textColor="#fff"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/saveButton"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="Zavrit" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/saveButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_item_8"
+                    android:background="@drawable/bg_news_button"
+                    android:text="@string/settings_save"
+                    android:textColor="#fff"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/closeButton"
+                    tools:text="Ulozit" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

@@ -11,7 +11,7 @@ data class PlaceEntity(
         val location: Gps,
         val name: String,
         var type: String = "",
-        val rating: Double = 5.0,
+        val rating: Double?,
         val open: Boolean = false,
         val vicinity: String
 )

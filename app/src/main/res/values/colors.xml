@@ -6,4 +6,6 @@
 
     <color name="theme_color">#6c25b8</color>
     <color name="btn_news">#6c25b8</color>
+
+    <color name="green">#29D63A</color>
 </resources>

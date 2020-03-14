@@ -10,7 +10,7 @@ data class PlaceVO(
         val name: String,
         val vicinity: String,
         val open: Boolean,
-        val rating: Double,
+        val rating: Double?,
         val type: PlaceTypeVO
 ) : ClusterItem {
 

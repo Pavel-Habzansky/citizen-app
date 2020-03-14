@@ -10,4 +10,6 @@ interface IPlacesRepository {
 
     suspend fun loadAllPlaces(): LiveData<List<PlaceDO>>
 
+    suspend fun loadImage(placeId: String): List<ByteArray>
+
 }

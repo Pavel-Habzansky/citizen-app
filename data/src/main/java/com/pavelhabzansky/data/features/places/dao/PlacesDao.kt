@@ -2,6 +2,7 @@ package com.pavelhabzansky.data.features.places.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.pavelhabzansky.data.features.places.entities.PhotoEntity
 import com.pavelhabzansky.data.features.places.entities.PlaceEntity
 
 @Dao
@@ -18,5 +19,11 @@ abstract class PlacesDao {
 
     @Query("SELECT * FROM PlaceEntity")
     abstract fun getAll(): LiveData<List<PlaceEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertPhotos(photos: List<PhotoEntity>)
+
+    @Query("SELECT * FROM PhotoEntity WHERE placeId = :placeId")
+    abstract fun getPhotos(placeId: String): List<PhotoEntity>
 
 }

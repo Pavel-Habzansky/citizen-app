@@ -80,4 +80,10 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+
+        placesLiveData?.removeObserver(placesObserver)
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.pavelhabzansky.data.features.places.entities
+package com.pavelhabzansky.data.features.settings.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

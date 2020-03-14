@@ -56,6 +56,15 @@
             app:layout_constraintTop_toBottomOf="@id/openedText"
             tools:text="Typ" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_item_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/typeText" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/createButton"
             android:layout_width="match_parent"

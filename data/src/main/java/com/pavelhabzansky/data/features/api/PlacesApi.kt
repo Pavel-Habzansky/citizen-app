@@ -1,5 +1,6 @@
 package com.pavelhabzansky.data.features.api
 
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,5 +15,13 @@ interface PlacesApi {
             @Query("key") key: String,
             @Query("pagetoken") pageToken: String = ""
     ): Call<PlacesResponse>
+
+    @GET("place/photo")
+    fun fetchImage(
+            @Query("maxwidth") maxwidth: Int = 400,
+            @Query("maxheight") maxheight: Int = 400,
+            @Query("photoreference") photoRef: String,
+            @Query("key") key: String
+    ): Call<ResponseBody>
 
 }

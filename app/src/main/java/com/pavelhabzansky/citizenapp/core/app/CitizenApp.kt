@@ -15,6 +15,7 @@ import com.pavelhabzansky.citizenapp.features.issues.list.di.issueListModule
 import com.pavelhabzansky.citizenapp.features.map.di.mapsModule
 import com.pavelhabzansky.citizenapp.features.news.di.newsModule
 import com.pavelhabzansky.citizenapp.features.place.di.placesModule
+import com.pavelhabzansky.citizenapp.features.settings.di.settingsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -53,7 +54,8 @@ class CitizenApp : Application() {
                             createIssueModule,
                             issueDetailModule,
                             issueListModule,
-                            placesModule
+                            placesModule,
+                            settingsModule
                     )
             )
         }

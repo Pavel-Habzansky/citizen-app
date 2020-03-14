@@ -17,8 +17,11 @@ import com.pavelhabzansky.data.features.issues.dao.IssueDao
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
 import com.pavelhabzansky.data.features.issues.mapper.IssueMapper
 import com.pavelhabzansky.data.features.issues.model.Gps
+import com.pavelhabzansky.data.features.settings.dao.IssueSettingsDao
+import com.pavelhabzansky.data.features.settings.entities.IssueSettingsEntity
 import com.pavelhabzansky.domain.features.issues.domain.Bounds
 import com.pavelhabzansky.domain.features.issues.domain.IssueDO
+import com.pavelhabzansky.domain.features.issues.domain.IssueType
 import com.pavelhabzansky.domain.features.issues.repository.IIssuesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -27,25 +30,33 @@ import java.io.ByteArrayOutputStream
 class IssuesRepository(
         private val issuesReference: DatabaseReference,
         private val storageReference: StorageReference,
-        private val issueDao: IssueDao
+        private val issueDao: IssueDao,
+        private val issueSettingsDao: IssueSettingsDao
 ) : IIssuesRepository {
 
     override suspend fun fetchIssues() {
+        if (issueSettingsDao.getCount() != IssueType.values().size) {
+            populateIssueSettings()
+        }
+
+        val issueTypes = issueSettingsDao.getAllEnabled().map { it.type }
+
         issuesReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val issues = mutableListOf<IssueEntity>()
                 snapshot.children.forEach {
                     val issue = it.getValue(Issue::class.java)
+                    if (issueTypes.contains(issue?.type)) {
+                        val gps = it.child("gps").getValue(Gps::class.java)
 
-                    val gps = it.child("gps").getValue(Gps::class.java)
+                        issue?.let {
+                            val entity = IssueMapper.mapApiToIssueEntity(it)
 
-                    issue?.let {
-                        val entity = IssueMapper.mapApiToIssueEntity(it)
+                            entity.lat = gps?.lat ?: 0.0
+                            entity.lng = gps?.lng ?: 0.0
 
-                        entity.lat = gps?.lat ?: 0.0
-                        entity.lng = gps?.lng ?: 0.0
-
-                        issues.add(entity)
+                            issues.add(entity)
+                        }
                     }
                 }
 
@@ -108,6 +119,14 @@ class IssuesRepository(
         }
 
         return data
+    }
+
+    private fun populateIssueSettings() {
+        val settings = IssueType.values().map {
+            IssueSettingsEntity(type = it.type, enabled = true)
+        }
+
+        issueSettingsDao.insertAll(entities = settings)
     }
 
 }

@@ -25,7 +25,7 @@ object PlaceMapper : Mapper<PlaceEntity, PlaceDO>() {
             name = requireNotNull(api.name),
             vicinity = requireNotNull(api.vicinity),
             open = api.openingHours?.openNow ?: false,
-            rating = requireNotNull(api.rating)
+            rating = api.rating
     )
 
 }
