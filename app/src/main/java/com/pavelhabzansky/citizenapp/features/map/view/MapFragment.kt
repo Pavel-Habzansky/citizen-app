@@ -172,7 +172,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 val currentIssues = markers.map { it.second }
                 val newIssues = event.issues.minus(currentIssues)
 
-                if(this::clusterManager.isInitialized) {
+                if (this::clusterManager.isInitialized) {
                     clusterManager.removeItems(currentIssues)
                     clusterManager.addItems(newIssues)
                     clusterManager.cluster()
@@ -232,7 +232,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                     loaded = true
                     targetUser()
                 } else {
-                    it.moveCamera(CameraUpdateFactory.newCameraPosition(lastShownPosition))
+                    if (!this::lastShownPosition.isInitialized) {
+                        targetUser()
+                    } else {
+                        it.moveCamera(CameraUpdateFactory.newCameraPosition(lastShownPosition))
+                    }
                 }
             }
 

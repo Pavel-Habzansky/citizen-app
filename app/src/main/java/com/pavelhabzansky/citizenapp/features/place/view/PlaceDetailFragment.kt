@@ -56,8 +56,14 @@ class PlaceDetailFragment : BaseFragment() {
             binding.executePendingBindings()
 
             when (place.open) {
-                true -> binding.openedText.text = getString(R.string.place_detail_open)
-                false -> binding.openedText.text = getString(R.string.place_detail_closed)
+                true -> {
+                    binding.openedText.text = getString(R.string.place_detail_open)
+                    binding.openedText.setTextColor(resources.getColor(R.color.green))
+                }
+                false -> {
+                    binding.openedText.text = getString(R.string.place_detail_closed)
+                    binding.openedText.setTextColor(resources.getColor(R.color.red))
+                }
                 else -> binding.openedText.visibility = View.GONE
             }
 
