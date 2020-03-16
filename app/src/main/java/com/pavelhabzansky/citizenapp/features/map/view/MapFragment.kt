@@ -53,6 +53,10 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     private var fabOpen = false
 
+    private var loaded = false
+
+    private lateinit var lastShownPosition: CameraPosition
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -158,17 +162,21 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 )
             }
             is MapViewStates.PlacesLoadedEvent -> {
-                clusterManager.addItems(event.places)
-                clusterManager.cluster()
+                if (this::clusterManager.isInitialized) {
+                    clusterManager.addItems(event.places)
+                    clusterManager.cluster()
+                }
             }
             is MapViewStates.IssuesUpdatedEvent -> {
                 // TODO Change getting current markers
                 val currentIssues = markers.map { it.second }
                 val newIssues = event.issues.minus(currentIssues)
 
-                clusterManager.removeItems(currentIssues)
-                clusterManager.addItems(newIssues)
-                clusterManager.cluster()
+                if(this::clusterManager.isInitialized) {
+                    clusterManager.removeItems(currentIssues)
+                    clusterManager.addItems(newIssues)
+                    clusterManager.cluster()
+                }
             }
         }
     }
@@ -209,7 +217,10 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             googleMap.setOnCameraIdleListener(clusterManager)
             googleMap.setOnMapLongClickListener { onMapLongClick(it) }
             googleMap.setOnMarkerClickListener(clusterManager)
-            googleMap.setOnCameraMoveListener { loadIssueInBounds() }
+            googleMap.setOnCameraMoveListener {
+                lastShownPosition = it.cameraPosition
+                loadIssueInBounds()
+            }
 
             arguments?.let { args ->
                 val latitude = args.getDouble(ARG_CITY_LAT)
@@ -217,7 +228,12 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
                 navigateToLocation(lat = latitude, lng = longitude)
             } ?: run {
-                targetUser()
+                if (!loaded) {
+                    loaded = true
+                    targetUser()
+                } else {
+                    it.moveCamera(CameraUpdateFactory.newCameraPosition(lastShownPosition))
+                }
             }
 
             viewModel.loadPlaces()

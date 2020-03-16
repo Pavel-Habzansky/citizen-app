@@ -34,7 +34,7 @@ import com.pavelhabzansky.data.features.settings.entities.PlaceSettingsEntity
             IssueSettingsEntity::class,
             PhotoEntity::class
         ],
-        version = 11
+        version = 12
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

@@ -7,6 +7,6 @@ data class PlaceDO(
         val name: String,
         val rating: Double?,
         val type: PlaceTypeDO,
-        val open: Boolean,
+        val open: Boolean?,
         val vicinity: String
 )

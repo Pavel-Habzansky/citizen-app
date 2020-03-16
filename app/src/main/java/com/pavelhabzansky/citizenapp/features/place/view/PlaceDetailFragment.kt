@@ -55,6 +55,12 @@ class PlaceDetailFragment : BaseFragment() {
             binding.setVariable(BR.place, place)
             binding.executePendingBindings()
 
+            when (place.open) {
+                true -> binding.openedText.text = getString(R.string.place_detail_open)
+                false -> binding.openedText.text = getString(R.string.place_detail_closed)
+                else -> binding.openedText.visibility = View.GONE
+            }
+
             viewModel.loadPlaceImage(placeId = place.placeId)
         } ?: run {
             Toast.makeText(context, "Nevalidní data pro vybrané místo", Toast.LENGTH_LONG).show()
