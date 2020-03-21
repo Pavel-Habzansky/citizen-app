@@ -23,3 +23,5 @@ const val GPS_CHILD_LAT = "lat"
 const val GPS_CHILD_LNG = "lng"
 
 const val NEWS_LOAD_SIZE = 50
+
+const val EARTH_RAD = 6371

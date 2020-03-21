@@ -158,7 +158,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 ActivityCompat.requestPermissions(
                         requireActivity(),
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        FINE_LOCATION_REQ
+                        FINE_LOCATION_REQ_MAP
                 )
             }
             is MapViewStates.PlacesLoadedEvent -> {

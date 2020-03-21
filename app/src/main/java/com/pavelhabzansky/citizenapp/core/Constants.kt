@@ -7,9 +7,10 @@ const val ARG_CITY_KEY = "CITY_KEY"
 const val ARG_CITY_LAT = "CITY_LAT"
 const val ARG_CITY_LNG = "CITY_LNG"
 
-const val FINE_LOCATION_REQ = 0
-const val CAMERA_PERMISSION_REQ = 1
-const val IMAGE_CHOOSER_REQ = 2
+const val FINE_LOCATION_REQ_MAP = 0
+const val FINE_LOCATION_REQ_NEWS = 1
+const val CAMERA_PERMISSION_REQ = 2
+const val IMAGE_CHOOSER_REQ = 3
 
 const val REQUEST_IMAGE_CAPTURE = 1
 

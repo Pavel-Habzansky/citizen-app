@@ -8,7 +8,6 @@ import com.pavelhabzansky.citizenapp.core.vm.BaseViewModel
 import com.pavelhabzansky.citizenapp.features.cities.search.states.CityPickerErrorEvents
 import com.pavelhabzansky.citizenapp.features.cities.search.states.CityPickerViewStates
 import com.pavelhabzansky.citizenapp.features.cities.search.view.mapper.AutoCompleteMapper
-import com.pavelhabzansky.citizenapp.features.cities.search.view.mapper.CityVOMapper
 import com.pavelhabzansky.citizenapp.features.cities.search.view.mapper.LastSearchesVOMapper
 import com.pavelhabzansky.citizenapp.features.cities.search.view.vo.AutoCompleteItem
 import com.pavelhabzansky.domain.features.cities.domain.CityDO

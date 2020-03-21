@@ -10,11 +10,13 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.pavelhabzansky.citizenapp.core.CAMERA_PERMISSION_REQ
-import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ
+import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_MAP
+import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_NEWS
 import com.pavelhabzansky.citizenapp.core.REQUEST_IMAGE_CAPTURE
 import com.pavelhabzansky.citizenapp.core.activity.BaseActivity
 import com.pavelhabzansky.citizenapp.features.issues.create.view.vm.CreateIssueViewModel
 import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
+import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -24,6 +26,7 @@ class MainActivity : BaseActivity() {
     private lateinit var appBarConfig: AppBarConfiguration
 
     private val mapViewModel by viewModel<MapViewModel>()
+    private val newsViewModel by viewModel<NewsViewModel>()
     private val createIssueViewModel by viewModel<CreateIssueViewModel>()
 
     private val navController: NavController by lazy { findNavController(R.id.navHostFragment) }
@@ -60,10 +63,16 @@ class MainActivity : BaseActivity() {
             grantResults: IntArray
     ) {
         when (requestCode) {
-            FINE_LOCATION_REQ -> {
+            FINE_LOCATION_REQ_MAP -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Timber.i("Fine location permission granted")
                     mapViewModel.requestLocationPermission()
+                }
+            }
+            FINE_LOCATION_REQ_NEWS -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Timber.i("Fine location permission granted")
+                    newsViewModel.requestLocationPermission()
                 }
             }
             CAMERA_PERMISSION_REQ -> {

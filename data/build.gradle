@@ -53,9 +53,13 @@ dependencies {
 
     kapt architectureComponents.roomCompiler
     implementation architectureComponents.roomRxJava
-    testImplementation architectureComponents.roomTesting
 
     testImplementation testDependencies.junit
+    testImplementation testDependencies.koinTest
+    testImplementation testDependencies.liveDataTest
+    androidTestImplementation testDependencies.xjunit
+    androidTestImplementation testDependencies.xjunitktx
     androidTestImplementation testDependencies.testRunner
     androidTestImplementation testDependencies.espressoCore
+    androidTestImplementation architectureComponents.roomTesting
 }

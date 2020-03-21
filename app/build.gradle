@@ -80,8 +80,12 @@ dependencies {
 
     testImplementation testDependencies.junit
     testImplementation testDependencies.koinTest
+    testImplementation testDependencies.liveDataTest
+    androidTestImplementation testDependencies.xjunit
+    androidTestImplementation testDependencies.xjunitktx
     androidTestImplementation testDependencies.testRunner
     androidTestImplementation testDependencies.espressoCore
+    androidTestImplementation architectureComponents.roomTesting
 
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
 }

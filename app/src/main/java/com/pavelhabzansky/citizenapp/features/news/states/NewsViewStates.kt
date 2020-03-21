@@ -8,7 +8,13 @@ sealed class NewsViewState {
 
     class NewsLoadedViewState(val news: List<NewsItemViewObject>) : NewsViewState()
 
+    class TouristNewsLoaded(val news: List<NewsItemViewObject>) : NewsViewState()
+
     class NewsItemLoadedViewState(val item: NewsItemViewObject) : NewsViewState()
+
+    class LocationPermissionGranted : NewsViewState()
+
+    class LocationPermissionNotGranted : NewsViewState()
 
     class NoResidentialViewState : NewsViewState()
 

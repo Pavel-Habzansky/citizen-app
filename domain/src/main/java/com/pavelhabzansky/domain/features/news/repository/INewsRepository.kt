@@ -14,4 +14,6 @@ interface INewsRepository {
 
     suspend fun loadNewsItem(title: String): LiveData<NewsDO>
 
+    suspend fun loadTouristNews(lat: Double, lng: Double): LiveData<List<NewsDO>>
+
 }
