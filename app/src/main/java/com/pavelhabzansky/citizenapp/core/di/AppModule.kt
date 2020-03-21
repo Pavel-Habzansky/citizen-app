@@ -66,6 +66,7 @@ val appModule = module {
 
     single {
         NewsRepository(
+                cityReference = get(named(QUAL_FIREBASE_CITIES)),
                 cityDao = get<AppDatabase>().cityDao,
                 newsDao = get<AppDatabase>().newsDao
         ) as INewsRepository

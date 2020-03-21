@@ -67,7 +67,7 @@ class CitizenNewsFragment : BaseFragment() {
     }
 
     private fun registerEvents() {
-        viewModel.newsViewState.observe(this, Observer {
+        viewModel.citizenNewsViewState.observe(this, Observer {
             updateViewState(event = it)
         })
         viewModel.newsErrorState.observe(this, Observer {

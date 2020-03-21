@@ -29,18 +29,6 @@ object IssueMapper : MapperDirectional<IssueEntity, IssueDO>() {
         img = to.img
     )
 
-    fun mapApiToIssueDom(issue: Issue): IssueDO {
-        return IssueDO(
-            title = issue.title,
-            createTime = issue.createTime,
-            type = IssueType.fromString(type = issue.type),
-            description = issue.description,
-            lat = issue.gps.lat,
-            lng = issue.gps.lng,
-            img = issue.img
-        )
-    }
-
     fun mapApiToIssueEntity(issue: Issue): IssueEntity {
         return IssueEntity(
             title = issue.title,

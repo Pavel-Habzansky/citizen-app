@@ -13,7 +13,13 @@ abstract class LastSearchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(entity: LastSearchCityEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertAll(entities: List<LastSearchCityEntity>)
+
     @Query("SELECT * FROM LastSearchCityEntity ORDER BY timestamp ASC")
-    abstract fun getLastSearches(): LiveData<List<LastSearchCityEntity>>
+    abstract fun getLastSearchesLD(): LiveData<List<LastSearchCityEntity>>
+
+    @Query("SELECT * FROM LastSearchCityEntity ORDER BY timestamp ASC")
+    abstract fun getLastSearches(): List<LastSearchCityEntity>
 
 }

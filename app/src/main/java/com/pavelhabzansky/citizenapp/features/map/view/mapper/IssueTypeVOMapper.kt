@@ -10,7 +10,10 @@ object IssueTypeVOMapper : MapperDirectional<IssueTypeVO, IssueType>() {
         return when(from) {
             IssueTypeVO.PUBLIC_DAMAGE -> IssueType.PUBLIC_DAMAGE
             IssueTypeVO.LOST_ITEM -> IssueType.LOST_ITEM
-            else -> IssueType.UNKNOWN
+            IssueTypeVO.LIGHTS -> IssueType.LIGHTS
+            IssueTypeVO.TRASH -> IssueType.TRASH
+            IssueTypeVO.PAVEMENTS -> IssueType.PAVEMENTS
+            IssueTypeVO.OTHERS -> IssueType.OTHERS
         }
     }
 
@@ -18,6 +21,10 @@ object IssueTypeVOMapper : MapperDirectional<IssueTypeVO, IssueType>() {
         return when(to) {
             IssueType.PUBLIC_DAMAGE -> IssueTypeVO.PUBLIC_DAMAGE
             IssueType.LOST_ITEM -> IssueTypeVO.LOST_ITEM
+            IssueType.PAVEMENTS -> IssueTypeVO.PAVEMENTS
+            IssueType.OTHERS -> IssueTypeVO.OTHERS
+            IssueType.TRASH -> IssueTypeVO.TRASH
+            IssueType.LIGHTS -> IssueTypeVO.LIGHTS
             else -> IssueTypeVO.OTHERS
         }
     }

@@ -32,7 +32,7 @@ class CityRepository(
 ) : ICityRepository {
 
     override suspend fun loadLastSearches(): LiveData<List<LastSearchItemDO>> {
-        val lastSearches = lastSearchDao.getLastSearches()
+        val lastSearches = lastSearchDao.getLastSearchesLD()
         return lastSearches.transform {
             it.map { LastSearchMapper.mapFrom(from = it) }
         }

@@ -11,74 +11,73 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
         android:padding="@dimen/margin_item_16">
 
-        <TextView
-            android:id="@+id/placeTitle"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{ place.title }"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Nazev" />
-
-        <TextView
-            android:id="@+id/vicinityTitle"
-            style="@style/TextAppearance.MaterialComponents.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{ place.vicinity }"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/placeTitle"
-            tools:text="Vicinity" />
-
-        <TextView
-            android:id="@+id/openedText"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{ place.open ? @string/place_detail_open : @string/place_detail_closed }"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vicinityTitle"
-            tools:text="Otevreno/Zavreno" />
-
-        <TextView
-            android:id="@+id/typeText"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{ place.type.text }"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/openedText"
-            tools:text="Typ" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/gallery"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_item_16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/typeText" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/placeTitle"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_item_4"
+                android:text="@{ place.title }"
+                tools:text="Nazev" />
+
+            <TextView
+                android:id="@+id/vicinityTitle"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_item_4"
+                android:text="@{ place.vicinity }"
+                tools:text="Vicinity" />
+
+            <TextView
+                android:id="@+id/openedText"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_item_4"
+                tools:text="Otevreno/Zavreno" />
+
+            <TextView
+                android:id="@+id/typeText"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_item_16"
+                android:text="@{ place.type.text }"
+                tools:text="Typ" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/createButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
             android:background="@drawable/bg_news_button"
             android:elevation="@dimen/margin_item_8"
             android:padding="@dimen/margin_item_8"
             android:text="@string/place_detail_show_on_map"
             android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             tools:text="Zobrazit na mape" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
 
 </layout>

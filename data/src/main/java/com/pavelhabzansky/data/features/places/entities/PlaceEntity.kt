@@ -12,6 +12,6 @@ data class PlaceEntity(
         val name: String,
         var type: String = "",
         val rating: Double?,
-        val open: Boolean = false,
+        val open: Boolean? = null,
         val vicinity: String
 )
