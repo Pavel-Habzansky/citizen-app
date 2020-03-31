@@ -65,7 +65,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/createButton"
+            android:id="@+id/navigateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -73,7 +73,7 @@
             android:background="@drawable/bg_news_button"
             android:elevation="@dimen/margin_item_8"
             android:padding="@dimen/margin_item_8"
-            android:text="@string/place_detail_show_on_map"
+            android:text="@string/place_detail_navigate"
             android:textColor="#fff"
             tools:text="Zobrazit na mape" />
 

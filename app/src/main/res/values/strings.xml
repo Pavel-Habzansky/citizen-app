@@ -93,6 +93,7 @@
     <string name="place_detail_open">Otevřeno</string>
     <string name="place_detail_closed">Zavřeno</string>
     <string name="place_detail_show_on_map">Zobrazit na mapě</string>
+    <string name="place_detail_navigate">Zobrazit navigaci</string>
 
     <!--  SETTINGS  -->
     <string name="settings_label">Nastavení</string>

@@ -73,6 +73,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         binding.mapSettingsFab.setOnClickListener { toSettings() }
         binding.newIssueFab.setOnClickListener { createNewIssue() }
         binding.toListFab.setOnClickListener { toIssueList() }
+        binding.mapTypeSwitch.setOnClickListener { switchMap() }
 
         return binding.root
     }
@@ -84,6 +85,16 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
         viewModel.fetchIssues()
         viewModel.requestLocationPermission()
+    }
+
+    private fun switchMap() {
+        if(this::googleMap.isInitialized) {
+            when(googleMap.mapType) {
+                GoogleMap.MAP_TYPE_SATELLITE -> googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+                GoogleMap.MAP_TYPE_NORMAL -> googleMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+                GoogleMap.MAP_TYPE_TERRAIN -> googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            }
+        }
     }
 
     private fun toggleFabMenu() {

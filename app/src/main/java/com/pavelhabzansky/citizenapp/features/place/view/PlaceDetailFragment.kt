@@ -1,5 +1,8 @@
 package com.pavelhabzansky.citizenapp.features.place.view
 
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pavelhabzansky.citizenapp.BR
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_PLACE_DATA
+import com.pavelhabzansky.citizenapp.core.WAZE_ID
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.core.fromJson
 import com.pavelhabzansky.citizenapp.databinding.FragmentPlaceDetailBinding
@@ -68,9 +72,32 @@ class PlaceDetailFragment : BaseFragment() {
             }
 
             viewModel.loadPlaceImage(placeId = place.placeId)
+
+            binding.navigateButton.setOnClickListener { navigate() }
         } ?: run {
             Toast.makeText(context, "Nevalidní data pro vybrané místo", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun navigate() {
+        if (isPackageInstalled(WAZE_ID)) {
+            val path = "geo: ${binding.place?.lat}, ${binding.place?.lng}"
+            val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse(path)).setPackage(WAZE_ID)
+            Timber.w("Navigating to Waze with path: $path")
+            startActivity(mapIntent)
+        } else {
+            Toast.makeText(context, "Aplikace Waze není nainstalována", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun isPackageInstalled(name: String): Boolean {
+        val pm = context?.packageManager
+        try {
+            pm?.getPackageInfo(name, 0)
+        } catch (e: PackageManager.NameNotFoundException) {
+            return false
+        }
+        return true
     }
 
     private fun registerEvents() {

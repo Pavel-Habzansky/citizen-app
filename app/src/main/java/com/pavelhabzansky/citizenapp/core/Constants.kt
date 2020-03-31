@@ -34,3 +34,5 @@ const val ARG_PLACE_DATA = "PLACE_JSON"
 const val CHOOSER_TYPE_IMAGES = "image/*"
 
 const val EXTRAS_IMG_KEY = "data"
+
+const val WAZE_ID = "com.waze"

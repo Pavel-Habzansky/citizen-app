@@ -31,7 +31,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':domain')
-    implementation project(':infrastructure')
+//    implementation project(':infrastructure')
 
     implementation kotlinDependencies.kotlinStdLib
 
