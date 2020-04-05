@@ -1,5 +1,7 @@
 package com.pavelhabzansky.citizenapp.features.news.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -93,9 +95,14 @@ class CitizenNewsFragment : BaseFragment() {
         }
     }
 
-    private fun onItemClick(title: String) {
-        val args = Bundle().also { it.putString(ARG_KEY_NEWS_TITLE, title) }
-        findNavController().navigate(R.id.news_detail_fragment, args)
+    private fun onItemClick(title: String, url: String) {
+        if(arguments?.getString(ARG_KEY_NEWS_SOURCE).isNullOrEmpty()) {
+            val args = Bundle().also { it.putString(ARG_KEY_NEWS_TITLE, title) }
+            findNavController().navigate(R.id.news_detail_fragment, args)
+        } else {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(browserIntent)
+        }
     }
 
 }

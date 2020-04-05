@@ -1,5 +1,7 @@
 package com.pavelhabzansky.citizenapp.features.news.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +14,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_KEY_NEWS_TITLE
+import com.pavelhabzansky.citizenapp.core.ARG_KEY_NEWS_URL
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.databinding.FragmentTouristNewsBinding
 import com.pavelhabzansky.citizenapp.features.news.states.NewsViewState
 import com.pavelhabzansky.citizenapp.features.news.view.adapter.NewsSourceAdapter
 import com.pavelhabzansky.citizenapp.features.news.view.adapter.TouristNewsAdapter
 import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
+import com.pavelhabzansky.citizenapp.features.news.view.vo.NewsItemViewObject
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
@@ -51,6 +55,7 @@ class TouristNewsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         registerEvents()
+
     }
 
     private fun registerEvents() {
@@ -66,13 +71,18 @@ class TouristNewsFragment : BaseFragment() {
 
     private fun updateViewState(event: NewsViewState) {
         when (event) {
-            is NewsViewState.TouristNewsLoaded -> newsAdapter.setItems(event.news)
+            is NewsViewState.TouristNewsLoaded -> updateList(event.news)
         }
     }
 
-    private fun onItemClick(title: String) {
-        val args = Bundle().also { it.putString(ARG_KEY_NEWS_TITLE, title) }
-        findNavController().navigate(R.id.news_detail_fragment, args)
+    private fun updateList(news: List<NewsItemViewObject>) {
+        binding.swipeContainer.isRefreshing = false
+        newsAdapter.setItems(news)
+    }
+
+    private fun onItemClick(title: String, url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(browserIntent)
     }
 
 }

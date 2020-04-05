@@ -56,6 +56,7 @@ class CityDetailViewModel : BaseViewModel() {
             when (result) {
                 SetCityResidentialUseCase.UseCaseResult.SUCCESS -> {
                     Timber.i("City ${cityInfo.name}/${cityInfo.key} set as Residential")
+                    cityDetailViewState.postValue(CityDetailViewStates.SetResidential())
                 }
                 else -> {
                     val currentResidential = getResidentialCityNameUseCase(Unit)
@@ -72,6 +73,7 @@ class CityDetailViewModel : BaseViewModel() {
                     city = CityInformationVOMapper.mapTo(to = cityInfo)
                 )
             )
+            cityDetailViewState.postValue(CityDetailViewStates.SetResidential())
         }
     }
 

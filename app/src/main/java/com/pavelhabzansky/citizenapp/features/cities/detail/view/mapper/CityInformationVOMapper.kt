@@ -8,31 +8,33 @@ import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
 object CityInformationVOMapper : MapperDirectional<CityInformationDO, CityInformationVO>() {
 
     override fun mapFrom(from: CityInformationDO) = CityInformationVO(
-        key = from.key,
-        id = from.id,
-        name = from.name,
-        description = from.description,
-        population = from.population,
-        logoBytes = from.logoBytes,
-        lat = from.lat,
-        lng = from.lng,
-        www = from.www,
-        rssFeed = from.rssFeed,
-        rssUrl = from.rssUrl
+            key = from.key,
+            id = from.id,
+            name = from.name,
+            description = from.description,
+            population = from.population,
+            logoBytes = from.logoBytes,
+            lat = from.lat,
+            lng = from.lng,
+            www = from.www,
+            rssFeed = from.rssFeed,
+            rssUrl = from.rssUrl,
+            residential = from.residential
     )
 
     override fun mapTo(to: CityInformationVO) = CityInformationDO(
-        key = to.key,
-        id = to.id,
-        name = to.name,
-        description = to.description,
-        population = to.population,
-        logoBytes = to.logoBytes,
-        lat = to.lat,
-        lng = to.lng,
-        www = to.www,
-        rssFeed = to.rssFeed,
-        rssUrl = to.rssUrl
+            key = to.key,
+            id = to.id,
+            residential = to.residential,
+            name = to.name,
+            description = to.description,
+            population = to.population,
+            logoBytes = to.logoBytes,
+            lat = to.lat,
+            lng = to.lng,
+            www = to.www,
+            rssFeed = to.rssFeed,
+            rssUrl = to.rssUrl
     )
 
 }

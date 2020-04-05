@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,7 @@ class CityDetailFragment : BaseFragment() {
             viewModel.loadResidentialCity()
         }
 
+        binding.cityDescription.movementMethod = ScrollingMovementMethod()
         binding.mainFab.setOnClickListener { toggleFabMenu() }
 
         binding.newsFab.setOnClickListener { showNews() }
@@ -68,6 +70,7 @@ class CityDetailFragment : BaseFragment() {
             is CityDetailViewStates.CityInformationLoaded -> setCityData(city = state.info)
             is CityDetailViewStates.ResidentialCityExists -> showResidenceExistsDialog(name = state.name)
             is CityDetailViewStates.NoResidentialCity -> showNoResidenceDialog()
+            is CityDetailViewStates.SetResidential -> binding.favImg.show()
         }
     }
 
@@ -130,6 +133,10 @@ class CityDetailFragment : BaseFragment() {
         binding.executePendingBindings()
 
         binding.mainFab.show()
+
+        if(!city.residential) {
+            binding.favImg.hide()
+        }
 
         val bytes = city.logoBytes
         bytes?.let {

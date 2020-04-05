@@ -13,7 +13,7 @@ import com.pavelhabzansky.citizenapp.features.news.view.vo.NewsItemViewObject
 import kotlinx.android.synthetic.main.item_news_item.view.*
 
 class NewsSourceAdapter(
-    private val onItemClick: (String) -> Unit
+    private val onItemClick: (String, String) -> Unit
 ) : RecyclerView.Adapter<NewsSourceAdapter.NewsSourceViewHolder>() {
 
     private var items: List<NewsItemViewObject> = emptyList()
@@ -44,7 +44,7 @@ class NewsSourceAdapter(
 
     inner class NewsSourceViewHolder(
         private val binding: ItemNewsItemBinding,
-        private val onItemClick: (String) -> Unit
+        private val onItemClick: (String, String) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -52,7 +52,7 @@ class NewsSourceAdapter(
             binding.setVariable(BR.item, model)
             binding.executePendingBindings()
 
-            binding.root.setOnClickListener { onItemClick(model.title) }
+            binding.root.setOnClickListener { onItemClick(model.title, model.url) }
             if (model.read) {
                 binding.root.messageTitle.setTypeface(null, Typeface.NORMAL)
             }

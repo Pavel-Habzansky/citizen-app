@@ -11,5 +11,6 @@ data class CityInformationVO(
     val www: String,
     val logoBytes: ByteArray? = null,
     val rssFeed: String? = null,
-    val rssUrl: String? = null
+    val rssUrl: String? = null,
+    val residential: Boolean = false
 )

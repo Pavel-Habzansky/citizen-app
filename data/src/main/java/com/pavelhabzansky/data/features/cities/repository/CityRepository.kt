@@ -24,11 +24,11 @@ import com.pavelhabzansky.domain.features.cities.usecase.SetCityResidentialUseCa
 import timber.log.Timber
 
 class CityRepository(
-    private val cityReference: DatabaseReference,
-    private val storageReference: StorageReference,
-    private val lastSearchDao: LastSearchDao,
-    private val newsDao: NewsDao,
-    private val cityDao: CityDao
+        private val cityReference: DatabaseReference,
+        private val storageReference: StorageReference,
+        private val lastSearchDao: LastSearchDao,
+        private val newsDao: NewsDao,
+        private val cityDao: CityDao
 ) : ICityRepository {
 
     override suspend fun loadLastSearches(): LiveData<List<LastSearchItemDO>> {
@@ -45,17 +45,17 @@ class CityRepository(
                 val cityList = snapshot.children.map {
 
                     CityDO(
-                        key = requireNotNull(it.key),
-                        id = requireNotNull(it.child(CITY_CHILD_ID).value.toString()),
-                        name = requireNotNull(it.child(CITY_CHILD_NAME).value.toString())
+                            key = requireNotNull(it.key),
+                            id = requireNotNull(it.child(CITY_CHILD_ID).value.toString()),
+                            name = requireNotNull(it.child(CITY_CHILD_NAME).value.toString())
                     )
 
                 }
 
                 cities.postValue(cityList.filter {
                     it.name.startsWith(
-                        prefix = startsWith,
-                        ignoreCase = true
+                            prefix = startsWith,
+                            ignoreCase = true
                     )
                 })
             }
@@ -74,6 +74,7 @@ class CityRepository(
     }
 
     override suspend fun loadCityInformation(cityKey: String): LiveData<CityInformationDO> {
+        val residential = getResidentialCity()
         val cityInfo = MutableLiveData<CityInformationDO>()
         val city = cityReference.child(cityKey)
         city.addValueEventListener(object : ValueEventListener {
@@ -88,21 +89,22 @@ class CityRepository(
                 val description = wikiInfo.child(WIKI_CHILD_HEADLINE).value?.toString()
                 val logo = wikiInfo.child(WIKI_CHILD_LOGO).value?.toString()
                 val lat = wikiInfo.child(WIKI_CHILD_GPS).child(GPS_CHILD_LAT).value?.toString()
-                    ?.toDoubleOrNull()
+                        ?.toDoubleOrNull()
                 val lng = wikiInfo.child(WIKI_CHILD_GPS).child(GPS_CHILD_LNG).value?.toString()
-                    ?.toDoubleOrNull()
+                        ?.toDoubleOrNull()
 
                 val cityObject = CityInformationDO(
-                    key = cityKey,
-                    id = id,
-                    name = name,
-                    population = population,
-                    lat = lat,
-                    lng = lng,
-                    description = description,
-                    www = www,
-                    rssFeed = rssFeed,
-                    rssUrl = rssUrl
+                        key = cityKey,
+                        id = id,
+                        name = name,
+                        population = population,
+                        lat = lat,
+                        lng = lng,
+                        description = description,
+                        www = www,
+                        rssFeed = rssFeed,
+                        rssUrl = rssUrl,
+                        residential = residential?.key == cityKey
                 )
 
                 cityInfo.postValue(cityObject)
@@ -112,7 +114,7 @@ class CityRepository(
                     logoReference.getBytes(IMG_MAX_SIZE).addOnSuccessListener {
                         Timber.i("Loaded ${it.size} bytes for city logo")
                         cityInfo.postValue(
-                            cityObject.copy(logoBytes = it)
+                                cityObject.copy(logoBytes = it)
                         )
                     }.addOnFailureListener {
                         Timber.i("Unable to load logo: $it")
@@ -130,12 +132,12 @@ class CityRepository(
 
     override suspend fun setAsResidential(city: CityInformationDO) {
         val cityEntity = CityEntity(
-            key = city.key,
-            id = city.id,
-            name = city.name,
-            residential = true,
-            rssFeed = city.rssFeed ?: "",
-            rssUrl = city.rssUrl ?: ""
+                key = city.key,
+                id = city.id,
+                name = city.name,
+                residential = true,
+                rssFeed = city.rssFeed ?: "",
+                rssUrl = city.rssUrl ?: ""
         )
 
         cityDao.unsetResidential()

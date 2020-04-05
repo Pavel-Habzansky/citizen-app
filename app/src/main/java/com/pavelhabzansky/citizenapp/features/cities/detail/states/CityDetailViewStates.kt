@@ -10,6 +10,8 @@ sealed class CityDetailViewStates {
 
     class NoResidentialCity : CityDetailViewStates()
 
+    class SetResidential : CityDetailViewStates()
+
 }
 
 sealed class CityDetailErrorStates(val error: Throwable? = null) {

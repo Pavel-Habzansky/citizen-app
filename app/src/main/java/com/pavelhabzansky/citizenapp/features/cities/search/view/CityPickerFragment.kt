@@ -13,6 +13,7 @@ import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_CITY_KEY
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.core.fragment.findParentNavController
+import com.pavelhabzansky.citizenapp.core.fragment.hideKeyboard
 import com.pavelhabzansky.citizenapp.databinding.FragmentCityPickBinding
 import com.pavelhabzansky.citizenapp.features.cities.search.states.CityPickerViewStates
 import com.pavelhabzansky.citizenapp.features.cities.search.view.adapter.CityAutocompleteArrayAdapter
@@ -105,6 +106,7 @@ class CityPickerFragment : BaseFragment() {
         val args = Bundle()
         args.putString(ARG_CITY_KEY, cityKey)
         findParentNavController().navigate(R.id.city_detail_fragment, args)
+        context?.let { hideKeyboard(it, binding.root) }
     }
 
     private fun setupAutocomplete() {

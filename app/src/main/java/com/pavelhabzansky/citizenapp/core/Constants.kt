@@ -24,6 +24,7 @@ const val NEWS_MAX_LINES = 5
 
 const val ARG_KEY_NEWS_TITLE = "NEWS_TITLE"
 const val ARG_KEY_NEWS_SOURCE = "NEWS_SOURCE"
+const val ARG_KEY_NEWS_URL = "NEWS_URL"
 
 const val ARG_KEY_LAT = "LAT"
 const val ARG_KEY_LNG = "LNG"

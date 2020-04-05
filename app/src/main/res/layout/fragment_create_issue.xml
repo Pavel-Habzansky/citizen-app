@@ -79,7 +79,7 @@
             android:layout_marginTop="@dimen/margin_item_16"
             android:background="@drawable/bg_bordered"
             android:padding="@dimen/margin_item_24"
-            android:src="@drawable/ic_camera_24dp"
+            android:src="@drawable/ic_camera_24dp_black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/attachmentTitle" />
 
