@@ -23,6 +23,7 @@ import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
 import com.pavelhabzansky.citizenapp.features.news.view.vo.NewsItemViewObject
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
+import java.net.UnknownHostException
 
 class CitizenNewsFragment : BaseFragment() {
 
@@ -73,8 +74,10 @@ class CitizenNewsFragment : BaseFragment() {
             updateViewState(event = it)
         })
         viewModel.newsErrorState.observe(this, Observer {
-            Toast.makeText(context, "Došlo k chybě při stahování novinek", Toast.LENGTH_LONG).show()
-            Timber.e(it.t, "Error occured")
+            when(it.t) {
+                is UnknownHostException -> Toast.makeText(context, "Nedostupné připojení", Toast.LENGTH_LONG).show()
+            }
+            Timber.w(it.t, "Error occured")
         })
     }
 

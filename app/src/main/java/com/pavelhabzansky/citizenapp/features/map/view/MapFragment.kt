@@ -28,6 +28,7 @@ import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.*
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.core.fragment.findParentNavController
+import com.pavelhabzansky.citizenapp.core.fragment.hasConnection
 import com.pavelhabzansky.citizenapp.databinding.FragmentMapBinding
 import com.pavelhabzansky.citizenapp.features.map.states.MapViewStates
 import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
@@ -65,13 +66,18 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false)
 
         val mapView = binding.map
-        mapView.onCreate(savedInstanceState)
-        mapView.onResume()
-        mapView.getMapAsync(this)
+        if (hasConnection()) {
+            mapView.onCreate(savedInstanceState)
+            mapView.onResume()
+            mapView.getMapAsync(this)
 
-        binding.mainFab.setOnClickListener { toggleFabMenu() }
-        binding.mapSettingsFab.setOnClickListener { toSettings() }
+            binding.mainFab.setOnClickListener { toggleFabMenu() }
+        } else {
+            binding.mainFab.setOnClickListener { Toast.makeText(context, "Chybí připojení k internetu", Toast.LENGTH_LONG).show() }
+        }
+
         binding.newIssueFab.setOnClickListener { createNewIssue() }
+        binding.mapSettingsFab.setOnClickListener { toSettings() }
         binding.toListFab.setOnClickListener { toIssueList() }
         binding.mapTypeSwitch.setOnClickListener { switchMap() }
 
@@ -88,8 +94,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun switchMap() {
-        if(this::googleMap.isInitialized) {
-            when(googleMap.mapType) {
+        if (this::googleMap.isInitialized) {
+            when (googleMap.mapType) {
                 GoogleMap.MAP_TYPE_SATELLITE -> googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
                 GoogleMap.MAP_TYPE_NORMAL -> googleMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
                 GoogleMap.MAP_TYPE_TERRAIN -> googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
@@ -161,9 +167,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private fun updateViewState(event: MapViewStates) {
         when (event) {
             is MapViewStates.LocationPermissionGranted -> {
-                googleMap.isMyLocationEnabled = true
-                val location = locationClient.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                viewModel.fetchPlaces(location.latitude, location.longitude)
+                if (this::googleMap.isInitialized && hasConnection()) {
+                    googleMap.isMyLocationEnabled = true
+                    val location = locationClient.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                    viewModel.fetchPlaces(location.latitude, location.longitude)
+                }
             }
             is MapViewStates.LocationPermissionNotGranted -> {
                 ActivityCompat.requestPermissions(
