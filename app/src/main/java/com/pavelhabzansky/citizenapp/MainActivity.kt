@@ -1,10 +1,8 @@
 package com.pavelhabzansky.citizenapp
 
-import android.app.Activity
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.Menu
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -12,8 +10,8 @@ import androidx.navigation.ui.*
 import com.pavelhabzansky.citizenapp.core.CAMERA_PERMISSION_REQ
 import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_MAP
 import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_NEWS
-import com.pavelhabzansky.citizenapp.core.REQUEST_IMAGE_CAPTURE
 import com.pavelhabzansky.citizenapp.core.activity.BaseActivity
+import com.pavelhabzansky.citizenapp.core.activity.hasLocationPermission
 import com.pavelhabzansky.citizenapp.features.issues.create.view.vm.CreateIssueViewModel
 import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
 import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
@@ -41,6 +39,21 @@ class MainActivity : BaseActivity() {
         navView.setupWithNavController(navController)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val locationRefIcon = menu?.findItem(R.id.locationRefresh)
+
+        when (hasLocationPermission()) {
+            true -> locationRefIcon?.isVisible = false
+            false -> locationRefIcon?.isVisible = true
+        }
+
+        return super.onPrepareOptionsMenu(menu)
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.navHostFragment)
@@ -70,9 +83,12 @@ class MainActivity : BaseActivity() {
                 }
             }
             FINE_LOCATION_REQ_NEWS -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Timber.i("Fine location permission granted")
-                    newsViewModel.requestLocationPermission()
+                if (grantResults.isNotEmpty()) {
+                    invalidateOptionsMenu()
+                    when (grantResults[0]) {
+                        PackageManager.PERMISSION_GRANTED -> newsViewModel.requestLocationPermission()
+                        else -> newsViewModel.locationPermissionDenied()
+                    }
                 }
             }
             CAMERA_PERMISSION_REQ -> {
@@ -83,5 +99,4 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-
 }

@@ -1,8 +1,7 @@
 package com.pavelhabzansky.citizenapp.core.config
 
-import android.util.Log
 import com.pavelhabzansky.citizenapp.core.LANGUAGE_CZ
-import com.pavelhabzansky.infrastructure.logfile.LogFileWriter
+import com.pavelhabzansky.infrastructure.features.logfile.LogFileWriter
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*

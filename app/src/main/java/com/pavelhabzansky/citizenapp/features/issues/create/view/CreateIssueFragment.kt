@@ -22,6 +22,7 @@ import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.*
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.core.fragment.findParentNavController
+import com.pavelhabzansky.citizenapp.core.fragment.toast
 import com.pavelhabzansky.citizenapp.databinding.FragmentCreateIssueBinding
 import com.pavelhabzansky.citizenapp.features.issues.create.states.CreateIssueViewStates
 import com.pavelhabzansky.citizenapp.features.issues.create.view.vm.CreateIssueViewModel
@@ -57,7 +58,7 @@ class CreateIssueFragment : BaseFragment() {
         val lng = arguments?.getDouble(ARG_KEY_LNG)
 
         if (lat == null || lng == null) {
-            Toast.makeText(context, "Poloha není dostupná", Toast.LENGTH_LONG).show()
+            toast("Poloha není dostupná")
             findParentNavController().navigateUp()
             return
         }
@@ -111,24 +112,22 @@ class CreateIssueFragment : BaseFragment() {
 
     private fun createIssue() {
         if (binding.titleInput.text?.isBlank() == true) {
-            Toast.makeText(context, R.string.issue_create_invalid_title, Toast.LENGTH_LONG).show()
+            toast(R.string.issue_create_invalid_title)
             return
         }
 
         if (binding.descriptionInput.text?.isBlank() == true) {
-            Toast.makeText(context, R.string.issue_create_invalid_description, Toast.LENGTH_LONG)
-                    .show()
+            toast(R.string.issue_create_invalid_description)
             return
         }
 
         if (binding.typeSpinner.selectedItem == null) {
-            Toast.makeText(context, R.string.issue_create_invalid_type, Toast.LENGTH_LONG).show()
+            toast(R.string.issue_create_invalid_type)
             return
         }
 
         if (viewModel.attachment == null) {
-            Toast.makeText(context, R.string.issue_create_invalid_attachment, Toast.LENGTH_LONG)
-                    .show()
+            toast(R.string.issue_create_invalid_attachment)
             return
         }
 
@@ -194,8 +193,8 @@ class CreateIssueFragment : BaseFragment() {
 
     private fun openCamera() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
-//            intent.resolveActivity(requireActivity().packageManager)?.also {
-                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+            //            intent.resolveActivity(requireActivity().packageManager)?.also {
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
 //            }
         }
     }

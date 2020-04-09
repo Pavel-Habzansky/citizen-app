@@ -42,15 +42,17 @@ class CityDetailViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             cityInfoLiveData = loadCityInfoUseCase(params = key)
             launch(Dispatchers.Main) { cityInfoLiveData?.observeForever(cityInfoObserver) }
+
+            // TODO Load photogallery
         }
     }
 
     fun setCityAsResidential() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = setCityResidentialUseCase(
-                params = SetCityResidentialUseCase.Params(
-                    city = CityInformationVOMapper.mapTo(to = cityInfo)
-                )
+                    params = SetCityResidentialUseCase.Params(
+                            city = CityInformationVOMapper.mapTo(to = cityInfo)
+                    )
             )
 
             when (result) {
@@ -69,9 +71,9 @@ class CityDetailViewModel : BaseViewModel() {
     fun setCityAsResidentialForce() {
         viewModelScope.launch(Dispatchers.IO) {
             setCityResidentialForceUseCase(
-                params = SetCityResidentialForceUseCase.Params(
-                    city = CityInformationVOMapper.mapTo(to = cityInfo)
-                )
+                    params = SetCityResidentialForceUseCase.Params(
+                            city = CityInformationVOMapper.mapTo(to = cityInfo)
+                    )
             )
             cityDetailViewState.postValue(CityDetailViewStates.SetResidential())
         }

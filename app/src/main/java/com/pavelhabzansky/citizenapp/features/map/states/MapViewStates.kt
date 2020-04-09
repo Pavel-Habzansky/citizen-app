@@ -13,6 +13,10 @@ sealed class MapViewStates {
 
     class IssuesUpdatedEvent(val issues: List<IssueVO>) : MapViewStates()
 
+    class NoContextProvided : MapViewStates()
+
+    class PlacesNoConnectionEvent : MapViewStates()
+
 }
 
 sealed class MapErrorStates(val t: Throwable) {

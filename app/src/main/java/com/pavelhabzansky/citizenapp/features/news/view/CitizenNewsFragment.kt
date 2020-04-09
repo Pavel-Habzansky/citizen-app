@@ -14,6 +14,7 @@ import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_KEY_NEWS_SOURCE
 import com.pavelhabzansky.citizenapp.core.ARG_KEY_NEWS_TITLE
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
+import com.pavelhabzansky.citizenapp.core.fragment.toast
 import com.pavelhabzansky.citizenapp.core.fromJson
 import com.pavelhabzansky.citizenapp.databinding.FragmentCitizenNewsBinding
 import com.pavelhabzansky.citizenapp.features.cities.detail.view.vo.CityInformationVO
@@ -75,7 +76,7 @@ class CitizenNewsFragment : BaseFragment() {
         })
         viewModel.newsErrorState.observe(this, Observer {
             when(it.t) {
-                is UnknownHostException -> Toast.makeText(context, "Nedostupné připojení", Toast.LENGTH_LONG).show()
+                is UnknownHostException -> toast("Nedostupné připojení")
             }
             Timber.w(it.t, "Error occured")
         })

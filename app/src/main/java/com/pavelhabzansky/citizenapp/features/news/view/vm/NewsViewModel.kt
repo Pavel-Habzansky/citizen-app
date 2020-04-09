@@ -84,8 +84,16 @@ class NewsViewModel(app: Application) : BaseAndroidViewModel(app) {
 
     fun loadTouristNews(lat: Double, lng: Double) {
         viewModelScope.launch(Dispatchers.IO) {
-            touristNews = loadTouristNewsUseCase(LoadTouristNewsUseCase.Params(lat, lng))
-            launch(Dispatchers.Main) { touristNews?.observeForever(touristNewsObserver) }
+            when (connectivityManager.isConnected()) {
+                true -> {
+                    touristNews = loadTouristNewsUseCase(LoadTouristNewsUseCase.Params(lat, lng))
+                    launch(Dispatchers.Main) { touristNews?.observeForever(touristNewsObserver) }
+                }
+                else -> {
+                    touristNewsViewState.postValue(NewsViewState.NoConnectionEvent())
+                }
+            }
+
         }
     }
 
@@ -95,6 +103,10 @@ class NewsViewModel(app: Application) : BaseAndroidViewModel(app) {
         } else {
             newsViewState.postValue(NewsViewState.LocationPermissionNotGranted())
         }
+    }
+
+    fun locationPermissionDenied() {
+        touristNewsViewState.postValue(NewsViewState.LocationPermissionNotGranted())
     }
 
     override fun onCleared() {

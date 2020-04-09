@@ -13,6 +13,7 @@ import com.pavelhabzansky.citizenapp.BR
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_KEY_NEWS_TITLE
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
+import com.pavelhabzansky.citizenapp.core.fragment.toast
 import com.pavelhabzansky.citizenapp.core.toFormattedString
 import com.pavelhabzansky.citizenapp.databinding.FragmentNewsDetailBinding
 import com.pavelhabzansky.citizenapp.features.news.states.NewsViewState
@@ -68,7 +69,7 @@ class NewsDetailFragment : BaseFragment() {
 
     private fun onLinkClick(url: String?) {
         if (url == null) {
-            Toast.makeText(context, R.string.news_link_invalid, Toast.LENGTH_LONG).show()
+            toast(R.string.news_link_invalid)
             return
         }
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

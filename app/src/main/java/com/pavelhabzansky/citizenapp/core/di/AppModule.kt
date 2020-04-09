@@ -16,10 +16,12 @@ import com.pavelhabzansky.data.features.news.repository.NewsRepository
 import com.pavelhabzansky.data.features.places.repository.PlacesRepository
 import com.pavelhabzansky.data.features.settings.repository.SettingsRepository
 import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
+import com.pavelhabzansky.domain.features.connectivity.manager.IConnectivityManager
 import com.pavelhabzansky.domain.features.issues.repository.IIssuesRepository
 import com.pavelhabzansky.domain.features.news.repository.INewsRepository
 import com.pavelhabzansky.domain.features.places.repository.IPlacesRepository
 import com.pavelhabzansky.domain.features.settings.repository.ISettingsRepository
+import com.pavelhabzansky.infrastructure.features.connectivity.ConnectivityManager
 import okhttp3.OkHttpClient
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.qualifier.named
@@ -44,6 +46,8 @@ val appModule = module {
     single { provideFirebaseStorageReference() }
 
     single { AppDatabase.getInstance(context = get(), factory = provideSQLiteHelperFactory()) }
+
+    single { ConnectivityManager(appContext = get()) as IConnectivityManager }
 
     single {
         IssuesRepository(

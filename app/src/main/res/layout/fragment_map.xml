@@ -2,88 +2,108 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/map"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/disconnectedTitle"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:visibility="gone"
+            android:paddingStart="@dimen/margin_item_32"
+            android:paddingEnd="@dimen/margin_item_32"
+            android:text="@string/news_residential_empty" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mapContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/toListFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_item_16"
-            android:layout_marginBottom="@dimen/margin_item_16"
-            android:background="?android:selectableItemBackground"
-            android:backgroundTint="@color/green"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:src="@drawable/ic_view_list_black_24dp"
-            android:visibility="invisible"
-            app:backgroundTint="@color/browser_actions_bg_grey"
-            app:layout_constraintBottom_toTopOf="@id/newIssueFab"
-            app:layout_constraintStart_toStartOf="@id/mainFab" />
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/newIssueFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_item_16"
-            android:layout_marginBottom="@dimen/margin_item_16"
-            android:background="?android:selectableItemBackground"
-            android:backgroundTint="@color/green"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:src="@drawable/ic_create_24px"
-            android:visibility="invisible"
-            app:backgroundTint="@color/browser_actions_bg_grey"
-            app:layout_constraintBottom_toTopOf="@id/mapSettingsFab"
-            app:layout_constraintStart_toStartOf="@id/mainFab" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/toListFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_item_16"
+                android:layout_marginBottom="@dimen/margin_item_16"
+                android:background="?android:selectableItemBackground"
+                android:backgroundTint="@color/green"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:src="@drawable/ic_view_list_black_24dp"
+                android:visibility="invisible"
+                app:backgroundTint="@color/browser_actions_bg_grey"
+                app:layout_constraintBottom_toTopOf="@id/newIssueFab"
+                app:layout_constraintStart_toStartOf="@id/mainFab" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/mapSettingsFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_item_16"
-            android:layout_marginBottom="@dimen/margin_item_16"
-            android:background="?android:selectableItemBackground"
-            android:backgroundTint="@color/green"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:src="@drawable/ic_settings_24px"
-            android:visibility="invisible"
-            app:backgroundTint="@color/browser_actions_bg_grey"
-            app:layout_constraintBottom_toTopOf="@id/mainFab"
-            app:layout_constraintStart_toStartOf="@id/mainFab" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/newIssueFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_item_16"
+                android:layout_marginBottom="@dimen/margin_item_16"
+                android:background="?android:selectableItemBackground"
+                android:backgroundTint="@color/green"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:src="@drawable/ic_create_24px"
+                android:visibility="invisible"
+                app:backgroundTint="@color/browser_actions_bg_grey"
+                app:layout_constraintBottom_toTopOf="@id/mapSettingsFab"
+                app:layout_constraintStart_toStartOf="@id/mainFab" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/mainFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_item_16"
-            android:layout_marginBottom="@dimen/margin_item_16"
-            android:background="?android:selectableItemBackground"
-            android:backgroundTint="@color/green"
-            android:src="@drawable/ic_add_circle_outline_24px"
-            app:backgroundTint="@color/browser_actions_bg_grey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/mapSettingsFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_item_16"
+                android:layout_marginBottom="@dimen/margin_item_16"
+                android:background="?android:selectableItemBackground"
+                android:backgroundTint="@color/green"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:src="@drawable/ic_settings_24px"
+                android:visibility="invisible"
+                app:backgroundTint="@color/browser_actions_bg_grey"
+                app:layout_constraintBottom_toTopOf="@id/mainFab"
+                app:layout_constraintStart_toStartOf="@id/mainFab" />
 
-        <ImageView
-            android:id="@+id/mapTypeSwitch"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="@dimen/margin_item_8"
-            android:layout_marginTop="@dimen/margin_item_8"
-            android:background="@color/browser_actions_bg_grey"
-            android:src="@drawable/ic_map_switch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/mainFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_item_16"
+                android:layout_marginBottom="@dimen/margin_item_16"
+                android:background="?android:selectableItemBackground"
+                android:backgroundTint="@color/green"
+                android:src="@drawable/ic_add_circle_outline_24px"
+                app:backgroundTint="@color/browser_actions_bg_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/mapTypeSwitch"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="@dimen/margin_item_8"
+                android:layout_marginTop="@dimen/margin_item_8"
+                android:background="@color/browser_actions_bg_grey"
+                android:src="@drawable/ic_map_switch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
 </layout>

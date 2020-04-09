@@ -16,6 +16,8 @@ sealed class NewsViewState {
 
     class LocationPermissionNotGranted : NewsViewState()
 
+    class NoConnectionEvent() : NewsViewState()
+
     class NoResidentialViewState : NewsViewState()
 
 }

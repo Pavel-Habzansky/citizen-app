@@ -1,4 +1,4 @@
-package com.pavelhabzansky.infrastructure.logfile
+package com.pavelhabzansky.infrastructure.features.logfile
 
 class FiFoList<T> {
     private var length: Int = 0

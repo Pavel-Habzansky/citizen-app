@@ -1,4 +1,4 @@
-package com.pavelhabzansky.infrastructure.logfile
+package com.pavelhabzansky.infrastructure.features.logfile
 
 import java.io.*
 

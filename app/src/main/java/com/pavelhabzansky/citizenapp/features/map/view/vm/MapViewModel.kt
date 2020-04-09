@@ -5,6 +5,9 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
+import com.pavelhabzansky.citizenapp.core.USE_CONTEXT_CITIZEN
+import com.pavelhabzansky.citizenapp.core.USE_CONTEXT_EMPTY
+import com.pavelhabzansky.citizenapp.core.USE_CONTEXT_TOURIST
 import com.pavelhabzansky.citizenapp.core.model.SingleLiveEvent
 import com.pavelhabzansky.citizenapp.core.vm.BaseAndroidViewModel
 import com.pavelhabzansky.citizenapp.features.map.di.MAPS_MODULE
@@ -42,6 +45,20 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
 
     private var placesLiveData: LiveData<List<PlaceDO>>? = null
 
+    var useContext: String = USE_CONTEXT_EMPTY
+
+    fun loadData() {
+        when(useContext) {
+            USE_CONTEXT_EMPTY -> {
+                mapViewState.postValue(MapViewStates.NoContextProvided())
+                return
+            }
+            USE_CONTEXT_CITIZEN -> {
+                fetchIssues()
+            }
+        }
+    }
+
     fun requestLocationPermission() {
         if (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
             mapViewState.postValue(MapViewStates.LocationPermissionGranted())
@@ -57,26 +74,35 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
     }
 
     fun fetchPlaces(lat: Double, lng: Double) {
-        viewModelScope.launch(Dispatchers.IO) {
-            fetchPlacesUseCase(FetchPlacesUseCase.Params(lat, lng))
+        if (useContext == USE_CONTEXT_TOURIST) {
+            viewModelScope.launch(Dispatchers.IO) {
+                when(connectivityManager.isConnected()) {
+                    true -> fetchPlacesUseCase(FetchPlacesUseCase.Params(lat, lng))
+                    else -> mapViewState.postValue(MapViewStates.PlacesNoConnectionEvent())
+                }
+            }
         }
     }
 
     fun loadIssues(bounds: Bounds) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val issues = loadBoundIssuesUseCase(bounds)
-            mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(issues.map {
-                IssueVOMapper.mapTo(
-                        to = it
-                )
-            }))
+        if (useContext == USE_CONTEXT_CITIZEN) {
+            viewModelScope.launch(Dispatchers.IO) {
+                val issues = loadBoundIssuesUseCase(bounds)
+                mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(issues.map {
+                    IssueVOMapper.mapTo(
+                            to = it
+                    )
+                }))
+            }
         }
     }
 
     fun loadPlaces() {
-        viewModelScope.launch(Dispatchers.IO) {
-            placesLiveData = loadPlacesUseCase(Unit)
-            launch(Dispatchers.Main) { placesLiveData?.observeForever(placesObserver) }
+        if (useContext == USE_CONTEXT_TOURIST) {
+            viewModelScope.launch(Dispatchers.IO) {
+                placesLiveData = loadPlacesUseCase(Unit)
+                launch(Dispatchers.Main) { placesLiveData?.observeForever(placesObserver) }
+            }
         }
     }
 

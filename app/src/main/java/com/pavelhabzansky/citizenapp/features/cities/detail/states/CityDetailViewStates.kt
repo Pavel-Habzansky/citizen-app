@@ -1,5 +1,6 @@
 package com.pavelhabzansky.citizenapp.features.cities.detail.states
 
+import com.pavelhabzansky.citizenapp.features.cities.detail.view.vo.CityGalleryItemVO
 import com.pavelhabzansky.citizenapp.features.cities.detail.view.vo.CityInformationVO
 
 sealed class CityDetailViewStates {
@@ -11,6 +12,8 @@ sealed class CityDetailViewStates {
     class NoResidentialCity : CityDetailViewStates()
 
     class SetResidential : CityDetailViewStates()
+
+    class CityGalleryLoadedEvent(val gallery: List<CityGalleryItemVO>) : CityDetailViewStates()
 
 }
 

@@ -4,8 +4,10 @@ import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -13,13 +15,13 @@ import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.clustering.ClusterItem
@@ -28,7 +30,7 @@ import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.*
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.core.fragment.findParentNavController
-import com.pavelhabzansky.citizenapp.core.fragment.hasConnection
+import com.pavelhabzansky.citizenapp.core.fragment.toast
 import com.pavelhabzansky.citizenapp.databinding.FragmentMapBinding
 import com.pavelhabzansky.citizenapp.features.map.states.MapViewStates
 import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
@@ -66,19 +68,18 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false)
 
         val mapView = binding.map
-        if (hasConnection()) {
-            mapView.onCreate(savedInstanceState)
-            mapView.onResume()
-            mapView.getMapAsync(this)
 
-            binding.mainFab.setOnClickListener { toggleFabMenu() }
-        } else {
-            binding.mainFab.setOnClickListener { Toast.makeText(context, "Chybí připojení k internetu", Toast.LENGTH_LONG).show() }
+        mapView.onCreate(savedInstanceState)
+        mapView.onResume()
+        mapView.getMapAsync(this)
+
+        binding.mainFab.setOnClickListener { toggleFabMenu() }
+
+        if (isCitizenContext()) {
+            binding.toListFab.setOnClickListener { toIssueList() }
+            binding.newIssueFab.setOnClickListener { createNewIssue() }
         }
-
-        binding.newIssueFab.setOnClickListener { createNewIssue() }
         binding.mapSettingsFab.setOnClickListener { toSettings() }
-        binding.toListFab.setOnClickListener { toIssueList() }
         binding.mapTypeSwitch.setOnClickListener { switchMap() }
 
         return binding.root
@@ -88,9 +89,34 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
 
         registerEvents()
+        registerReceiver()
 
-        viewModel.fetchIssues()
+        arguments?.let {
+            val citizen = it.getString(USE_CONTEXT_ARG, USE_CONTEXT_EMPTY)
+            viewModel.useContext = citizen
+            viewModel.loadData()
+        }
+
         viewModel.requestLocationPermission()
+    }
+
+    private fun reloadData() {
+        viewModel.requestLocationPermission()
+        viewModel.loadData()
+    }
+
+    private fun registerReceiver() {
+        val receiver = connectivityManager.createNetworkReceiver {
+            if (it) {
+                reloadData()
+                binding.mapContainer.show()
+                binding.disconnectedTitle.hide()
+            } else {
+                binding.mapContainer.hide()
+                binding.disconnectedTitle.show()
+            }
+        }
+        context?.registerReceiver(receiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
     private fun switchMap() {
@@ -107,13 +133,17 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         if (fabOpen) {
             animateRotateClose(binding.mainFab)
             animateFade(binding.mapSettingsFab)
-            animateFade(binding.newIssueFab)
-            animateFade(binding.toListFab)
+            if (isCitizenContext()) {
+                animateFade(binding.newIssueFab)
+                animateFade(binding.toListFab)
+            }
         } else {
             animateRotateOpen(binding.mainFab)
             animateShow(binding.mapSettingsFab)
-            animateShow(binding.newIssueFab)
-            animateShow(binding.toListFab)
+            if (isCitizenContext()) {
+                animateShow(binding.newIssueFab)
+                animateShow(binding.toListFab)
+            }
         }
         fabOpen = !fabOpen
     }
@@ -166,10 +196,13 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     private fun updateViewState(event: MapViewStates) {
         when (event) {
+            is MapViewStates.PlacesNoConnectionEvent -> toast("Nedostupné připojení - Nelze najít místa")
+            is MapViewStates.NoContextProvided -> toast("Nebyl poskytnut kontext")
             is MapViewStates.LocationPermissionGranted -> {
-                if (this::googleMap.isInitialized && hasConnection()) {
+                if (this::googleMap.isInitialized) {
                     googleMap.isMyLocationEnabled = true
                     val location = locationClient.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                    targetUser()
                     viewModel.fetchPlaces(location.latitude, location.longitude)
                 }
             }
@@ -277,7 +310,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
             val location = locationClient.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
             if (location == null) {
-                Toast.makeText(context, "GPS lokace není dostupná", Toast.LENGTH_LONG).show()
+                toast("GPS lokace není dostupná")
                 return
             }
 
@@ -286,7 +319,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             args.putDouble(ARG_KEY_LNG, location.longitude)
             findParentNavController().navigate(R.id.issue_create_fragment, args)
         } else {
-            Toast.makeText(context, "Lokace uživatele není povolena", Toast.LENGTH_LONG).show()
+            toast("Lokace uživatele není povolena")
         }
     }
 
@@ -307,9 +340,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private fun targetUser() {
         if (locationProvided()) {
             val location = locationClient.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            location?.let {
-                navigateToObject(lat = it.latitude, lng = it.longitude)
-            }
+            location?.let { navigateToObject(lat = it.latitude, lng = it.longitude) }
         }
     }
 
@@ -319,7 +350,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
     }
-
 
     private fun navigateToLocation(lat: Double, lng: Double) {
         googleMap.let {
@@ -344,28 +374,33 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun onMapLongClick(position: LatLng) {
-        val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(
-                    VibrationEffect.createOneShot(
-                            VIBRATE_LENGTH,
-                            VibrationEffect.DEFAULT_AMPLITUDE
-                    )
-            )
-        } else {
-            vibrator.vibrate(VIBRATE_LENGTH)
+        if (isCitizenContext() && connectivityManager.isConnected()) {
+            val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(
+                        VibrationEffect.createOneShot(
+                                VIBRATE_LENGTH,
+                                VibrationEffect.DEFAULT_AMPLITUDE
+                        )
+                )
+            } else {
+                vibrator.vibrate(VIBRATE_LENGTH)
+            }
+
+            if (fabOpen) {
+                toggleFabMenu()
+            }
+
+            val args = Bundle()
+            args.putDouble(ARG_KEY_LAT, position.latitude)
+            args.putDouble(ARG_KEY_LNG, position.longitude)
+            findParentNavController().navigate(R.id.to_create_issue, args)
         }
-
-        if (fabOpen) {
-            toggleFabMenu()
-        }
-
-        val args = Bundle()
-        args.putDouble(ARG_KEY_LAT, position.latitude)
-        args.putDouble(ARG_KEY_LNG, position.longitude)
-        findParentNavController().navigate(R.id.to_create_issue, args)
-
     }
+
+    private fun isCitizenContext(): Boolean = viewModel.useContext == USE_CONTEXT_CITIZEN
+
+    private fun isTouristContext(): Boolean = viewModel.useContext == USE_CONTEXT_TOURIST
 
     companion object {
 

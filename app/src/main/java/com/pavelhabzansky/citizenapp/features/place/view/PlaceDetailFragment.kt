@@ -17,6 +17,7 @@ import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_PLACE_DATA
 import com.pavelhabzansky.citizenapp.core.WAZE_ID
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
+import com.pavelhabzansky.citizenapp.core.fragment.toast
 import com.pavelhabzansky.citizenapp.core.fromJson
 import com.pavelhabzansky.citizenapp.databinding.FragmentPlaceDetailBinding
 import com.pavelhabzansky.citizenapp.features.place.states.PlaceDetailViewStates
@@ -75,7 +76,7 @@ class PlaceDetailFragment : BaseFragment() {
 
             binding.navigateButton.setOnClickListener { navigate() }
         } ?: run {
-            Toast.makeText(context, "Nevalidní data pro vybrané místo", Toast.LENGTH_LONG).show()
+            toast("Nevalidní data pro vybrané místo")
         }
     }
 
@@ -86,7 +87,7 @@ class PlaceDetailFragment : BaseFragment() {
             Timber.w("Navigating to Waze with path: $path")
             startActivity(mapIntent)
         } else {
-            Toast.makeText(context, "Aplikace Waze není nainstalována", Toast.LENGTH_LONG).show()
+            toast("Aplikace Waze není nainstalována")
         }
     }
 

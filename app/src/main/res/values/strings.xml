@@ -19,17 +19,25 @@
     <string name="nav_menu_my_city">Moje město</string>
     <string name="nav_menu_cities">Města</string>
     <string name="nav_menu_map">Mapa</string>
+    <string name="nav_menu_issues">Hlášení</string>
+    <string name="nav_menu_pois">Zajímavá místa</string>
+
+    <!--  OPTIONS MENU  -->
+    <string name="options_location_refresh">Obnovit polohu</string>
 
     <!--  ALL  -->
     <string name="yes">Ano</string>
     <string name="no">Ne</string>
     <string name="ok">OK</string>
     <string name="warning">Varování</string>
+    <string name="no_connection">Nedostupné přípojení</string>
+    <string name="location_unavailable">Poloha není dostupná</string>
 
     <!--  NEWS  -->
     <string name="news_residential_empty">Po výběru residentního města bude moct vidět poslední novinky</string>
     <string name="news_link_invalid">Neplatný link</string>
     <string name="news_link_open">Otevřít</string>
+    <string name="news_no_news_available">Žádné novinky nyní nejsou k dispozici</string>
 
     <!--  NEWS DETAIL  -->
     <string name="news_detail_label">Detail novinky</string>
