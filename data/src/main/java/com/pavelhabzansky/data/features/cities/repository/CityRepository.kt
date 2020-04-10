@@ -1,5 +1,6 @@
 package com.pavelhabzansky.data.features.cities.repository
 
+import android.graphics.BitmapFactory
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +18,7 @@ import com.pavelhabzansky.data.features.cities.mapper.CityMapper
 import com.pavelhabzansky.data.features.cities.mapper.LastSearchMapper
 import com.pavelhabzansky.data.features.news.dao.NewsDao
 import com.pavelhabzansky.domain.features.cities.domain.CityDO
+import com.pavelhabzansky.domain.features.cities.domain.CityGalleryItemDO
 import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
 import com.pavelhabzansky.domain.features.cities.domain.LastSearchItemDO
 import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
@@ -148,6 +150,28 @@ class CityRepository(
     override suspend fun getResidentialCity(): CityDO? {
         val residential = cityDao.getResidential()
         return residential?.let { CityMapper.mapFrom(from = residential) }
+    }
+
+    override suspend fun getCityPhotogallery(key: String): LiveData<List<CityGalleryItemDO>> {
+        val imagesData = MutableLiveData<List<CityGalleryItemDO>>()
+        val images = mutableListOf<CityGalleryItemDO>()
+        imagesData.postValue(images)
+
+        val folderRef = storageReference.child(key)
+        for (i in 1..5) {
+            val imageNode = folderRef.child("gallery_$i$GALLERY_EXT")
+            imageNode.getBytes(IMG_MAX_SIZE).addOnSuccessListener {
+                Timber.i("Loaded ${it.size} bytes for gallery image")
+                val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                val image = CityGalleryItemDO(bitmap)
+                images.add(image)
+                imagesData.postValue(images)
+            }.addOnFailureListener {
+                Timber.i("Unable to gallery item: $it")
+            }
+        }
+
+        return imagesData
     }
 
 }

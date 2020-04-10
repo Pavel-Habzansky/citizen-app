@@ -49,11 +49,7 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
 
     fun loadData() {
         when(useContext) {
-            USE_CONTEXT_EMPTY -> {
-                mapViewState.postValue(MapViewStates.NoContextProvided())
-                return
-            }
-            USE_CONTEXT_CITIZEN -> {
+            USE_CONTEXT_CITIZEN, USE_CONTEXT_EMPTY -> {
                 fetchIssues()
             }
         }
@@ -74,7 +70,7 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
     }
 
     fun fetchPlaces(lat: Double, lng: Double) {
-        if (useContext == USE_CONTEXT_TOURIST) {
+        if (useContext == USE_CONTEXT_TOURIST || useContext == USE_CONTEXT_EMPTY) {
             viewModelScope.launch(Dispatchers.IO) {
                 when(connectivityManager.isConnected()) {
                     true -> fetchPlacesUseCase(FetchPlacesUseCase.Params(lat, lng))
@@ -85,7 +81,7 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
     }
 
     fun loadIssues(bounds: Bounds) {
-        if (useContext == USE_CONTEXT_CITIZEN) {
+        if (useContext == USE_CONTEXT_CITIZEN || useContext == USE_CONTEXT_EMPTY) {
             viewModelScope.launch(Dispatchers.IO) {
                 val issues = loadBoundIssuesUseCase(bounds)
                 mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(issues.map {
@@ -98,7 +94,7 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
     }
 
     fun loadPlaces() {
-        if (useContext == USE_CONTEXT_TOURIST) {
+        if (useContext == USE_CONTEXT_TOURIST || useContext == USE_CONTEXT_EMPTY) {
             viewModelScope.launch(Dispatchers.IO) {
                 placesLiveData = loadPlacesUseCase(Unit)
                 launch(Dispatchers.Main) { placesLiveData?.observeForever(placesObserver) }

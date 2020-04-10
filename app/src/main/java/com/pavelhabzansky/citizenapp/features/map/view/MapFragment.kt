@@ -75,7 +75,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
         binding.mainFab.setOnClickListener { toggleFabMenu() }
 
-        if (isCitizenContext()) {
+        if (isCitizenContext() || isEmptyContext()) {
             binding.toListFab.setOnClickListener { toIssueList() }
             binding.newIssueFab.setOnClickListener { createNewIssue() }
         }
@@ -92,8 +92,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         registerReceiver()
 
         arguments?.let {
-            val citizen = it.getString(USE_CONTEXT_ARG, USE_CONTEXT_EMPTY)
-            viewModel.useContext = citizen
+            val context = it.getString(USE_CONTEXT_ARG, USE_CONTEXT_EMPTY)
+            viewModel.useContext = context
             viewModel.loadData()
         }
 
@@ -133,14 +133,14 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         if (fabOpen) {
             animateRotateClose(binding.mainFab)
             animateFade(binding.mapSettingsFab)
-            if (isCitizenContext()) {
+            if (isCitizenContext() || isEmptyContext()) {
                 animateFade(binding.newIssueFab)
                 animateFade(binding.toListFab)
             }
         } else {
             animateRotateOpen(binding.mainFab)
             animateShow(binding.mapSettingsFab)
-            if (isCitizenContext()) {
+            if (isCitizenContext() || isEmptyContext()) {
                 animateShow(binding.newIssueFab)
                 animateShow(binding.toListFab)
             }
@@ -234,7 +234,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun toSettings() {
-        findParentNavController().navigate(R.id.settings_fragment)
+        findParentNavController().navigate(R.id.to_settings)
     }
 
     private fun onIssueClick(issue: IssueVO) {
@@ -374,7 +374,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun onMapLongClick(position: LatLng) {
-        if (isCitizenContext() && connectivityManager.isConnected()) {
+        if ((isCitizenContext() || isEmptyContext()) && connectivityManager.isConnected()) {
             val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 vibrator.vibrate(
@@ -397,6 +397,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             findParentNavController().navigate(R.id.to_create_issue, args)
         }
     }
+
+    private fun isEmptyContext(): Boolean = viewModel.useContext == USE_CONTEXT_EMPTY
 
     private fun isCitizenContext(): Boolean = viewModel.useContext == USE_CONTEXT_CITIZEN
 

@@ -92,7 +92,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/photogalleryRecycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="128dp"
             android:layout_marginTop="@dimen/margin_item_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,26 +111,14 @@
             app:layout_constraintTop_toBottomOf="@id/photogalleryRecycler">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/cityDescriptionTitle"
-                style="@style/TextAppearance.AppCompat.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_item_12"
-                android:text="@string/city_detail_description_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Popis:" />
-
-            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/cityDescription"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:layout_marginTop="@dimen/margin_item_12"
                 android:maxLines="25"
                 android:scrollbars="vertical"
-                android:text="@{ info.description }"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cityDescriptionTitle"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="sldkjfsldkfjsdlkfjsfkjsldkjfsldkfjsdlkfjsfkjsldkjfsldkfjsdlkfjsf" />
 
 
@@ -162,7 +150,7 @@
             android:backgroundTint="@color/green"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            android:src="@drawable/ic_home_24px"
+            android:src="@drawable/ic_start_white"
             android:visibility="invisible"
             app:backgroundTint="@color/browser_actions_bg_grey"
             app:layout_constraintBottom_toTopOf="@id/showOnMapFab"

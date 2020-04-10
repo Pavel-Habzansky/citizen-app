@@ -1,6 +1,7 @@
 package com.pavelhabzansky.citizenapp.features.settings.view.vm
 
 import androidx.lifecycle.viewModelScope
+import com.pavelhabzansky.citizenapp.core.USE_CONTEXT_EMPTY
 import com.pavelhabzansky.citizenapp.core.model.SingleLiveEvent
 import com.pavelhabzansky.citizenapp.core.vm.BaseViewModel
 import com.pavelhabzansky.citizenapp.features.map.view.vo.IssueTypeVO
@@ -26,6 +27,8 @@ class SettingsViewModel : BaseViewModel() {
 
     private val selectedPlaces = mutableSetOf<PlaceTypeVO>()
     private val selectedIssues = mutableSetOf<IssueTypeVO>()
+
+    var useContext: String = USE_CONTEXT_EMPTY
 
     fun loadAllSettings() {
         viewModelScope.launch(Dispatchers.IO) {

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pavelhabzansky.citizenapp.R
+import com.pavelhabzansky.citizenapp.core.*
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
 import com.pavelhabzansky.citizenapp.core.fragment.findParentNavController
 import com.pavelhabzansky.citizenapp.databinding.FragmentSettingsBinding
@@ -17,6 +18,7 @@ import com.pavelhabzansky.citizenapp.features.settings.states.SettingsViewStates
 import com.pavelhabzansky.citizenapp.features.settings.view.adapter.IssueSettingsAdapter
 import com.pavelhabzansky.citizenapp.features.settings.view.adapter.PlaceSettingsAdapter
 import com.pavelhabzansky.citizenapp.features.settings.view.vm.SettingsViewModel
+import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -52,6 +54,20 @@ class SettingsFragment : BaseFragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = this@SettingsFragment.issueSettingsAdapter
+        }
+
+        arguments?.let {
+            viewModel.useContext = it.getString(USE_CONTEXT_ARG, USE_CONTEXT_EMPTY)
+            when {
+                isCitizenContext() -> {
+                    binding.issueSettingsContainer.show()
+                    binding.placeSettingsContainer.hide()
+                }
+                isTouristContext() -> {
+                    binding.issueSettingsContainer.hide()
+                    binding.placeSettingsContainer.show()
+                }
+            }
         }
 
         return binding.root
@@ -114,5 +130,9 @@ class SettingsFragment : BaseFragment() {
     private fun onIssueSettingCheck(type: IssueTypeVO, checked: Boolean) {
         viewModel.changeIssueSettings(type, checked)
     }
+
+    private fun isCitizenContext() = viewModel.useContext == USE_CONTEXT_CITIZEN
+
+    private fun isTouristContext() = viewModel.useContext == USE_CONTEXT_TOURIST
 
 }

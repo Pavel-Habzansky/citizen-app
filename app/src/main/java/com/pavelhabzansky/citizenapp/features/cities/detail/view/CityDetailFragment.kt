@@ -5,11 +5,14 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -153,6 +156,12 @@ class CityDetailFragment : BaseFragment() {
 
         if (!city.residential) {
             binding.favImg.hide()
+        }
+
+        binding.cityDescription.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(city.description, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(city.description)
         }
 
         val bytes = city.logoBytes

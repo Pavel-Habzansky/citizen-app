@@ -19,4 +19,6 @@ val cityDetailModule = module {
 
     single { GetResidentialCityUseCase(cityRepository = get()) }
 
+    single { GetPhotogalleryUseCase(cityRepository = get()) }
+
 }

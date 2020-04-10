@@ -2,6 +2,7 @@ package com.pavelhabzansky.domain.features.cities.repository
 
 import androidx.lifecycle.LiveData
 import com.pavelhabzansky.domain.features.cities.domain.CityDO
+import com.pavelhabzansky.domain.features.cities.domain.CityGalleryItemDO
 import com.pavelhabzansky.domain.features.cities.domain.CityInformationDO
 import com.pavelhabzansky.domain.features.cities.domain.LastSearchItemDO
 import com.pavelhabzansky.domain.features.cities.usecase.SetCityResidentialUseCase
@@ -19,5 +20,7 @@ interface ICityRepository {
     suspend fun setAsResidential(city: CityInformationDO)
 
     suspend fun getResidentialCity(): CityDO?
+
+    suspend fun getCityPhotogallery(key: String): LiveData<List<CityGalleryItemDO>>
 
 }

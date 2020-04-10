@@ -8,77 +8,96 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/margin_item_16"
-            android:scrollbars="vertical">
+            android:padding="@dimen/margin_item_16">
 
-            <TextView
-                android:id="@+id/placesTitle"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_places_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <CheckBox
-                android:id="@+id/allCheckPlaces"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_item_8"
-                android:text="@string/settings_places_check_all"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/placesTitle"
-                tools:text="Všechna místa" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/placesSettingsRecycler"
+            <LinearLayout
+                android:id="@+id/settingsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_item_12"
-                android:layout_marginTop="@dimen/margin_item_8"
-                app:layout_constraintStart_toStartOf="@+id/allCheckPlaces"
-                app:layout_constraintTop_toBottomOf="@id/allCheckPlaces" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/issuesTitle"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_item_16"
-                android:text="@string/settings_issues_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/placesSettingsRecycler" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/placeSettingsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical">
 
-            <CheckBox
-                android:id="@+id/allCheckIssues"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_item_8"
-                android:text="@string/settings_issues_check_all"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/issuesTitle"
-                tools:text="Všechna místa" />
+                    <TextView
+                        android:id="@+id/placesTitle"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_places_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/issuesSettingsRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_item_12"
-                android:layout_marginTop="@dimen/margin_item_8"
-                app:layout_constraintTop_toBottomOf="@id/allCheckIssues" />
+                    <CheckBox
+                        android:id="@+id/allCheckPlaces"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_item_8"
+                        android:text="@string/settings_places_check_all"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/placesTitle"
+                        tools:text="Všechna místa" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/placesSettingsRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_item_12"
+                        android:layout_marginTop="@dimen/margin_item_8"
+                        app:layout_constraintStart_toStartOf="@+id/allCheckPlaces"
+                        app:layout_constraintTop_toBottomOf="@id/allCheckPlaces" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/issueSettingsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/issuesTitle"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_item_16"
+                        android:text="@string/settings_issues_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <CheckBox
+                        android:id="@+id/allCheckIssues"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_item_8"
+                        android:text="@string/settings_issues_check_all"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/issuesTitle"
+                        tools:text="Všechna místa" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/issuesSettingsRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_item_12"
+                        android:layout_marginTop="@dimen/margin_item_8"
+                        app:layout_constraintTop_toBottomOf="@id/allCheckIssues" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/settingsContainer"
                 android:layout_marginTop="@dimen/margin_item_16"
-                android:clipToPadding="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/issuesSettingsRecycler">
+                android:clipToPadding="false">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/closeButton"
@@ -108,8 +127,7 @@
                     tools:text="Ulozit" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
 
     </ScrollView>
 

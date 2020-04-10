@@ -39,6 +39,6 @@ const val EXTRAS_IMG_KEY = "data"
 const val WAZE_ID = "com.waze"
 
 const val USE_CONTEXT_ARG = "CONTEXT"
-const val USE_CONTEXT_EMPTY = "NULL"
+const val USE_CONTEXT_EMPTY = "EMPTY"
 const val USE_CONTEXT_CITIZEN = "CITIZEN"
 const val USE_CONTEXT_TOURIST = "TOURIST"
