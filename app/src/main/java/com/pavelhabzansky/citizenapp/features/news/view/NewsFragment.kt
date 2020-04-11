@@ -65,7 +65,7 @@ class NewsFragment : BaseFragment() {
                 viewModel.requestLocationPermission()
                 true
             }
-            else -> super.onOptionsItemSelected(item)
+            else -> activity?.onOptionsItemSelected(item) ?: false
         }
     }
 

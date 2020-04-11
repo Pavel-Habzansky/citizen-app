@@ -12,6 +12,7 @@ import com.pavelhabzansky.data.core.room.AppDatabase
 import com.pavelhabzansky.data.features.api.PlacesApi
 import com.pavelhabzansky.data.features.cities.repository.CityRepository
 import com.pavelhabzansky.data.features.issues.repository.IssuesRepository
+import com.pavelhabzansky.data.features.issues.repository.MapItemsRepository
 import com.pavelhabzansky.data.features.news.repository.NewsRepository
 import com.pavelhabzansky.data.features.places.repository.PlacesRepository
 import com.pavelhabzansky.data.features.settings.repository.SettingsRepository
@@ -89,6 +90,15 @@ val appModule = module {
                 placeSettingsDao = get<AppDatabase>().placeSettingDao,
                 issueSettingsDao = get<AppDatabase>().issueSettingsDao
         ) as ISettingsRepository
+    }
+
+    single {
+        MapItemsRepository(
+                placeSettingsDao = get<AppDatabase>().placeSettingDao,
+                issueSettingsDao = get<AppDatabase>().issueSettingsDao,
+                placesDao = get<AppDatabase>().placesDao,
+                issueDao = get<AppDatabase>().issueDao
+        )
     }
 
 }

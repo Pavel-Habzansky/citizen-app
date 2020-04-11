@@ -2,6 +2,8 @@ package com.pavelhabzansky.citizenapp.core.activity
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.CoroutineScope
@@ -30,3 +32,11 @@ fun AppCompatActivity.hasLocationPermission() =
                         this,
                         Manifest.permission.ACCESS_COARSE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
+
+fun AppCompatActivity.toast(text: String) {
+    Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+}
+
+fun AppCompatActivity.toast(@StringRes textRes: Int) {
+    Toast.makeText(this, getString(textRes), Toast.LENGTH_LONG).show()
+}

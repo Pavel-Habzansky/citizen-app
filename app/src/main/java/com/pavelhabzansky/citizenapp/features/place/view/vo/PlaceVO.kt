@@ -2,6 +2,7 @@ package com.pavelhabzansky.citizenapp.features.place.view.vo
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
+import com.pavelhabzansky.citizenapp.features.issues.list.view.vo.MapItem
 
 data class PlaceVO(
         val placeId: String,
@@ -12,7 +13,7 @@ data class PlaceVO(
         val open: Boolean?,
         val rating: Double?,
         val type: PlaceTypeVO
-) : ClusterItem {
+) : ClusterItem, MapItem {
 
     override fun getPosition() = LatLng(lat, lng)
 

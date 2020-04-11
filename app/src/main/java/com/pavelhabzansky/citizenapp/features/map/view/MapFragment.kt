@@ -76,9 +76,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         binding.mainFab.setOnClickListener { toggleFabMenu() }
 
         if (isCitizenContext() || isEmptyContext()) {
-            binding.toListFab.setOnClickListener { toIssueList() }
             binding.newIssueFab.setOnClickListener { createNewIssue() }
         }
+        binding.toListFab.setOnClickListener { toMapList() }
         binding.mapSettingsFab.setOnClickListener { toSettings() }
         binding.mapTypeSwitch.setOnClickListener { switchMap() }
 
@@ -323,9 +323,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
     }
 
-    private fun toIssueList() {
+    private fun toMapList() {
         toggleFabMenu()
-        findParentNavController().navigate(R.id.to_issue_list)
+        findParentNavController().navigate(R.id.to_map_list)
     }
 
     private fun getCurrentBounds(): Bounds {

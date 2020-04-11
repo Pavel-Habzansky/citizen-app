@@ -3,6 +3,7 @@ package com.pavelhabzansky.citizenapp
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -12,6 +13,7 @@ import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_MAP
 import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_NEWS
 import com.pavelhabzansky.citizenapp.core.activity.BaseActivity
 import com.pavelhabzansky.citizenapp.core.activity.hasLocationPermission
+import com.pavelhabzansky.citizenapp.core.activity.toast
 import com.pavelhabzansky.citizenapp.features.issues.create.view.vm.CreateIssueViewModel
 import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
 import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
@@ -42,6 +44,17 @@ class MainActivity : BaseActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settings -> {
+                findNavController(R.id.navHostFragment).navigate(R.id.settings_fragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+
+        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {

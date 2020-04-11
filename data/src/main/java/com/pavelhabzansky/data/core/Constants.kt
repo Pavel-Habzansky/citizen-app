@@ -27,3 +27,8 @@ const val NEWS_LOAD_SIZE = 50
 const val EARTH_RAD = 6371
 
 const val GALLERY_EXT = ".jpg"
+
+const val USE_CONTEXT_ARG = "CONTEXT"
+const val USE_CONTEXT_EMPTY = "EMPTY"
+const val USE_CONTEXT_CITIZEN = "CITIZEN"
+const val USE_CONTEXT_TOURIST = "TOURIST"

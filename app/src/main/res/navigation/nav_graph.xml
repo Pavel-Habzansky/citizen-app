@@ -40,8 +40,8 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
         <action
-            android:id="@+id/to_issue_list"
-            app:destination="@+id/issue_list_fragment"
+            android:id="@+id/to_map_list"
+            app:destination="@+id/map_list_fragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -83,12 +83,19 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
         <action
-            android:id="@+id/to_issue_list"
-            app:destination="@+id/issue_list_fragment"
+            android:id="@+id/to_map_list"
+            app:destination="@+id/map_list_fragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" >
+
+            <argument
+                android:name="CONTEXT"
+                android:defaultValue="CITIZEN"
+                app:argType="string" />
+
+        </action>
 
         <action
             android:id="@+id/to_settings"
@@ -132,6 +139,21 @@
 
         </action>
 
+        <action
+            android:id="@+id/to_map_list"
+            app:destination="@+id/map_list_fragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" >
+
+            <argument
+                android:name="CONTEXT"
+                android:defaultValue="TOURIST"
+                app:argType="string" />
+
+        </action>
+
     </fragment>
 
     <fragment
@@ -160,8 +182,8 @@
         android:label="@string/place_detail_label" />
 
     <fragment
-        android:id="@+id/issue_list_fragment"
-        android:name="com.pavelhabzansky.citizenapp.features.issues.list.view.IssueListFragment"
+        android:id="@+id/map_list_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.issues.list.view.MapListFragment"
         android:label="@string/issue_list_label" />
 
     <fragment

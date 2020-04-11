@@ -6,4 +6,10 @@
         android:icon="@drawable/ic_option_location"
         android:title="@string/options_location_refresh"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings_green"
+        android:title="@string/settings_label"
+        app:showAsAction="ifRoom" />
 </menu>

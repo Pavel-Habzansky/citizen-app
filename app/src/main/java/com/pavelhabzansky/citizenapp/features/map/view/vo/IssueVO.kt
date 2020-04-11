@@ -2,6 +2,7 @@ package com.pavelhabzansky.citizenapp.features.map.view.vo
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
+import com.pavelhabzansky.citizenapp.features.issues.list.view.vo.MapItem
 
 data class IssueVO(
     val issueTitle: String,
@@ -11,7 +12,7 @@ data class IssueVO(
     val lat: Double,
     val lng: Double,
     val img: String
-) : ClusterItem {
+) : ClusterItem, MapItem {
 
     override fun getPosition() = LatLng(lat, lng)
 

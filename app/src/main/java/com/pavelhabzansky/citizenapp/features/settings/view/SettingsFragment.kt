@@ -1,9 +1,7 @@
 package com.pavelhabzansky.citizenapp.features.settings.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -71,6 +69,11 @@ class SettingsFragment : BaseFragment() {
         }
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.findItem(R.id.settings).isVisible = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

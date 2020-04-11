@@ -64,7 +64,7 @@ class PlacesRepository(
         }
 
         val enabledTypes = placeSettingsDao.getAllEnabled().map { it.type }
-        val allPlaces = placesDao.getAll()
+        val allPlaces = placesDao.getAllLive()
 
         return allPlaces.transform {
             it.asSequence()

@@ -18,7 +18,10 @@ abstract class PlacesDao {
     abstract fun removeAll()
 
     @Query("SELECT * FROM PlaceEntity")
-    abstract fun getAll(): LiveData<List<PlaceEntity>>
+    abstract fun getAllLive(): LiveData<List<PlaceEntity>>
+
+    @Query("SELECT * FROM PlaceEntity")
+    abstract fun getAll(): List<PlaceEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertPhotos(photos: List<PhotoEntity>)
