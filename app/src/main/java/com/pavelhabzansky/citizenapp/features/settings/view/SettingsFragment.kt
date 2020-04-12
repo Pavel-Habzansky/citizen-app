@@ -1,7 +1,10 @@
 package com.pavelhabzansky.citizenapp.features.settings.view
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.edit
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +22,7 @@ import com.pavelhabzansky.citizenapp.features.settings.view.vm.SettingsViewModel
 import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.*
 
 class SettingsFragment : BaseFragment() {
 
@@ -65,6 +69,12 @@ class SettingsFragment : BaseFragment() {
                     binding.issueSettingsContainer.hide()
                     binding.placeSettingsContainer.show()
                 }
+                isEmptyContext() -> {
+                    binding.issueSettingsContainer.show()
+                    binding.placeSettingsContainer.show()
+
+                    initUserPrefControls()
+                }
             }
         }
 
@@ -103,6 +113,38 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
+    private fun initUserPrefControls() {
+        binding.userPreferencesContainer.show()
+
+        val prefs = context?.getSharedPreferences(USER_PREF_SPACE, Context.MODE_PRIVATE)
+        prefs?.let {
+            binding.langSwitch.isChecked = when (it.getString(LANG_PREF_KEY, LANG_CS)) {
+                LANG_CS -> false
+                else -> true
+            }
+
+            binding.langSwitch.setOnCheckedChangeListener { _, isChecked ->
+                val selectedLang = if (isChecked) {
+                    LANG_EN
+                } else {
+                    LANG_CS
+                }
+
+                prefs.edit { putString(LANG_PREF_KEY, selectedLang) }
+
+                val newLocale = Locale(selectedLang)
+                val newConfig = Configuration(resources.configuration)
+                Locale.setDefault(newLocale)
+                newConfig.setLocale(newLocale)
+
+                activity?.baseContext?.resources?.updateConfiguration(newConfig, resources.displayMetrics)
+                activity?.baseContext?.applicationContext?.resources?.updateConfiguration(newConfig, resources.displayMetrics)
+                activity?.recreate()
+            }
+        }
+    }
+
+
     private fun updateSettings(placeSettings: Set<PlaceTypeVO>, issueSettings: Set<IssueTypeVO>) {
         updatePlaceSettings(placeSettings)
         updateIssueSettings(issueSettings)
@@ -137,5 +179,7 @@ class SettingsFragment : BaseFragment() {
     private fun isCitizenContext() = viewModel.useContext == USE_CONTEXT_CITIZEN
 
     private fun isTouristContext() = viewModel.useContext == USE_CONTEXT_TOURIST
+
+    private fun isEmptyContext() = viewModel.useContext == USE_CONTEXT_EMPTY
 
 }

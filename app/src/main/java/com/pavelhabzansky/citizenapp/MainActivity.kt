@@ -1,6 +1,8 @@
 package com.pavelhabzansky.citizenapp
 
+import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.pavelhabzansky.citizenapp.core.CAMERA_PERMISSION_REQ
 import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_MAP
 import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_NEWS
@@ -20,6 +23,7 @@ import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.*
 
 class MainActivity : BaseActivity() {
 
@@ -49,7 +53,7 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.settings -> {
-                findNavController(R.id.navHostFragment).navigate(R.id.settings_fragment)
+                findNavController(R.id.navHostFragment).navigate(R.id.to_settings_default)
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -1,0 +1,118 @@
+<resources>
+    <string name="app_name">Citizen App</string>
+
+    <!--    FB Access token -->
+    <!--  1058543571164824|_J-big1hLg4lp8fRPZdnzhllIFk  -->
+    <string name="facebook_app_id">1058543571164824</string>
+
+    <!--  Maps API Key  -->
+    <string name="maps_api_key">AIzaSyBnhRiB4J1pHrFa7Ex8p4jIcoLElac6JAM</string>
+
+    <!--  NAVIGATION  -->
+    <string name="nav_label_news">News</string>
+    <string name="nav_label_cities">City</string>
+    <string name="nav_label_city_detail">City detail</string>
+    <string name="nav_label_map">Map</string>
+
+    <!--  NAV MENU  -->
+    <string name="nav_menu_news">News</string>
+    <string name="nav_menu_my_city">My city</string>
+    <string name="nav_menu_cities">City</string>
+    <string name="nav_menu_map">Map</string>
+    <string name="nav_menu_issues">Notices</string>
+    <string name="nav_menu_pois">Points of interest</string>
+
+    <!--  OPTIONS MENU  -->
+    <string name="options_location_refresh">Refresh location</string>
+
+    <!--  ALL  -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">OK</string>
+    <string name="warning">Warning</string>
+    <string name="no_connection">Connection is not available</string>
+    <string name="location_unavailable">Location is not available</string>
+
+    <!--  NEWS  -->
+    <string name="news_residential_empty">You will be able to see latest news after choosing residential city</string>
+    <string name="news_link_invalid">Invalid reference</string>
+    <string name="news_link_open">Open</string>
+    <string name="news_no_news_available">No news are available right now</string>
+
+    <!--  NEWS DETAIL  -->
+    <string name="news_detail_label">News detail</string>
+
+    <!--  CITY PICKER  -->
+    <string name="city_pick_last_search_title">Last searches</string>
+
+    <!--  CITY DETAIL  -->
+    <string name="city_detail_population_title">Citizens: </string>
+    <string name="city_detail_name_title">Name: </string>
+    <string name="city_detail_description_title">Description: </string>
+    <string name="city_detail_residential_button">Set as residential</string>
+    <string name="city_detail_news_button">Latest news</string>
+    <string name="city_detail_map_button">Shwo on map</string>
+    <string name="city_detail_web_button">Webpage</string>
+    <string name="city_detail_residential_already_set">Residential city is already set: %1$s. Are you sure you want to set %2$s as your new residential city?</string>
+    <string name="city_detail_residential_not_set_message">Residential city is not set. First select a city and set it as residential.</string>
+    <string name="city_detail_residential_not_set_title">Residential city not found</string>
+
+    <!--  ISSUE CREATE  -->
+    <string name="issue_create_label">New notice</string>
+    <string name="issue_create_input_title_hint">Name</string>
+    <string name="issue_create_input_desc_hint">Description</string>
+    <string name="issue_create_attachment_title">Attachment</string>
+    <string name="issue_create_type_title">Notice type</string>
+    <string name="issue_create_invalid_title">Notice title has to be filled</string>
+    <string name="issue_create_invalid_description">Notice description has to be filled</string>
+    <string name="issue_create_invalid_type">Notice type has to be selected</string>
+    <string name="issue_create_invalid_attachment">Select an attachment before saving</string>
+    <string name="issue_create_chooser_tittle">Select attachment</string>
+
+    <!--  ISSUE DETAIL  -->
+    <string name="issue_detail_label">Notice detail</string>
+    <string name="issue_detail_description_title">Description: </string>
+
+    <!--  ISSUE TYPE  -->
+    <string name="issue_type_public_damage">Public property damage</string>
+    <string name="issue_type_lost_item">Lost and found</string>
+    <string name="issue_type_pavements">Pavements</string>
+    <string name="issue_type_lights">Lights</string>
+    <string name="issue_type_trash">Trash</string>
+    <string name="issue_type_others">Others</string>
+    <string name="issue_type_unknown">Unknown</string>
+
+    <!--  ISSUE LIST  -->
+    <string name="issue_list_label">Notices</string>
+
+    <!--  PLACE TYPE  -->
+    <string name="place_type_bar">Bar</string>
+    <string name="place_type_park">Park</string>
+    <string name="place_type_bus">Bus</string>
+    <string name="place_type_cafe">Café</string>
+    <string name="place_type_church">Church</string>
+    <string name="place_type_museum">Museum</string>
+    <string name="place_type_police">Police</string>
+    <string name="place_type_parking">Parking</string>
+    <string name="place_type_poi">Points of interest</string>
+
+    <!--  PLACE DETAIL  -->
+    <string name="place_detail_label">Place detail</string>
+    <string name="place_detail_open">Open</string>
+    <string name="place_detail_closed">Closed</string>
+    <string name="place_detail_show_on_map">Show on map</string>
+    <string name="place_detail_navigate">Show navigation</string>
+
+    <!--  SETTINGS  -->
+    <string name="settings_label">Settings</string>
+    <string name="settings_places_title">Places Settings</string>
+    <string name="settings_issues_title">Notices settings</string>
+    <string name="settings_pref_title">User settings</string>
+    <string name="settings_save">Save</string>
+    <string name="settings_close">Close</string>
+    <string name="settings_places_check_all">All places</string>
+    <string name="settings_issues_check_all">All notices</string>
+    <string name="settings_lang">Language - EN</string>
+    <string name="settings_user_role_tooltip">I am a </string>
+
+</resources>

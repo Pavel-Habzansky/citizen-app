@@ -42,3 +42,8 @@ const val USE_CONTEXT_ARG = "CONTEXT"
 const val USE_CONTEXT_EMPTY = "EMPTY"
 const val USE_CONTEXT_CITIZEN = "CITIZEN"
 const val USE_CONTEXT_TOURIST = "TOURIST"
+
+const val USER_PREF_SPACE = "USER_PREF"
+const val LANG_PREF_KEY = "LANG_PREF"
+const val LANG_CS = "cs"
+const val LANG_EN = "en"

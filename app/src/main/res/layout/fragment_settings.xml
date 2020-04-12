@@ -90,6 +90,52 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/userPreferencesContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_item_16"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/preferencesTitle"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_item_16"
+                        android:text="@string/settings_pref_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Switch
+                        android:id="@+id/langSwitch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_item_8"
+                        android:text="@string/settings_lang"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/preferencesTitle" />
+
+                    <TextView
+                        android:id="@+id/userRoleTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_item_8"
+                        android:text="@string/settings_user_role_tooltip"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/langSwitch" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/userRole"
+                        android:layout_width="128dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_item_8"
+                        android:layout_marginTop="@dimen/margin_item_8"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/langSwitch" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

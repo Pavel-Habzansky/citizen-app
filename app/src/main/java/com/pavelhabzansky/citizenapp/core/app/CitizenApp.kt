@@ -1,10 +1,16 @@
 package com.pavelhabzansky.citizenapp.core.app
 
 import android.app.Application
+import android.content.Context
+import android.content.res.Configuration
+import androidx.core.content.edit
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.pavelhabzansky.citizenapp.LogTree
 import com.pavelhabzansky.citizenapp.R
+import com.pavelhabzansky.citizenapp.core.LANG_CS
+import com.pavelhabzansky.citizenapp.core.LANG_PREF_KEY
+import com.pavelhabzansky.citizenapp.core.USER_PREF_SPACE
 import com.pavelhabzansky.citizenapp.core.config.LogConsumer
 import com.pavelhabzansky.citizenapp.core.di.appModule
 import com.pavelhabzansky.citizenapp.features.cities.detail.di.cityDetailModule
@@ -19,6 +25,7 @@ import com.pavelhabzansky.citizenapp.features.settings.di.settingsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
+import java.util.*
 
 class CitizenApp : Application() {
 
@@ -32,6 +39,16 @@ class CitizenApp : Application() {
 
         initMisc()
         initKoin()
+
+        initPrefs()
+    }
+
+    private fun initPrefs() {
+        val prefs = getSharedPreferences(USER_PREF_SPACE, Context.MODE_PRIVATE)
+        val langPref = prefs.getString(LANG_PREF_KEY, null)
+        if (langPref == null) {
+            prefs.edit { putString(LANG_PREF_KEY, LANG_CS) }
+        }
     }
 
     private fun initMisc() {

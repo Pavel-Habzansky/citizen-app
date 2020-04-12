@@ -14,10 +14,10 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:visibility="gone"
             android:paddingStart="@dimen/margin_item_32"
             android:paddingEnd="@dimen/margin_item_32"
-            android:text="@string/news_residential_empty" />
+            android:text="@string/news_residential_empty"
+            android:visibility="gone" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mapContainer"
@@ -32,22 +32,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/toListFab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_item_16"
-                android:layout_marginBottom="@dimen/margin_item_16"
-                android:background="?android:selectableItemBackground"
-                android:backgroundTint="@color/green"
-                android:scaleX="0.8"
-                android:scaleY="0.8"
-                android:src="@drawable/ic_view_list_black_24dp"
-                android:visibility="invisible"
-                app:backgroundTint="@color/browser_actions_bg_grey"
-                app:layout_constraintBottom_toTopOf="@id/newIssueFab"
-                app:layout_constraintStart_toStartOf="@id/mainFab" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/newIssueFab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,6 +42,22 @@
                 android:scaleX="0.8"
                 android:scaleY="0.8"
                 android:src="@drawable/ic_create_24px"
+                android:visibility="invisible"
+                app:backgroundTint="@color/browser_actions_bg_grey"
+                app:layout_constraintBottom_toTopOf="@id/toListFab"
+                app:layout_constraintStart_toStartOf="@id/mainFab" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/toListFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_item_16"
+                android:layout_marginBottom="@dimen/margin_item_16"
+                android:background="?android:selectableItemBackground"
+                android:backgroundTint="@color/green"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:src="@drawable/ic_view_list_black_24dp"
                 android:visibility="invisible"
                 app:backgroundTint="@color/browser_actions_bg_grey"
                 app:layout_constraintBottom_toTopOf="@id/mapSettingsFab"

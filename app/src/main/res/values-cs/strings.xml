@@ -9,13 +9,13 @@
     <string name="maps_api_key">AIzaSyBnhRiB4J1pHrFa7Ex8p4jIcoLElac6JAM</string>
 
     <!--  NAVIGATION  -->
-    <string name="nav_label_news">News-Novinky</string>
+    <string name="nav_label_news">Novinky</string>
     <string name="nav_label_cities">Města</string>
     <string name="nav_label_city_detail">Detail města</string>
     <string name="nav_label_map">Mapa</string>
 
     <!--  NAV MENU  -->
-    <string name="nav_menu_news">News-Novinky</string>
+    <string name="nav_menu_news">Novinky</string>
     <string name="nav_menu_my_city">Moje město</string>
     <string name="nav_menu_cities">Města</string>
     <string name="nav_menu_map">Mapa</string>

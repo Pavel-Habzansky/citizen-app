@@ -133,16 +133,16 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         if (fabOpen) {
             animateRotateClose(binding.mainFab)
             animateFade(binding.mapSettingsFab)
+            animateFade(binding.toListFab)
             if (isCitizenContext() || isEmptyContext()) {
                 animateFade(binding.newIssueFab)
-                animateFade(binding.toListFab)
             }
         } else {
             animateRotateOpen(binding.mainFab)
             animateShow(binding.mapSettingsFab)
+            animateShow(binding.toListFab)
             if (isCitizenContext() || isEmptyContext()) {
                 animateShow(binding.newIssueFab)
-                animateShow(binding.toListFab)
             }
         }
         fabOpen = !fabOpen

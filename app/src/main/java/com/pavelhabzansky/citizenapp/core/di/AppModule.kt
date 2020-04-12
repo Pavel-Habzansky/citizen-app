@@ -19,6 +19,7 @@ import com.pavelhabzansky.data.features.settings.repository.SettingsRepository
 import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
 import com.pavelhabzansky.domain.features.connectivity.manager.IConnectivityManager
 import com.pavelhabzansky.domain.features.issues.repository.IIssuesRepository
+import com.pavelhabzansky.domain.features.issues.repository.IMapItemsRepository
 import com.pavelhabzansky.domain.features.news.repository.INewsRepository
 import com.pavelhabzansky.domain.features.places.repository.IPlacesRepository
 import com.pavelhabzansky.domain.features.settings.repository.ISettingsRepository
@@ -98,7 +99,7 @@ val appModule = module {
                 issueSettingsDao = get<AppDatabase>().issueSettingsDao,
                 placesDao = get<AppDatabase>().placesDao,
                 issueDao = get<AppDatabase>().issueDao
-        )
+        ) as IMapItemsRepository
     }
 
 }

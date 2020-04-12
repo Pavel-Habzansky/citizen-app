@@ -22,8 +22,8 @@ class NewsPagerAdapter(fragmentManager: FragmentManager) :
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position) {
-            CITIZEN_NEWS_POSITION -> "Občan"
-            else -> "Turista"
+            CITIZEN_NEWS_POSITION -> "Citizen"
+            else -> "Tourist"
         }
     }
 

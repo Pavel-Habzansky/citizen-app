@@ -88,7 +88,7 @@
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" >
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
 
             <argument
                 android:name="CONTEXT"
@@ -145,7 +145,7 @@
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" >
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
 
             <argument
                 android:name="CONTEXT"
@@ -194,5 +194,20 @@
     <action
         android:id="@+id/toCityPickerFragment"
         app:destination="@id/city_picker_fragment" />
+
+    <action
+        android:id="@+id/to_settings_default"
+        app:destination="@+id/settings_fragment"
+        app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:exitAnim="@anim/nav_default_pop_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim">
+
+        <argument
+            android:name="CONTEXT"
+            android:defaultValue="EMPTY"
+            app:argType="string" />
+
+    </action>
 
 </navigation>
