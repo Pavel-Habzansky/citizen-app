@@ -38,6 +38,10 @@
     <string name="news_link_invalid">Neplatný link</string>
     <string name="news_link_open">Otevřít</string>
     <string name="news_no_news_available">Žádné novinky nyní nejsou k dispozici</string>
+    <string name="tourist_no_events_available">Žádné události nyní nejsou k dispozici</string>
+
+    <!--  EVENTS  -->
+    <string name="event_detail_label">Detail události</string>
 
     <!--  NEWS DETAIL  -->
     <string name="news_detail_label">Detail novinky</string>

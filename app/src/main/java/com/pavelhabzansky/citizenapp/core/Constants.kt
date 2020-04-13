@@ -31,6 +31,8 @@ const val ARG_KEY_LNG = "LNG"
 
 const val ARG_ISSUE_DATA = "ISSUE_JSON"
 const val ARG_PLACE_DATA = "PLACE_JSON"
+const val ARG_EVENT_DATA = "EVENT_JSON"
+const val ARG_EVENT_IMAGE = "EVENT_IMG"
 
 const val CHOOSER_TYPE_IMAGES = "image/*"
 

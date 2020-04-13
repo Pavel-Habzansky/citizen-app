@@ -11,6 +11,7 @@ import com.google.firebase.storage.StorageReference
 import com.pavelhabzansky.data.core.room.AppDatabase
 import com.pavelhabzansky.data.features.api.PlacesApi
 import com.pavelhabzansky.data.features.cities.repository.CityRepository
+import com.pavelhabzansky.data.features.events.repository.EventsRepository
 import com.pavelhabzansky.data.features.issues.repository.IssuesRepository
 import com.pavelhabzansky.data.features.issues.repository.MapItemsRepository
 import com.pavelhabzansky.data.features.news.repository.NewsRepository
@@ -18,6 +19,7 @@ import com.pavelhabzansky.data.features.places.repository.PlacesRepository
 import com.pavelhabzansky.data.features.settings.repository.SettingsRepository
 import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
 import com.pavelhabzansky.domain.features.connectivity.manager.IConnectivityManager
+import com.pavelhabzansky.domain.features.events.repository.IEventsRepository
 import com.pavelhabzansky.domain.features.issues.repository.IIssuesRepository
 import com.pavelhabzansky.domain.features.issues.repository.IMapItemsRepository
 import com.pavelhabzansky.domain.features.news.repository.INewsRepository
@@ -100,6 +102,12 @@ val appModule = module {
                 placesDao = get<AppDatabase>().placesDao,
                 issueDao = get<AppDatabase>().issueDao
         ) as IMapItemsRepository
+    }
+
+    single {
+        EventsRepository(
+                eventsDao = get<AppDatabase>().eventsDao
+        ) as IEventsRepository
     }
 
 }

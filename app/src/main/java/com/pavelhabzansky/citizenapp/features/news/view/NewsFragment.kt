@@ -96,10 +96,6 @@ class NewsFragment : BaseFragment() {
 
     private fun updateViewState(event: NewsViewState) {
         when (event) {
-            is NewsViewState.LocationPermissionGranted -> {
-                val location = locationClient.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                location?.let { viewModel.loadTouristNews(it.latitude, it.longitude) }
-            }
             is NewsViewState.LocationPermissionNotGranted -> {
                 ActivityCompat.requestPermissions(
                         requireActivity(),

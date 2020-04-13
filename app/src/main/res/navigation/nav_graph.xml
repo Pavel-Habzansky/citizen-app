@@ -210,4 +210,9 @@
 
     </action>
 
+    <fragment
+        android:id="@+id/event_detail_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.events.view.EventDetailFragment"
+        android:label="@string/event_detail_label"/>
+
 </navigation>

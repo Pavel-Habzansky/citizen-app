@@ -38,6 +38,10 @@
     <string name="news_link_invalid">Invalid reference</string>
     <string name="news_link_open">Open</string>
     <string name="news_no_news_available">No news are available right now</string>
+    <string name="tourist_no_events_available">No events are available right now</string>
+
+    <!--  EVENTS  -->
+    <string name="event_detail_label">Event detail</string>
 
     <!--  NEWS DETAIL  -->
     <string name="news_detail_label">News detail</string>

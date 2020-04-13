@@ -1,50 +1,39 @@
 package com.pavelhabzansky.citizenapp.features.news.view
 
-import android.Manifest
 import android.content.Context
-import android.content.Intent
+import android.graphics.Bitmap
 import android.location.LocationManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pavelhabzansky.citizenapp.R
-import com.pavelhabzansky.citizenapp.core.ARG_KEY_NEWS_TITLE
-import com.pavelhabzansky.citizenapp.core.ARG_KEY_NEWS_URL
+import com.pavelhabzansky.citizenapp.core.*
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
+import com.pavelhabzansky.citizenapp.core.fragment.findParentNavController
 import com.pavelhabzansky.citizenapp.core.fragment.toast
-import com.pavelhabzansky.citizenapp.core.hide
-import com.pavelhabzansky.citizenapp.core.show
 import com.pavelhabzansky.citizenapp.databinding.FragmentTouristNewsBinding
 import com.pavelhabzansky.citizenapp.features.news.states.NewsViewState
-import com.pavelhabzansky.citizenapp.features.news.view.adapter.NewsSourceAdapter
-import com.pavelhabzansky.citizenapp.features.news.view.adapter.TouristNewsAdapter
+import com.pavelhabzansky.citizenapp.features.news.view.adapter.EventsAdapter
 import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
+import com.pavelhabzansky.citizenapp.features.news.view.vo.ScheduleViewObject
 import com.pavelhabzansky.citizenapp.features.news.view.vo.NewsItemViewObject
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import java.net.UnknownHostException
 
 class TouristNewsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTouristNewsBinding
 
-    private val locationClient by lazy {
-        context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-    }
-
     private val viewModel by sharedViewModel<NewsViewModel>()
 
-    private val newsAdapter: NewsSourceAdapter by lazy {
-        NewsSourceAdapter(onItemClick = this::onItemClick)
+    private val eventAdapter: EventsAdapter by lazy {
+        EventsAdapter(onClick = this::onItemClick)
     }
 
     override fun onCreateView(
@@ -57,10 +46,10 @@ class TouristNewsFragment : BaseFragment() {
         binding.newsSourceRecycler.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = newsAdapter
+            adapter = eventAdapter
         }
 
-        binding.swipeContainer.setOnRefreshListener { loadTouristNews() }
+        binding.swipeContainer.setOnRefreshListener { viewModel.loadEvents(true) }
 
         return binding.root
     }
@@ -69,6 +58,11 @@ class TouristNewsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         registerEvents()
+
+        if (eventAdapter.items.isEmpty()) {
+            viewModel.loadEvents(false)
+            binding.swipeContainer.isRefreshing = true
+        }
     }
 
     private fun registerEvents() {
@@ -86,36 +80,20 @@ class TouristNewsFragment : BaseFragment() {
 
     private fun updateViewState(event: NewsViewState) {
         when (event) {
-            is NewsViewState.TouristNewsLoaded -> updateList(event.news)
+            is NewsViewState.EventsDownloadComplete -> viewModel.loadCachedEvents()
+            is NewsViewState.SchedulesLoadedEvent -> updateList(event.schedules)
             is NewsViewState.NoConnectionEvent -> noConnectionAvailable()
             is NewsViewState.LocationPermissionNotGranted -> noLocationAvailable()
         }
     }
 
-    private fun loadTouristNews() {
-        if(!viewModel.hasLocationPermission()) {
-            binding.swipeContainer.isRefreshing = false
-            toast(R.string.location_unavailable)
-            return
-        }
-
-        val location = locationClient.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-        if (location == null) {
-            binding.swipeContainer.isRefreshing = false
-            toast(R.string.location_unavailable)
-            return
-        }
-
-        viewModel.loadTouristNews(location.latitude, location.longitude)
-    }
-
-    private fun updateList(news: List<NewsItemViewObject>) {
+    private fun updateList(items: List<ScheduleViewObject>) {
         binding.swipeContainer.isRefreshing = false
-        newsAdapter.setItems(news)
+        eventAdapter.updateItems(items)
 
-        when (news.isEmpty()) {
-            true -> noNewsAvailable()
-            else -> showNews()
+        when (items.isEmpty()) {
+            true -> noEventsAvailable()
+            else -> showEvents()
         }
     }
 
@@ -133,20 +111,26 @@ class TouristNewsFragment : BaseFragment() {
         binding.title.text = getString(R.string.no_connection)
     }
 
-    private fun showNews() {
+    private fun showEvents() {
         binding.title.hide()
         binding.newsSourceRecycler.show()
     }
 
-    private fun noNewsAvailable() {
-        binding.title.text = getString(R.string.news_no_news_available)
+    private fun noEventsAvailable() {
+        binding.title.text = getString(R.string.tourist_no_events_available)
         binding.title.show()
         binding.newsSourceRecycler.hide()
     }
 
-    private fun onItemClick(title: String, url: String) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        startActivity(browserIntent)
+    private fun onItemClick(event: ScheduleViewObject) {
+        val args = Bundle()
+        args.putString(ARG_EVENT_DATA, event.toJson())
+        event.bitmap?.let {
+            val stream = ByteArrayOutputStream()
+            it.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            args.putByteArray(ARG_EVENT_IMAGE, stream.toByteArray())
+        }
+        findParentNavController().navigate(R.id.event_detail_fragment, args)
     }
 
 }

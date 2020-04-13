@@ -7,10 +7,13 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.pavelhabzansky.data.core.Converters
+import com.pavelhabzansky.data.features.api.EventImage
 import com.pavelhabzansky.data.features.cities.dao.CityDao
 import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
 import com.pavelhabzansky.data.features.cities.entities.CityEntity
 import com.pavelhabzansky.data.features.cities.entities.LastSearchCityEntity
+import com.pavelhabzansky.data.features.events.dao.EventsDao
+import com.pavelhabzansky.data.features.events.entities.*
 import com.pavelhabzansky.data.features.issues.dao.IssueDao
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
 import com.pavelhabzansky.data.features.news.dao.NewsDao
@@ -32,9 +35,14 @@ import com.pavelhabzansky.data.features.settings.entities.PlaceSettingsEntity
             PlaceEntity::class,
             PlaceSettingsEntity::class,
             IssueSettingsEntity::class,
-            PhotoEntity::class
+            PhotoEntity::class,
+            EventEntity::class,
+            EventImageEntity::class,
+            CountryEntity::class,
+            LocalityEntity::class,
+            ScheduleEntity::class
         ],
-        version = 12
+        version = 13
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -46,6 +54,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val placesDao: PlacesDao
     abstract val placeSettingDao: PlaceSettingsDao
     abstract val issueSettingsDao: IssueSettingsDao
+    abstract val eventsDao: EventsDao
 
     companion object {
         @Volatile

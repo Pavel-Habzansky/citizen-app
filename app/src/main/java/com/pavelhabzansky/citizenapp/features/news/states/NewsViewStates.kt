@@ -1,14 +1,14 @@
 package com.pavelhabzansky.citizenapp.features.news.states
 
+import android.graphics.Bitmap
 import com.pavelhabzansky.citizenapp.features.news.view.vo.NewsItemViewObject
+import com.pavelhabzansky.citizenapp.features.news.view.vo.ScheduleViewObject
 
 sealed class NewsViewState {
 
     class NewsCacheLoadedViewState(val news: List<NewsItemViewObject>) : NewsViewState()
 
     class NewsLoadedViewState(val news: List<NewsItemViewObject>) : NewsViewState()
-
-    class TouristNewsLoaded(val news: List<NewsItemViewObject>) : NewsViewState()
 
     class NewsItemLoadedViewState(val item: NewsItemViewObject) : NewsViewState()
 
@@ -18,7 +18,9 @@ sealed class NewsViewState {
 
     class NoConnectionEvent() : NewsViewState()
 
-    class NoResidentialViewState : NewsViewState()
+    class SchedulesLoadedEvent(val schedules: List<ScheduleViewObject>) : NewsViewState()
+
+    class EventsDownloadComplete : NewsViewState()
 
 }
 

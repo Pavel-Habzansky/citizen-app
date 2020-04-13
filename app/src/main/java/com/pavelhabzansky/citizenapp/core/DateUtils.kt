@@ -1,5 +1,6 @@
 package com.pavelhabzansky.citizenapp.core
 
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -11,4 +12,9 @@ fun Date.toFormattedString(): String {
 
 fun Long.timestampToString(): String {
     return formatter.format(Date(this))
+}
+
+fun fromGoOutFormat(goOutDate: String): String {
+    val timestamp = Timestamp.valueOf(goOutDate)
+    return timestamp.toFormattedString()
 }
