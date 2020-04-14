@@ -17,7 +17,8 @@ object SchedulesVOMapper : Mapper<ScheduleDO, ScheduleViewObject>() {
             url = from.url,
             bitmap = BitmapFactory.decodeByteArray(from.image, 0, from.image.size),
             pricing = from.pricing,
-            price = "Cena: " + from.pricing + " " + from.currency
+            price = "Cena: " + from.pricing + " " + from.currency,
+            locality = from.locality
     )
 
 

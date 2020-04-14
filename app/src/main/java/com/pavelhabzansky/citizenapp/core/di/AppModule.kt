@@ -106,7 +106,8 @@ val appModule = module {
 
     single {
         EventsRepository(
-                eventsDao = get<AppDatabase>().eventsDao
+                eventsDao = get<AppDatabase>().eventsDao,
+                eventSettingDao = get<AppDatabase>().eventSettingDao
         ) as IEventsRepository
     }
 

@@ -10,5 +10,6 @@ data class ScheduleDO(
         val url: String,
         val image: ByteArray,
         val pricing: String,
-        val currency: String
+        val currency: String,
+        val locality: String
 )

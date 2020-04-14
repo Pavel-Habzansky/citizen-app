@@ -59,10 +59,10 @@ class TouristNewsFragment : BaseFragment() {
 
         registerEvents()
 
-        if (eventAdapter.items.isEmpty()) {
+//        if (eventAdapter.items.isEmpty()) {
             viewModel.loadEvents(false)
             binding.swipeContainer.isRefreshing = true
-        }
+//        }
     }
 
     private fun registerEvents() {

@@ -12,6 +12,7 @@ import com.pavelhabzansky.data.features.cities.dao.CityDao
 import com.pavelhabzansky.data.features.cities.dao.LastSearchDao
 import com.pavelhabzansky.data.features.cities.entities.CityEntity
 import com.pavelhabzansky.data.features.cities.entities.LastSearchCityEntity
+import com.pavelhabzansky.data.features.events.dao.EventSettingDao
 import com.pavelhabzansky.data.features.events.dao.EventsDao
 import com.pavelhabzansky.data.features.events.entities.*
 import com.pavelhabzansky.data.features.issues.dao.IssueDao
@@ -40,7 +41,8 @@ import com.pavelhabzansky.data.features.settings.entities.PlaceSettingsEntity
             EventImageEntity::class,
             CountryEntity::class,
             LocalityEntity::class,
-            ScheduleEntity::class
+            ScheduleEntity::class,
+            CitySettingEntity::class
         ],
         version = 13
 )
@@ -55,6 +57,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val placeSettingDao: PlaceSettingsDao
     abstract val issueSettingsDao: IssueSettingsDao
     abstract val eventsDao: EventsDao
+    abstract val eventSettingDao: EventSettingDao
 
     companion object {
         @Volatile

@@ -15,5 +15,6 @@ data class LocalityEntity(
         var id: Int = -1,
         var name: String = "EMPTY",
         var enum: String = "EMPTY",
-        var countryId: Int = -1
+        var countryId: Int = -1,
+        var countryCode: String = ""
 )

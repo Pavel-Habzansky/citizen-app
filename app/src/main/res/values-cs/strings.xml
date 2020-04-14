@@ -119,4 +119,9 @@
     <string name="settings_lang">Jazyk - CS</string>
     <string name="settings_user_role_tooltip">Jsem: </string>
 
+    <!--  FILTER  -->
+    <string name="filter_label">Filtr</string>
+    <string name="filter_locations_title">Filter měst</string>
+    <string name="filter_cities_check_all">Všechna města</string>
+
 </resources>

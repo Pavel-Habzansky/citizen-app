@@ -12,4 +12,10 @@
         android:icon="@drawable/ic_settings_green"
         android:title="@string/settings_label"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/filter"
+        android:icon="@drawable/ic_settings_green"
+        android:title="@string/filter_label"
+        app:showAsAction="never" />
 </menu>

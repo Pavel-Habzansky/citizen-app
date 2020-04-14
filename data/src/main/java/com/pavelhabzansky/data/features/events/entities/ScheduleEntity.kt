@@ -18,6 +18,8 @@ data class ScheduleEntity(
         val start: String,
         val venueId: Int,
         val venueLocalityId: Int,
+        val localityEnum: String,
+        val locality: String,
         val url: String,
         val timestampStart: Long
 )

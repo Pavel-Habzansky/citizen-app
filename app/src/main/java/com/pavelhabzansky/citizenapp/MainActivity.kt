@@ -17,6 +17,7 @@ import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_NEWS
 import com.pavelhabzansky.citizenapp.core.activity.BaseActivity
 import com.pavelhabzansky.citizenapp.core.activity.hasLocationPermission
 import com.pavelhabzansky.citizenapp.core.activity.toast
+import com.pavelhabzansky.citizenapp.features.filter.view.FilterFragment
 import com.pavelhabzansky.citizenapp.features.issues.create.view.vm.CreateIssueViewModel
 import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
 import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
@@ -62,18 +63,18 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val locationRefIcon = menu?.findItem(R.id.locationRefresh)
-
-        when (hasLocationPermission()) {
-            true -> locationRefIcon?.isVisible = false
-            false -> locationRefIcon?.isVisible = true
+        val navHost = supportFragmentManager.findFragmentById(R.id.navHostFragment)
+        val current = navHost?.childFragmentManager?.fragments?.get(0)
+        if (current is FilterFragment) {
+            menu?.findItem(R.id.filter)?.isVisible = false
         }
+
+        setLocationIcon(menu?.findItem(R.id.locationRefresh))
 
         return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.navHostFragment)
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
     }
 
@@ -116,4 +117,12 @@ class MainActivity : BaseActivity() {
             }
         }
     }
+
+    private fun setLocationIcon(item: MenuItem?) {
+        when (hasLocationPermission()) {
+            true -> item?.isVisible = false
+            false -> item?.isVisible = true
+        }
+    }
+
 }

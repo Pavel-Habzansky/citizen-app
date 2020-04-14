@@ -210,9 +210,22 @@
 
     </action>
 
+    <action
+        android:id="@+id/to_filter"
+        app:destination="@+id/filter_settings_fragment"
+        app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:exitAnim="@anim/nav_default_pop_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <fragment
+        android:id="@+id/filter_settings_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.filter.view.FilterFragment"
+        android:label="@string/filter_label" />
+
     <fragment
         android:id="@+id/event_detail_fragment"
         android:name="com.pavelhabzansky.citizenapp.features.events.view.EventDetailFragment"
-        android:label="@string/event_detail_label"/>
+        android:label="@string/event_detail_label" />
 
 </navigation>

@@ -119,4 +119,9 @@
     <string name="settings_lang">Language - EN</string>
     <string name="settings_user_role_tooltip">I am a </string>
 
+    <!--  FILTER  -->
+    <string name="filter_label">Filter</string>
+    <string name="filter_locations_title">City filter</string>
+    <string name="filter_cities_check_all">All cities</string>
+
 </resources>

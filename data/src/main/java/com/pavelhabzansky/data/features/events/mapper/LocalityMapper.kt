@@ -10,7 +10,8 @@ object LocalityMapper : Mapper<Locality, LocalityEntity>() {
             id = from.id,
             name = from.name,
             enum = from.enum,
-            countryId = from.country.id
+            countryId = from.country.id,
+            countryCode = from.country.shortCode
     )
 
 }

@@ -12,5 +12,6 @@ data class ScheduleViewObject(
         val url: String,
         var bitmap: Bitmap? = null,
         val pricing: String,
-        val price: String
+        val price: String,
+        val locality: String
 )

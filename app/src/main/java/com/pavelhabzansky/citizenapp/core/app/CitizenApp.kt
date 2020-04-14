@@ -16,6 +16,7 @@ import com.pavelhabzansky.citizenapp.core.di.appModule
 import com.pavelhabzansky.citizenapp.features.cities.detail.di.cityDetailModule
 import com.pavelhabzansky.citizenapp.features.cities.search.di.cityPickerModule
 import com.pavelhabzansky.citizenapp.features.events.di.eventsModule
+import com.pavelhabzansky.citizenapp.features.filter.di.filterModule
 import com.pavelhabzansky.citizenapp.features.issues.create.di.createIssueModule
 import com.pavelhabzansky.citizenapp.features.issues.detail.di.issueDetailModule
 import com.pavelhabzansky.citizenapp.features.issues.list.di.issueListModule
@@ -74,7 +75,8 @@ class CitizenApp : Application() {
                             issueListModule,
                             placesModule,
                             settingsModule,
-                            eventsModule
+                            eventsModule,
+                            filterModule
                     )
             )
         }

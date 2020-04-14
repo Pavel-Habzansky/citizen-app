@@ -4,16 +4,14 @@ import android.Manifest
 import android.content.Context
 import android.location.LocationManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_NEWS
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
+import com.pavelhabzansky.citizenapp.core.fragment.findParentNavController
 import com.pavelhabzansky.citizenapp.core.fragment.toast
 import com.pavelhabzansky.citizenapp.databinding.FragmentNewsBinding
 import com.pavelhabzansky.citizenapp.features.news.states.NewsViewState
@@ -63,6 +61,10 @@ class NewsFragment : BaseFragment() {
         return when(item.itemId) {
             R.id.locationRefresh -> {
                 viewModel.requestLocationPermission()
+                true
+            }
+            R.id.filter -> {
+                findParentNavController().navigate(R.id.to_filter)
                 true
             }
             else -> activity?.onOptionsItemSelected(item) ?: false

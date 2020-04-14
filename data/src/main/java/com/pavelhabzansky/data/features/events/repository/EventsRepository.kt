@@ -1,9 +1,11 @@
 package com.pavelhabzansky.data.features.events.repository
 
 import com.pavelhabzansky.data.features.api.GoOutApi
+import com.pavelhabzansky.data.features.events.dao.EventSettingDao
 import com.pavelhabzansky.data.features.events.dao.EventsDao
 import com.pavelhabzansky.data.features.events.entities.*
 import com.pavelhabzansky.data.features.events.mapper.*
+import com.pavelhabzansky.domain.features.events.domain.CitySettingDO
 import com.pavelhabzansky.domain.features.events.domain.ScheduleDO
 import com.pavelhabzansky.domain.features.events.repository.IEventsRepository
 import retrofit2.Retrofit
@@ -13,7 +15,8 @@ import java.net.URL
 import java.sql.Timestamp
 
 class EventsRepository(
-        private val eventsDao: EventsDao
+        private val eventsDao: EventsDao,
+        private val eventSettingDao: EventSettingDao
 ) : IEventsRepository {
 
     override suspend fun downloadEvents(force: Boolean) {
@@ -69,12 +72,24 @@ class EventsRepository(
         eventsDao.insertEvents(events.toList())
         eventsDao.insertImages(images)
         eventsDao.insertSchedules(schedules.toList())
+
+        val newSettings = localities.map {
+            CitySettingEntity(enumName = it.enum, name = it.name, countryCode = it.countryCode)
+        }
+        val currentSettings = eventSettingDao.getCitySettings()
+
+        val diff = newSettings.minus(currentSettings)
+        eventSettingDao.insertCitySettings(diff)
     }
 
     override suspend fun loadEvents(): List<ScheduleDO> {
         val imageMap = mutableMapOf<Int, List<EventImageEntity>>()
         val events = eventsDao.getEvents()
-        val schedules = eventsDao.getSchedules()
+        var schedules = eventsDao.getSchedules()
+
+        val cityEnums = eventSettingDao.getCitySettings().filter { it.enabled }.map { it.enumName }
+        schedules = schedules.filter { cityEnums.contains(it.localityEnum) }
+
         schedules.forEach {
             imageMap[it.id] = eventsDao.getImagesForEvent(it.eventId)
         }
@@ -85,7 +100,7 @@ class EventsRepository(
                     text = event.text, mainImageUrl = event.mainImageSrc,
                     images = imageMap[schedule.id]?.map { it.src } ?: emptyList(),
                     date = schedule.start, url = schedule.url, image = downloadImage(event.mainImageSrc),
-                    pricing = schedule.pricing, currency = schedule.currency)
+                    pricing = schedule.pricing, currency = schedule.currency, locality = schedule.locality)
         }
     }
 
@@ -113,6 +128,15 @@ class EventsRepository(
                 ByteArray(0)
             }
         }
+    }
+
+    override suspend fun getFilterSettings(): List<CitySettingDO> {
+        val settings = eventSettingDao.getCitySettings()
+        return settings.map { CitySettingMapper.mapFrom(it) }.sortedWith(compareBy({ it.countryCode }, { it.name }))
+    }
+
+    override suspend fun saveFilter(settings: List<CitySettingDO>) {
+        eventSettingDao.insertCitySettings(settings.map { CitySettingMapper.mapTo(it) })
     }
 
 }

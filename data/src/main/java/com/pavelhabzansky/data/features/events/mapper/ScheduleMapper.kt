@@ -17,7 +17,9 @@ object ScheduleMapper : Mapper<Schedule, ScheduleEntity>() {
             venueId = from.venueId,
             venueLocalityId = from.venueLocality.id,
             url = from.url,
-            timestampStart = Timestamp.valueOf(from.start).time
+            timestampStart = Timestamp.valueOf(from.start).time,
+            localityEnum = from.venueLocality.enum,
+            locality = from.venueLocality.name
     )
 
 }
