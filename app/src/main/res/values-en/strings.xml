@@ -124,4 +124,8 @@
     <string name="filter_locations_title">City filter</string>
     <string name="filter_cities_check_all">All cities</string>
 
+    <!--  PUSH EVENTS  -->
+    <string name="push_events_empty">Your news inbox is empty right now</string>
+    <string name="push_events_label">Inbox</string>
+
 </resources>

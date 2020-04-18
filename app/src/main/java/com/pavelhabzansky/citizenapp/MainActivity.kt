@@ -1,30 +1,37 @@
 package com.pavelhabzansky.citizenapp
 
-import android.content.Context
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.google.android.gms.common.util.SharedPreferencesUtils
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.pavelhabzansky.citizenapp.core.CAMERA_PERMISSION_REQ
 import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_MAP
 import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_NEWS
 import com.pavelhabzansky.citizenapp.core.activity.BaseActivity
 import com.pavelhabzansky.citizenapp.core.activity.hasLocationPermission
-import com.pavelhabzansky.citizenapp.core.activity.toast
 import com.pavelhabzansky.citizenapp.features.filter.view.FilterFragment
 import com.pavelhabzansky.citizenapp.features.issues.create.view.vm.CreateIssueViewModel
 import com.pavelhabzansky.citizenapp.features.map.view.vm.MapViewModel
 import com.pavelhabzansky.citizenapp.features.news.view.vm.NewsViewModel
+import com.pavelhabzansky.domain.features.events.usecase.GetInboxSizeUseCase
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.util.*
 
 class MainActivity : BaseActivity() {
 
@@ -33,6 +40,12 @@ class MainActivity : BaseActivity() {
     private val mapViewModel by viewModel<MapViewModel>()
     private val newsViewModel by viewModel<NewsViewModel>()
     private val createIssueViewModel by viewModel<CreateIssueViewModel>()
+
+    private val getInboxSize by inject<GetInboxSizeUseCase>()
+    private var inboxSize: LiveData<Int>? = null
+    private val inboxObserver: Observer<Int> by lazy {
+        Observer<Int> { updateInboxCounter(it) }
+    }
 
     private val navController: NavController by lazy { findNavController(R.id.navHostFragment) }
 
@@ -44,6 +57,25 @@ class MainActivity : BaseActivity() {
 
         setupActionBarWithNavController(navController, appBarConfig)
         navView.setupWithNavController(navController)
+        subscribeInbox()
+    }
+
+    private fun subscribeInbox() {
+        launch(Dispatchers.IO) {
+            inboxSize = getInboxSize(Unit)
+            launch(Dispatchers.Main) { inboxSize?.observeForever(inboxObserver) }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        inboxSize?.removeObserver(inboxObserver)
+    }
+
+    private fun updateInboxCounter(size: Int) {
+        val inboxSizeText = navView.menu.findItem(R.id.push_list_fragment).actionView.findViewById<TextView>(R.id.inboxCounter)
+        inboxSizeText.text = if (size == 0) "" else size.toString()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

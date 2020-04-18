@@ -228,4 +228,9 @@
         android:name="com.pavelhabzansky.citizenapp.features.events.view.EventDetailFragment"
         android:label="@string/event_detail_label" />
 
+    <fragment
+        android:id="@+id/push_list_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.events.view.PushEventListFragment"
+        android:label="@string/push_events_label" />
+
 </navigation>

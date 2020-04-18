@@ -1,6 +1,8 @@
 package com.pavelhabzansky.data.features.cities.repository
 
 import android.graphics.BitmapFactory
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +11,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.StorageReference
 import com.pavelhabzansky.data.core.*
 import com.pavelhabzansky.data.features.cities.dao.CityDao
@@ -142,9 +145,25 @@ class CityRepository(
                 rssUrl = city.rssUrl ?: ""
         )
 
+        val residential = cityDao.getResidential()
         cityDao.unsetResidential()
+        if (residential != null) {
+            FirebaseMessaging.getInstance()
+                    .unsubscribeFromTopic(residential.key)
+                    .addOnSuccessListener { Timber.i("${residential.key} unsubscribed") }
+        }
         cityDao.insert(entity = cityEntity)
         newsDao.removeAll()
+
+        FirebaseMessaging.getInstance().subscribeToTopic(cityEntity.key)
+                .addOnCompleteListener { task ->
+                    var msg = "Device subscribed to topic ${cityEntity.key}"
+                    if (!task.isSuccessful) {
+                        msg = "Device not subscribed to topic"
+                    }
+
+                    Timber.i(msg)
+                }
     }
 
     override suspend fun getResidentialCity(): CityDO? {

@@ -1,5 +1,6 @@
 package com.pavelhabzansky.data.features.events.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -62,6 +63,18 @@ abstract class EventsDao {
 
     @Query("DELETE FROM LocalityEntity")
     abstract fun removeLocalities()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertPushEvent(entity: PushEventEntity)
+
+    @Query("SELECT * FROM PushEventEntity ORDER BY timestamp DESC")
+    abstract fun getPushEvents(): LiveData<List<PushEventEntity>>
+
+    @Query("DELETE FROM PushEventEntity WHERE id = :id")
+    abstract fun removePushEvent(id: String)
+
+    @Query("SELECT COUNT(*) FROM PushEventEntity")
+    abstract fun inboxSize(): LiveData<Int>
 
 
 }

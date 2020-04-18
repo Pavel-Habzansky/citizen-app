@@ -42,6 +42,7 @@ ext {
             firebaseDb         : '19.2.0',
             firebaseAuth       : '19.2.0',
             firebaseStorage    : '19.1.0',
+            firebaseCfm        : '20.1.5',
             gms                : '4.3.3',
             googleMaps         : '16.1.0',
             googlePlaces       : '2.2.0',
@@ -150,6 +151,7 @@ ext {
             gson           : "com.google.code.gson:gson:${versions.gson}",
             kotpref        : "com.chibatching.kotpref:kotpref:${versions.kotpref}",
             safeRoom       : "com.commonsware.cwac:saferoom:${versions.safeRoom}",
-            debugDb        : "com.amitshekhar.android:debug-db:${versions.debugDb}"
+            debugDb        : "com.amitshekhar.android:debug-db:${versions.debugDb}",
+            firebaseCfm    : "com.google.firebase:firebase-messaging:${versions.firebaseCfm}"
     ]
 }

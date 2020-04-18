@@ -20,6 +20,8 @@ import com.pavelhabzansky.data.features.settings.repository.SettingsRepository
 import com.pavelhabzansky.domain.features.cities.repository.ICityRepository
 import com.pavelhabzansky.domain.features.connectivity.manager.IConnectivityManager
 import com.pavelhabzansky.domain.features.events.repository.IEventsRepository
+import com.pavelhabzansky.domain.features.events.usecase.GetInboxSizeUseCase
+import com.pavelhabzansky.domain.features.events.usecase.StorePushEventUseCase
 import com.pavelhabzansky.domain.features.issues.repository.IIssuesRepository
 import com.pavelhabzansky.domain.features.issues.repository.IMapItemsRepository
 import com.pavelhabzansky.domain.features.news.repository.INewsRepository
@@ -110,6 +112,10 @@ val appModule = module {
                 eventSettingDao = get<AppDatabase>().eventSettingDao
         ) as IEventsRepository
     }
+
+    single { StorePushEventUseCase(eventRepository = get()) }
+
+    single { GetInboxSizeUseCase(eventsRepository = get()) }
 
 }
 

@@ -124,4 +124,8 @@
     <string name="filter_locations_title">Filtr měst</string>
     <string name="filter_cities_check_all">Všechna města</string>
 
+    <!--  PUSH EVENTS  -->
+    <string name="push_events_empty">V současné době nemáte žádné aktuality</string>
+    <string name="push_events_label">Aktuality</string>
+
 </resources>

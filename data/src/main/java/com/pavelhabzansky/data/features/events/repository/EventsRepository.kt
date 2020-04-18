@@ -1,15 +1,20 @@
 package com.pavelhabzansky.data.features.events.repository
 
+import androidx.lifecycle.LiveData
+import com.google.gson.Gson
+import com.pavelhabzansky.data.core.transform
 import com.pavelhabzansky.data.features.api.GoOutApi
 import com.pavelhabzansky.data.features.events.dao.EventSettingDao
 import com.pavelhabzansky.data.features.events.dao.EventsDao
 import com.pavelhabzansky.data.features.events.entities.*
 import com.pavelhabzansky.data.features.events.mapper.*
 import com.pavelhabzansky.domain.features.events.domain.CitySettingDO
+import com.pavelhabzansky.domain.features.events.domain.PushEvent
 import com.pavelhabzansky.domain.features.events.domain.ScheduleDO
 import com.pavelhabzansky.domain.features.events.repository.IEventsRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import java.lang.Exception
 import java.net.URL
 import java.sql.Timestamp
@@ -137,6 +142,27 @@ class EventsRepository(
 
     override suspend fun saveFilter(settings: List<CitySettingDO>) {
         eventSettingDao.insertCitySettings(settings.map { CitySettingMapper.mapTo(it) })
+    }
+
+    override suspend fun storePushEvent(event: PushEvent) {
+        Timber.w("Inserting push event: ${Gson().toJson(event)}")
+        val entity = PushEventMapper.mapTo(event)
+        eventsDao.insertPushEvent(entity)
+    }
+
+    override suspend fun loadInbox(): LiveData<List<PushEvent>> {
+        val entities = eventsDao.getPushEvents()
+        return entities.transform {
+            it.map { PushEventMapper.mapFrom(it) }
+        }
+    }
+
+    override suspend fun removePushEvent(id: String) {
+        eventsDao.removePushEvent(id)
+    }
+
+    override suspend fun inboxSize(): LiveData<Int> {
+        return eventsDao.inboxSize()
     }
 
 }

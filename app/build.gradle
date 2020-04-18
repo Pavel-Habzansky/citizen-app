@@ -76,6 +76,7 @@ dependencies {
 
     implementation thirdPartyDependencies.firebaseAuth
     implementation thirdPartyDependencies.firebaseStorage
+    implementation thirdPartyDependencies.firebaseCfm
 
 
     testImplementation testDependencies.junit

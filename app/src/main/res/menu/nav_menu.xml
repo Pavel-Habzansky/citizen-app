@@ -34,6 +34,12 @@
             android:icon="@drawable/ic_nav_poi"
             android:title="@string/nav_menu_pois" />
 
+        <item
+            android:id="@+id/push_list_fragment"
+            app:actionLayout="@layout/menu_item_inbox"
+            android:icon="@drawable/ic_mail"
+            android:title="@string/push_events_label" />
+
     </group>
 
 </menu>
