@@ -10,14 +10,16 @@ object PushEventMapper : MapperDirectional<PushEventEntity, PushEvent>() {
             id = from.id,
             title = from.title,
             body = from.body,
-            timestamp = from.timestamp
+            timestamp = from.timestamp,
+            url = from.url
     )
 
     override fun mapTo(to: PushEvent) = PushEventEntity(
             id = to.id,
             title = to.title,
             body = to.body,
-            timestamp = to.timestamp
+            timestamp = to.timestamp,
+            url = to.url
     )
 
 }

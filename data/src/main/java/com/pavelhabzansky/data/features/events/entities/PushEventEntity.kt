@@ -9,5 +9,6 @@ data class PushEventEntity(
         val id: String,
         val title: String,
         val body: String,
-        val timestamp: Long
+        val timestamp: Long,
+        val url: String? = null
 )

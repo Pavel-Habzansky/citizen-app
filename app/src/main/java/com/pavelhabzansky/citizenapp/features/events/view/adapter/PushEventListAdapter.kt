@@ -7,11 +7,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pavelhabzansky.citizenapp.BR
 import com.pavelhabzansky.citizenapp.R
+import com.pavelhabzansky.citizenapp.core.show
 import com.pavelhabzansky.citizenapp.databinding.ItemPushListBinding
 import com.pavelhabzansky.citizenapp.features.events.view.vo.PushEventVO
 
 class PushEventListAdapter(
-        private val onRemoveClick: (String) -> Unit
+        private val onRemoveClick: (String) -> Unit,
+        private val onNavigateClick: (String) -> Unit
 ) : RecyclerView.Adapter<PushEventListAdapter.PushEventViewHolder>() {
 
     private var items: List<PushEventVO> = emptyList()
@@ -25,7 +27,7 @@ class PushEventListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PushEventViewHolder {
         val binding = DataBindingUtil.inflate<ItemPushListBinding>(LayoutInflater.from(parent.context), R.layout.item_push_list, parent, false)
-        return PushEventViewHolder(binding)
+        return PushEventViewHolder(binding).also { it.setIsRecyclable(false) }
     }
 
     override fun onBindViewHolder(holder: PushEventViewHolder, position: Int) {
@@ -39,6 +41,10 @@ class PushEventListAdapter(
             binding.executePendingBindings()
 
             binding.removeIc.setOnClickListener { onRemoveClick(item.id) }
+            if (item.url != null) {
+                binding.navImg.show()
+                binding.navImg.setOnClickListener { onNavigateClick(item.url) }
+            }
         }
 
     }

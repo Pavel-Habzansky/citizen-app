@@ -10,7 +10,8 @@ object PushEventVOMapper : Mapper<PushEvent, PushEventVO>() {
             id = from.id,
             timestamp = from.timestamp,
             title = from.title,
-            body = from.body
+            body = from.body,
+            url = from.url
     )
 
 }

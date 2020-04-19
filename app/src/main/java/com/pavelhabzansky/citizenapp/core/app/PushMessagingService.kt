@@ -20,9 +20,10 @@ class PushMessagingService : FirebaseMessagingService() {
         val id = message.messageId
         val title = message.data["title"]
         val body = message.data["body"]
+        val url = message.data["url"]
 
         if (id != null && title != null && body != null) {
-            val pushEvent = PushEvent(id, title, body, System.currentTimeMillis())
+            val pushEvent = PushEvent(id, title, body, System.currentTimeMillis(), url)
 
             GlobalScope.launch(Dispatchers.IO) {
                 storePushEvent(pushEvent)

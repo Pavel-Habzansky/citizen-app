@@ -1,5 +1,7 @@
 package com.pavelhabzansky.citizenapp.features.events.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +28,10 @@ class PushEventListFragment : BaseFragment() {
     private val viewModel by viewModel<PushEventListViewModel>()
 
     private val adapter: PushEventListAdapter by lazy {
-        PushEventListAdapter(onRemoveClick = this::removePushEvent)
+        PushEventListAdapter(
+                onRemoveClick = this::removePushEvent,
+                onNavigateClick = this::navigate
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -76,6 +81,11 @@ class PushEventListFragment : BaseFragment() {
             binding.pushEventRecycler.hide()
             binding.emptyTitle.show()
         }
+    }
+
+    private fun navigate(url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(browserIntent)
     }
 
 }
