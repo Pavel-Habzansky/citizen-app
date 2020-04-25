@@ -202,7 +202,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 if (this::googleMap.isInitialized) {
                     googleMap.isMyLocationEnabled = true
                     val location = locationClient.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                    targetUser()
+//                    targetUser()
                     viewModel.fetchPlaces(location.latitude, location.longitude)
                 }
             }
@@ -234,6 +234,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun toSettings() {
+        toggleFabMenu()
         findParentNavController().navigate(R.id.to_settings)
     }
 
@@ -274,12 +275,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 loadIssueInBounds()
             }
 
-            arguments?.let { args ->
-                val latitude = args.getDouble(ARG_CITY_LAT)
-                val longitude = args.getDouble(ARG_CITY_LNG)
-
+            val latitude = arguments?.getDouble(ARG_CITY_LAT)
+            val longitude = arguments?.getDouble(ARG_CITY_LNG)
+            if (requireNotNull(latitude) != 0.0 && requireNotNull(longitude) != 0.0) {
                 navigateToLocation(lat = latitude, lng = longitude)
-            } ?: run {
+            } else {
                 if (!loaded) {
                     loaded = true
                     targetUser()
