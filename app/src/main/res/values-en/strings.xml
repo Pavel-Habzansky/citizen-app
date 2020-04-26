@@ -39,6 +39,8 @@
     <string name="news_link_open">Open</string>
     <string name="news_no_news_available">No news are available right now</string>
     <string name="tourist_no_events_available">No events are available right now</string>
+    <string name="pager_title_citizen">Citizen</string>
+    <string name="pager_title_tourist">Tourist</string>
 
     <!--  EVENTS  -->
     <string name="event_detail_label">Event detail</string>

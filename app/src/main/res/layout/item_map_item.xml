@@ -5,10 +5,10 @@
 
     <data>
 
-<!--        <variable-->
-<!--            name="item"-->
-<!--            type="com.pavelhabzansky.citizenapp.features.map.view.vo.IssueVO" />-->
-<!---->
+        <!--        <variable-->
+        <!--            name="item"-->
+        <!--            type="com.pavelhabzansky.citizenapp.features.map.view.vo.IssueVO" />-->
+        <!---->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_item_16"
+            android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@id/itemImage"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Nadpis" />
@@ -41,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_item_16"
+            android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@id/itemImage"
             app:layout_constraintTop_toBottomOf="@id/itemTitle"
             tools:text="Popis" />

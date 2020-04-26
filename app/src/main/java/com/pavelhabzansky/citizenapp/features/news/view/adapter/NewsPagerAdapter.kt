@@ -1,15 +1,19 @@
 package com.pavelhabzansky.citizenapp.features.news.view.adapter
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.features.news.view.CitizenNewsFragment
 import com.pavelhabzansky.citizenapp.features.news.view.TouristNewsFragment
 
-class NewsPagerAdapter(fragmentManager: FragmentManager) :
-    FragmentStatePagerAdapter(fragmentManager) {
+class NewsPagerAdapter(
+        fragmentManager: FragmentManager,
+        private val context: Context
+) : FragmentStatePagerAdapter(fragmentManager) {
 
     companion object {
         const val CITIZEN_NEWS_POSITION = 0
@@ -21,15 +25,15 @@ class NewsPagerAdapter(fragmentManager: FragmentManager) :
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return when(position) {
-            CITIZEN_NEWS_POSITION -> "Citizen"
-            else -> "Tourist"
+        return when (position) {
+            CITIZEN_NEWS_POSITION -> context.getString(R.string.pager_title_citizen)
+            else -> context.getString(R.string.pager_title_tourist)
         }
     }
 
     private val fragments = listOf(
-        CitizenNewsFragment(),
-        TouristNewsFragment()
+            CitizenNewsFragment(),
+            TouristNewsFragment()
 
     )
 

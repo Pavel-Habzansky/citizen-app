@@ -39,6 +39,8 @@
     <string name="news_link_open">Otevřít</string>
     <string name="news_no_news_available">Žádné novinky nyní nejsou k dispozici</string>
     <string name="tourist_no_events_available">Žádné události nyní nejsou k dispozici</string>
+    <string name="pager_title_citizen">Občan</string>
+    <string name="pager_title_tourist">Turista</string>
 
     <!--  EVENTS  -->
     <string name="event_detail_label">Detail události</string>

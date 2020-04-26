@@ -47,10 +47,12 @@ class ItemListAdapter(
 
             when (item) {
                 is IssueVO -> {
+                    binding.itemTitle.text = item.issueTitle
                     binding.itemDescription.text = item.description
                     binding.itemImage.setImageResource(item.type.icon)
                 }
                 is PlaceVO -> {
+                    binding.itemTitle.text = item.name
                     binding.itemDescription.text = item.vicinity
                     binding.itemImage.setImageResource(item.type.icon)
                 }

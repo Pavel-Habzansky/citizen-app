@@ -25,7 +25,7 @@ import java.net.UnknownHostException
 class NewsFragment : BaseFragment() {
 
     private val newsPagerAdapter: NewsPagerAdapter by lazy {
-        NewsPagerAdapter(childFragmentManager)
+        NewsPagerAdapter(childFragmentManager, requireContext())
     }
 
     private lateinit var binding: FragmentNewsBinding
