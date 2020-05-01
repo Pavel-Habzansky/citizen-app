@@ -2,12 +2,14 @@ package com.pavelhabzansky.citizenapp.features.cities.detail.view
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.text.Spanned
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -149,19 +151,33 @@ class CityDetailFragment : BaseFragment() {
     }
 
     private fun setCityData(city: CityInformationVO) {
-        binding.setVariable(BR.info, city)
-        binding.executePendingBindings()
+        val prefs = context?.getSharedPreferences(USER_PREF_SPACE, Context.MODE_PRIVATE)
+        val lang = prefs?.getString(LANG_PREF_KEY, LANG_CS)
+        val name: String
+        val description: Spanned
+        if (lang == LANG_EN) {
+            name = city.nameEn
+            description = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(city.descriptionEn, Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                Html.fromHtml(city.descriptionEn)
+            }
+        } else {
+            name = city.name
+            description = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(city.description, Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                Html.fromHtml(city.description)
+            }
+        }
+        binding.cityName.text = name
+        binding.cityDescription.text = description
+        binding.populationText.text = city.population?.toString()
 
         binding.mainFab.show()
 
         if (!city.residential) {
             binding.favImg.hide()
-        }
-
-        binding.cityDescription.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(city.description, Html.FROM_HTML_MODE_COMPACT)
-        } else {
-            Html.fromHtml(city.description)
         }
 
         val bytes = city.logoBytes

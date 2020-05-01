@@ -85,6 +85,7 @@ class CityRepository(
         city.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val name = snapshot.child(CITY_CHILD_NAME).value?.toString() ?: ""
+                val nameEn = snapshot.child("name_en").value?.toString() ?: ""
                 val id = snapshot.child(CITY_CHILD_ID).value?.toString() ?: ""
                 val www = snapshot.child(CITY_CHILD_WWW).value?.toString() ?: ""
                 val rssFeed = snapshot.child(CITY_CHILD_RSS_FEED).value?.toString() ?: ""
@@ -92,6 +93,7 @@ class CityRepository(
                 val wikiInfo = snapshot.child(CITY_CHILD_WIKI)
                 val population = wikiInfo.child(WIKI_CHILD_CITIZENS).value?.toString()?.toLong()
                 val description = wikiInfo.child(WIKI_CHILD_HEADLINE).value?.toString()
+                val descriptionEn = wikiInfo.child("headline_en").value?.toString()
                 val logo = wikiInfo.child(WIKI_CHILD_LOGO).value?.toString()
                 val lat = wikiInfo.child(WIKI_CHILD_GPS).child(GPS_CHILD_LAT).value?.toString()
                         ?.toDoubleOrNull()
@@ -102,10 +104,12 @@ class CityRepository(
                         key = cityKey,
                         id = id,
                         name = name,
+                        nameEn = nameEn,
                         population = population,
                         lat = lat,
                         lng = lng,
                         description = description,
+                        descriptionEn = descriptionEn,
                         www = www,
                         rssFeed = rssFeed,
                         rssUrl = rssUrl,

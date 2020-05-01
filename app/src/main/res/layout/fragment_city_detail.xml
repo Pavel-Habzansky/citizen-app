@@ -3,14 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="info"
-            type="com.pavelhabzansky.citizenapp.features.cities.detail.view.vo.CityInformationVO" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,7 +52,6 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{ info.name }"
                 app:layout_constraintStart_toStartOf="@id/cityNameLabel"
                 app:layout_constraintTop_toBottomOf="@id/cityNameLabel"
                 tools:text="@string/city_detail_name_title" />
@@ -81,7 +72,6 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{ info.population.toString() }"
                 app:layout_constraintStart_toEndOf="@id/cityLogo"
                 app:layout_constraintStart_toStartOf="@id/populationLabel"
                 app:layout_constraintTop_toBottomOf="@id/populationLabel"

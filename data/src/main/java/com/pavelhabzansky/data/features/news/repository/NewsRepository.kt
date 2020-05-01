@@ -86,6 +86,7 @@ class NewsRepository(
             override fun onDataChange(snapshot: DataSnapshot) {
                 cities = snapshot.children.map {
                     val name = it.child(CITY_CHILD_NAME).value?.toString() ?: ""
+                    val nameEn = it.child("name_en").value?.toString() ?: ""
                     val id = it.child(CITY_CHILD_ID).value?.toString() ?: ""
                     val www = it.child(CITY_CHILD_WWW).value?.toString() ?: ""
                     val rssFeed = it.child(CITY_CHILD_RSS_FEED).value?.toString() ?: ""
@@ -93,6 +94,7 @@ class NewsRepository(
                     val wikiInfo = it.child(CITY_CHILD_WIKI)
                     val population = wikiInfo.child(WIKI_CHILD_CITIZENS).value?.toString()?.toLong()
                     val description = wikiInfo.child(WIKI_CHILD_HEADLINE).value?.toString()
+                    val descriptionEn = wikiInfo.child("headline_en").value?.toString()
                     val logo = wikiInfo.child(WIKI_CHILD_LOGO).value?.toString()
                     val lat = wikiInfo.child(WIKI_CHILD_GPS).child(GPS_CHILD_LAT).value?.toString()
                             ?.toDoubleOrNull()
@@ -103,10 +105,12 @@ class NewsRepository(
                             key = it.key ?: "",
                             id = id,
                             name = name,
+                            nameEn = nameEn,
                             population = population,
                             lat = lat,
                             lng = lng,
                             description = description,
+                            descriptionEn = descriptionEn,
                             www = www,
                             rssFeed = rssFeed,
                             rssUrl = rssUrl
