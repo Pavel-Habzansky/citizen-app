@@ -1,125 +1,102 @@
 {
-  "cities": {
-    "city-name2": {
-      "event_feeds": {
-        "facebook": {
-          "events": {
-            "event-1": {
-              "title-name": "stranka 1",
-              "type": "facebook  rss  twitter  ...",
-              "url": "..."
-            },
-            "event-2": {
-              "title-name": "stranka 1",
-              "type": "facebook rss  twitter  ...",
-              "url": "..."
-            }
-          },
-          "id": "id12345"
+  "cities" : {
+    "city-name2" : {
+      "id" : "prague",
+      "name" : "Praha",
+      "name_en" : "Prague",
+      "rssFeed" : "https://prazsky.denik.cz/",
+      "rssUrl" : "rss/z_regionu.html",
+      "wiki" : {
+        "citizens" : 1100,
+        "gps" : {
+          "lat" : 50.071093,
+          "lng" : 14.4241225
         },
-        "twitter": {
-          "events": {
-            "event-1": {
-              "title-name": "stranka 1",
-              "type": "facebook  rss  twitter  ...",
-              "url": "..."
-            },
-            "event-2": {
-              "title-name": "stranka 1",
-              "type": "facebook rss  twitter  ...",
-              "url": "..."
-            }
-          },
-          "id": "id12345"
-        }
+        "headline" : "<p><b>Praha</b> (německy <i>Prag</i>; v jiných jazycích často <i>Prague</i> či <i>Praga</i>) je hlavní město a současně největší město Česka, zároveň je 13. největším městem Evropské unie. Leží mírně na sever od středu Čech na řece Vltavě, uvnitř Středočeského kraje, jehož je správním centrem, ale není jeho součástí, jelikož je podle zákona 347/1997 samostatný samosprávný celek. Je sídlem velké části státních institucí a množství dalších organizací a firem. Sídlí zde prezident republiky, parlament, vláda, ústřední státní orgány a jeden ze dvou vrchních soudů. Mimoto je Praha sídlem řady dalších úřadů, jak ústředních, tak i územních samosprávných celků; sídlí zde též ústředí většiny politických stran, hnutí a iniciativ a centrály téměř všech církví, náboženských a dalších sdružení s celorepublikovou působností registrovaných v ČR. </p><p>Do dnešní podoby se Praha vyvíjela jedenáct století. Coby historická metropole byla hlavním městem Českého knížectví, Českého království a sídelním městem císařů Svaté říše římské. Město hrálo významnou roli v české a protestantské reformaci, ve třicetileté válce a v dějinách 20. století jako hlavní město Československa, a to jak během obou světových válek, tak v poválečné komunistické éře. Praha je domovem řady slavných kulturních atrakcí, z nichž mnohé přežily zničující období Evropy 20. století. Mezi hlavní atrakce patří Pražský hrad, Karlův most, Staroměstské náměstí s Pražským orlojem, Josefov, Petřín a Vyšehrad. Od roku 1992 je historické centrum Prahy zapsáno do seznamu světového kulturního dědictví UNESCO. </p><p>Praha se rozkládá na území 496 km² a žije zde okolo 1,3 milionu obyvatel, v pražské metropolitní oblasti o rozloze 4 983 km² žije 2,6 milionu obyvatel. </p><p>Praha také vysoce ekonomicky vyspělým a bohatým regionem s vysokou životní úrovní, přičemž tímto vyniká nejen nad české, ale i nad evropské standardy. V roce 2019 z indexu kvality života vyplynulo, že Praha má druhou nejlepší kvalitu života v Česku. Podle statistik Eurostatu je devátým nejbohatším regionem v Evropě. HDP na obyvatele v Praze dosahuje 171 % průměru celé Evropské unie (HDP na obyvatele Česka dosahuje pouze 80 %). V Praze sídlí celkem 12 univerzit (vysokých škol univerzitního typu). </p><p>Praha je všeobecně považována za jedno z nejkrásnějších měst v Evropě. Historické centrum města s jedinečným panoramatem Pražského hradu, největšího hradního komplexu na světě, je památkovou rezervací UNESCO. Právě historické jádro města a mnohé památky přilákají ročně miliony turistů ze zemí celého světa. V roce 2017 navštívilo Prahu 8,5 milionu turistů, je to tedy patým nejnavštěvovanější město Evropy, po Londýně, Paříži, Istanbulu a Římu. </p>",
+        "headline_en" : "<p><b>Prague</b> is the capital and largest city in the Czech Republic, the 13th largest city in the European Union and the historical capital of Bohemia. Situated on the Vltava river, Prague is home to about 1.3 million people, while its metropolitan area is estimated to have a population of 2.7 million. The city has a temperate oceanic climate, with relatively warm summers and chilly winters. </p><p>Prague is a political, cultural and economic centre of central Europe complete with a rich history. Founded during the Romanesque and flourishing by the Gothic, Renaissance and Baroque eras, Prague was the capital of the Kingdom of Bohemia and the main residence of several Holy Roman Emperors, most notably of Charles IV (r. 1346–1378). It was an important city to the Habsburg Monarchy and its Austro-Hungarian Empire. The city played major roles in the Bohemian and Protestant Reformation, the Thirty Years' War and in 20th-century history as the capital of Czechoslovakia between the World Wars and the post-war Communist era. </p><p>Prague is home to a number of well-known cultural attractions, many of which survived the violence and destruction of 20th-century Europe. Main attractions include Prague Castle, Charles Bridge, Old Town Square with the Prague astronomical clock, the Jewish Quarter, Petřín hill and Vyšehrad. Since 1992, the extensive historic centre of Prague has been included in the UNESCO list of World Heritage Sites. </p><p>The city has more than ten major museums, along with numerous theatres, galleries, cinemas and other historical exhibits. An extensive modern public transportation system connects the city. It is home to a wide range of public and private schools, including Charles University in Prague, the oldest university in Central Europe. </p><p>Prague is classified as an \"Alpha\" − global city according to GaWC studies and ranked sixth in the Tripadvisor world list of best destinations in 2016. In 2019, the city was ranked as 69th most liveable city in the world by Mercer. In the same year, the PISCA Index ranked the city as 13th most liveable city in the world. Its rich history makes it a popular tourist destination and as of 2017, the city receives more than 8.5 million international visitors annually. In 2017 Prague was listed as the fifth most visited European city after London, Paris, Rome and Istanbul. </p>",
+        "logo" : "plzen_logo.jpg"
       },
-      "id": "EFCD2EC0-765C-4F7E-9D9B-A0723D7AF623",
-      "name": "Praha",
-      "rssFeed": "https://prazsky.denik.cz/",
-      "rssUrl": "rss/z_regionu.html",
-      "wiki": {
-        "citizens": 1100,
-        "gps": {
-          "lat": 50.071093,
-          "lng": 14.4241225
-        },
-        "headline": "... wiki ...",
-        "logo": "plzen_logo.jpg"
-      },
-      "www": "http://www.praha.eu/jnp/cz/index.html"
+      "www" : "http://www.praha.eu/jnp/cz/index.html"
     },
-    "pilsen": {
-      "event_feeds": {
-        "facebook": {
-          "events": {
-            "event-1": {
-              "title-name": "stranka 1",
-              "type": "facebook  rss  twitter  ...",
-              "url": "..."
-            },
-            "event-2": {
-              "title-name": "stranka 1",
-              "type": "facebook rss  twitter  ...",
-              "url": "..."
-            }
-          },
-          "id": "236961629753649"
+    "pilsen" : {
+      "id" : "pilsen",
+      "name" : "Plzeň",
+      "name_en" : "Pilsen",
+      "rssFeed" : "https://www.plzen.eu/",
+      "rssUrl" : "rsshandlerext.aspx?exportId=34&dontparse=false",
+      "wiki" : {
+        "citizens" : 172000,
+        "gps" : {
+          "lat" : 49.7455665,
+          "lng" : 13.3636333
         },
-        "twitter": {
-          "events": {
-            "event-1": {
-              "title-name": "stranka 1",
-              "type": "facebook  rss  twitter  ...",
-              "url": "..."
-            },
-            "event-2": {
-              "title-name": "stranka 1",
-              "type": "facebook rss  twitter  ...",
-              "url": "..."
-            }
-          },
-          "id": "id12345"
-        }
+        "headline" : "<p><b>Plzeň</b> (v němčině a dalších jazycích <i>Pilsen</i>) je statutární město</a> na západě Čech a metropole Plzeňského kraje. Leží na soutoku řek Mže, Radbuza, Úhlava a Úslava, z nichž vzniká řeka Berounka. Žije zde přibližně 172 tisíc obyvatel a je tak čtvrtým největším městem v České republice.</p><p>Plzeň je známá jako průmyslové a pivovarnické město. Společnost Škoda Transportation a další firmy pokračují v tradici legendární Škodovky, na druhé straně krajské metropole se pak vaří známá piva Prazdroj a Gambrinus. Spodně kvašený světlý ležák se označuje jako pivo plzeňského typu, celosvětově pak jako <i>Pilsner</i> nebo <i>Pils</i>, podle německého jména města <i>Pilsen</i>. Plzeň má i podstatný kulturní význam. Nacházejí se tu početné kulturní domy a divadla. Ve městě sídlí také biskupství plzeňské diecéze. Vysoké školství zastupují Západočeská univerzita a Lékařská fakulta Univerzity Karlovy. V roce 2015 byla Plzeň (společně s belgickým Monsem) Evropským hlavním městem kultury. Současné historické jádro města má pravidelnou síť ulic s obdélníkovým náměstím Republiky uprostřed (139&#160;×&#160;193&#160;m), jemuž vévodí katedrála sv. Bartoloměje s nejvyšší kostelní věží v České republice.</p>",
+        "headline_en" : "<p><b>Plzeň</b> is a city in the Czech Republic. About 90 kilometres (56 miles) west of Prague in western Bohemia, it is the fourth most populous city in the Czech Republic. </p><p>The city is known worldwide for Pilsner beer, created by Bavarian brewer Josef Groll here in 1842. </p>",
+        "logo" : "plzen_logo.jpg"
       },
-      "id": "EFCD2EC0-765C-4F7E-9D9B-A0723D7AF623",
-      "name": "Plzeň",
-      "rssFeed": "https://www.plzen.eu/",
-      "rssUrl": "rsshandlerext.aspx?exportId=34&dontparse=false",
-      "wiki": {
-        "citizens": 1100,
-        "gps": {
-          "lat": 49.7455665,
-          "lng": 13.3636333
-        },
-        "headline": "... wiki ..."
-      },
-      "www": "https://www.plzen.eu/"
+      "www" : "https://www.plzen.eu/"
     }
   },
-  "incidents": {
-    "INC12345": {
-      "description": "Incident 1235",
-      "createTime": 123456,
-      "type": "PUBLIC_DAMAGE",
-      "gps": {
-        "lat": 49.7455665,
-        "lng": 13.3636333
+  "incidents" : {
+    "-M1BVePC-9qHACmyBcan" : {
+      "createTime" : 1582905336797,
+      "description" : "hhg",
+      "gps" : {
+        "lat" : 49.71866186730829,
+        "lng" : 13.326400592923166
       },
-      "time": 1234566,
-      "title": "Titulek 1",
-      "img": "img.img"
+      "img" : "-M1BVePC-9qHACmyBcan.jpg",
+      "time" : 0,
+      "title" : "rrf",
+      "type" : "PUBLIC_DAMAGE"
     },
-    "INC12346": {
-      "description": "Incident 12346",
-      "createTime": 123456,
-      "type": "LOST_ITEM",
-      "gps": {
-        "lat": 50.071093,
-        "lng": 14.4241225
+    "-M1BVlmckiawAE73j-0q" : {
+      "createTime" : 1582905367034,
+      "description" : "g d",
+      "gps" : {
+        "lat" : 49.718844170430856,
+        "lng" : 13.328307308256626
       },
-      "time": 1234566,
-      "title": "Titulek 2",
-      "img": "img.img"
+      "img" : "-M1BVlmckiawAE73j-0q.jpg",
+      "time" : 0,
+      "title" : "bcd",
+      "type" : "UNKNOWN"
+    },
+    "-M58zWnTU-AKJNO66Yov" : {
+      "createTime" : 1587158068552,
+      "description" : "Pouliční osvětlení nefunguje",
+      "gps" : {
+        "lat" : 49.72570117546757,
+        "lng" : 13.327849991619585
+      },
+      "img" : "-M58zWnTU-AKJNO66Yov.jpg",
+      "time" : 0,
+      "title" : "Rozbité osvětlení",
+      "type" : "LIGHTS"
+    },
+    "INC12345" : {
+      "createTime" : 123456,
+      "description" : "Incident 1235",
+      "gps" : {
+        "lat" : 49.7455665,
+        "lng" : 13.3636333
+      },
+      "img" : "img.img",
+      "time" : 1234566,
+      "title" : "Titulek 1",
+      "type" : "PUBLIC_DAMAGE"
+    },
+    "INC12346" : {
+      "createTime" : 123456,
+      "description" : "Incident 12346",
+      "gps" : {
+        "lat" : 50.071093,
+        "lng" : 14.4241225
+      },
+      "img" : "img.img",
+      "time" : 1234566,
+      "title" : "Titulek 2",
+      "type" : "LOST_ITEM"
     }
   }
 }
