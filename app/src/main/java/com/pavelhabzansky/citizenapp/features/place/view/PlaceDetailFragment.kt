@@ -81,14 +81,9 @@ class PlaceDetailFragment : BaseFragment() {
     }
 
     private fun navigate() {
-        if (isPackageInstalled(WAZE_ID)) {
-            val path = "geo: ${binding.place?.lat}, ${binding.place?.lng}"
-            val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse(path)).setPackage(WAZE_ID)
-            Timber.w("Navigating to Waze with path: $path")
-            startActivity(mapIntent)
-        } else {
-            toast("Aplikace Waze není nainstalována")
-        }
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("geo:" + binding.place?.lat + "," + binding.place?.lng)
+        startActivity(intent)
     }
 
     private fun isPackageInstalled(name: String): Boolean {
