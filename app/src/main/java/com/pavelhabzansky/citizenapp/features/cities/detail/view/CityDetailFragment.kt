@@ -235,12 +235,20 @@ class CityDetailFragment : BaseFragment() {
             animateFade(binding.setResidentialFab)
             animateFade(binding.showOnMapFab)
             animateFade(binding.webPageFab)
+            binding.newsText.hide()
+            binding.residentialText.hide()
+            binding.mapText.hide()
+            binding.webPageText.hide()
         } else {
             animateRotateOpen(binding.mainFab)
             animateShow(binding.newsFab)
             animateShow(binding.setResidentialFab)
             animateShow(binding.showOnMapFab)
             animateShow(binding.webPageFab)
+            binding.newsText.show()
+            binding.residentialText.show()
+            binding.mapText.show()
+            binding.webPageText.show()
         }
         fabOpen = !fabOpen
     }

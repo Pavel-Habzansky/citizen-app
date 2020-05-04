@@ -13,6 +13,7 @@
     <string name="nav_label_cities">Města</string>
     <string name="nav_label_city_detail">Detail města</string>
     <string name="nav_label_map">Mapa</string>
+    <string name="nav_label_user_issues">Moje podněty</string>
 
     <!--  NAV MENU  -->
     <string name="nav_menu_news">News-Novinky</string>
@@ -62,6 +63,10 @@
     <string name="city_detail_residential_already_set">Již máte nastavené rezidentní město: %1$s. Opravdu chcete nastavit %2$s jako nové rezidentní město?</string>
     <string name="city_detail_residential_not_set_message">Rezidentní město není nastavené. Nejprve si vyberte město a nastavte jej jako reezidentní.</string>
     <string name="city_detail_residential_not_set_title">Rezidentní město nebylo nalezeno</string>
+    <string name="menu_webpage">Web</string>
+    <string name="menu_map">Mapa</string>
+    <string name="menu_favorite">Moje město</string>
+    <string name="menu_news">Novinky</string>
 
     <!--  ISSUE CREATE  -->
     <string name="issue_create_label">Nové hlášení</string>
@@ -78,6 +83,8 @@
     <!--  ISSUE DETAIL  -->
     <string name="issue_detail_label">Detail hlášení</string>
     <string name="issue_detail_description_title">Popis: </string>
+    <string name="no_issues_created">Nevytvořil jste žádné zjištění</string>
+    <string name="user_issue_counter">Máte %d podnětů</string>
 
     <!--  ISSUE TYPE  -->
     <string name="issue_type_public_damage">Veřejné škody</string>

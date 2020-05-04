@@ -22,6 +22,11 @@
         android:label="@string/nav_label_city_detail" />
 
     <fragment
+        android:id="@+id/user_issues_fragment"
+        android:name="com.pavelhabzansky.citizenapp.features.issues.myissues.view.MyIssuesFragment"
+        android:label="@string/nav_label_user_issues" />
+
+    <fragment
         android:id="@+id/map_fragment"
         android:name="com.pavelhabzansky.citizenapp.features.map.view.MapFragment"
         android:label="@string/nav_label_map">

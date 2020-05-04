@@ -17,5 +17,6 @@
         android:id="@+id/filter"
         android:icon="@drawable/ic_settings_green"
         android:title="@string/filter_label"
+        android:visible="false"
         app:showAsAction="never" />
 </menu>

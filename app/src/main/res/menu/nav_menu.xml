@@ -36,9 +36,14 @@
 
         <item
             android:id="@+id/push_list_fragment"
-            app:actionLayout="@layout/menu_item_inbox"
             android:icon="@drawable/ic_mail"
-            android:title="@string/push_events_label" />
+            android:title="@string/push_events_label"
+            app:actionLayout="@layout/menu_item_inbox" />
+
+        <item
+            android:id="@+id/user_issues_fragment"
+            android:icon="@drawable/ic_user_issues"
+            android:title="@string/nav_label_user_issues" />
 
     </group>
 

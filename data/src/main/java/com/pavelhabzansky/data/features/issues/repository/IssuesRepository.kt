@@ -14,7 +14,9 @@ import com.pavelhabzansky.data.core.IMG_MAX_SIZE
 import com.pavelhabzansky.data.core.transform
 import com.pavelhabzansky.data.features.api.Issue
 import com.pavelhabzansky.data.features.issues.dao.IssueDao
+import com.pavelhabzansky.data.features.issues.dao.UserIssueDao
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
+import com.pavelhabzansky.data.features.issues.entities.UserIssueEntity
 import com.pavelhabzansky.data.features.issues.mapper.IssueMapper
 import com.pavelhabzansky.data.features.issues.model.Gps
 import com.pavelhabzansky.data.features.settings.dao.IssueSettingsDao
@@ -22,6 +24,7 @@ import com.pavelhabzansky.data.features.settings.entities.IssueSettingsEntity
 import com.pavelhabzansky.domain.features.issues.domain.Bounds
 import com.pavelhabzansky.domain.features.issues.domain.IssueDO
 import com.pavelhabzansky.domain.features.issues.domain.IssueType
+import com.pavelhabzansky.domain.features.issues.domain.MyIssueDO
 import com.pavelhabzansky.domain.features.issues.repository.IIssuesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -31,7 +34,8 @@ class IssuesRepository(
         private val issuesReference: DatabaseReference,
         private val storageReference: StorageReference,
         private val issueDao: IssueDao,
-        private val issueSettingsDao: IssueSettingsDao
+        private val issueSettingsDao: IssueSettingsDao,
+        private val userIssueDao: UserIssueDao
 ) : IIssuesRepository {
 
     override suspend fun fetchIssues() {
@@ -72,11 +76,9 @@ class IssuesRepository(
         })
     }
 
-    override suspend fun getBoundIssues(bounds: Bounds): List<IssueDO> {
+    override suspend fun getBoundIssues(): List<IssueDO> {
         val issues = issueDao.getAllInBounds()
-        return issues
-                .filter { bounds.isInBounds(it.lat, it.lng) }
-                .map { IssueMapper.mapFrom(from = it) }
+        return issues.map { IssueMapper.mapFrom(from = it) }
     }
 
     override suspend fun getAllIssues(): LiveData<List<IssueDO>> {
@@ -109,6 +111,7 @@ class IssuesRepository(
         attachment.compress(Bitmap.CompressFormat.JPEG, 100, stream)
         val bytes = stream.toByteArray()
         storageReference.child("${issueReference.key}.jpg").putBytes(bytes, metaData)
+        userIssueDao.insert(UserIssueEntity(key = requireNotNull(issueReference.key)))
     }
 
     override suspend fun downloadImage(name: String): LiveData<ByteArray> {
@@ -127,6 +130,38 @@ class IssuesRepository(
         }
 
         issueSettingsDao.insertAll(entities = settings)
+    }
+
+    override suspend fun loadUserIssues(): LiveData<List<MyIssueDO>> {
+        val data = MutableLiveData<List<MyIssueDO>>()
+        val issuesList = mutableListOf<MyIssueDO>()
+        val usersIssues = userIssueDao.getAll()
+        usersIssues.forEach {
+            val key = it.key
+            issuesReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val issueSnap = snapshot.child(key)
+                    val createTime = issueSnap.child("createTime").value?.toString()?.toLong()
+                    val title = issueSnap.child("title").value?.toString()
+                    val description = issueSnap.child("description").value?.toString()
+                    val imageName = issueSnap.child("img").value?.toString()
+
+                    val task = storageReference.child(requireNotNull(imageName)).getBytes(IMG_MAX_SIZE)
+                    task.addOnSuccessListener { bytes ->
+                        val issue = MyIssueDO(key, requireNotNull(title), requireNotNull(createTime), requireNotNull(description), bytes)
+                        issuesList.add(issue)
+                        data.postValue(issuesList)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    return
+                }
+            })
+
+        }
+
+        return data
     }
 
 }

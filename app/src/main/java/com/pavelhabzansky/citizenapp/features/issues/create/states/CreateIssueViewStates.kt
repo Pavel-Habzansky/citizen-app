@@ -10,6 +10,8 @@ sealed class CreateIssueViewStates {
 
     class CameraPermissionNotGranted : CreateIssueViewStates()
 
+    class IssueCreated : CreateIssueViewStates()
+
 }
 
 sealed class CreateIssueErrorStates(val t: Throwable) {

@@ -4,9 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.location.LocationManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -63,6 +61,12 @@ class TouristNewsFragment : BaseFragment() {
             viewModel.loadEvents(false)
             binding.swipeContainer.isRefreshing = true
 //        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        menu.findItem(R.id.filter).isVisible = true
     }
 
     private fun registerEvents() {

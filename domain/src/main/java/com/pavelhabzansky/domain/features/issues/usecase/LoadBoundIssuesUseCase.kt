@@ -8,10 +8,10 @@ import com.pavelhabzansky.domain.features.issues.repository.IIssuesRepository
 
 class LoadBoundIssuesUseCase(
     private val issueRepository: IIssuesRepository
-) : UseCase<List<IssueDO>, Bounds>() {
+) : UseCase<List<IssueDO>, Unit>() {
 
-    override suspend fun doWork(params: Bounds): List<IssueDO> {
-        return issueRepository.getBoundIssues(bounds = params)
+    override suspend fun doWork(params: Unit): List<IssueDO> {
+        return issueRepository.getBoundIssues()
     }
 
 }

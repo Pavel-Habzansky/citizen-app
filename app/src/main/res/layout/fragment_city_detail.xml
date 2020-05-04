@@ -130,6 +130,22 @@
             app:layout_constraintBottom_toTopOf="@id/setResidentialFab"
             app:layout_constraintStart_toStartOf="@id/mainFab" />
 
+        <TextView
+            android:id="@+id/newsText"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fab_menu_text_bg"
+            android:paddingStart="@dimen/margin_item_8"
+            android:paddingTop="@dimen/margin_item_2"
+            android:paddingEnd="@dimen/margin_item_8"
+            android:paddingBottom="@dimen/margin_item_2"
+            android:text="@string/menu_news"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/newsFab"
+            app:layout_constraintEnd_toStartOf="@id/newsFab"
+            app:layout_constraintTop_toTopOf="@id/newsFab" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/setResidentialFab"
             android:layout_width="wrap_content"
@@ -145,6 +161,22 @@
             app:backgroundTint="@color/browser_actions_bg_grey"
             app:layout_constraintBottom_toTopOf="@id/showOnMapFab"
             app:layout_constraintStart_toStartOf="@id/mainFab" />
+
+        <TextView
+            android:id="@+id/residentialText"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fab_menu_text_bg"
+            android:paddingStart="@dimen/margin_item_8"
+            android:paddingTop="@dimen/margin_item_2"
+            android:paddingEnd="@dimen/margin_item_8"
+            android:paddingBottom="@dimen/margin_item_2"
+            android:text="@string/menu_favorite"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/setResidentialFab"
+            app:layout_constraintEnd_toStartOf="@id/setResidentialFab"
+            app:layout_constraintTop_toTopOf="@id/setResidentialFab" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/showOnMapFab"
@@ -162,6 +194,22 @@
             app:layout_constraintBottom_toTopOf="@id/webPageFab"
             app:layout_constraintStart_toStartOf="@id/mainFab" />
 
+        <TextView
+            android:id="@+id/mapText"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fab_menu_text_bg"
+            android:paddingStart="@dimen/margin_item_8"
+            android:paddingTop="@dimen/margin_item_2"
+            android:paddingEnd="@dimen/margin_item_8"
+            android:paddingBottom="@dimen/margin_item_2"
+            android:text="@string/menu_map"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/showOnMapFab"
+            app:layout_constraintEnd_toStartOf="@id/showOnMapFab"
+            app:layout_constraintTop_toTopOf="@id/showOnMapFab" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/webPageFab"
             android:layout_width="wrap_content"
@@ -177,6 +225,22 @@
             app:backgroundTint="@color/browser_actions_bg_grey"
             app:layout_constraintBottom_toTopOf="@id/mainFab"
             app:layout_constraintStart_toStartOf="@id/mainFab" />
+
+        <TextView
+            android:id="@+id/webPageText"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fab_menu_text_bg"
+            android:paddingStart="@dimen/margin_item_8"
+            android:paddingTop="@dimen/margin_item_2"
+            android:paddingEnd="@dimen/margin_item_8"
+            android:paddingBottom="@dimen/margin_item_2"
+            android:text="@string/menu_webpage"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/webPageFab"
+            app:layout_constraintEnd_toStartOf="@id/webPageFab"
+            app:layout_constraintTop_toTopOf="@id/webPageFab" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/mainFab"

@@ -13,6 +13,7 @@
     <string name="nav_label_cities">City</string>
     <string name="nav_label_city_detail">City detail</string>
     <string name="nav_label_map">Map</string>
+    <string name="nav_label_user_issues">Moje issues</string>
 
     <!--  NAV MENU  -->
     <string name="nav_menu_news">News</string>
@@ -62,6 +63,10 @@
     <string name="city_detail_residential_already_set">Residential city is already set: %1$s. Are you sure you want to set %2$s as your new residential city?</string>
     <string name="city_detail_residential_not_set_message">Residential city is not set. First select a city and set it as residential.</string>
     <string name="city_detail_residential_not_set_title">Residential city not found</string>
+    <string name="menu_webpage">Website</string>
+    <string name="menu_map">Map</string>
+    <string name="menu_favorite">My city</string>
+    <string name="menu_news">News</string>
 
     <!--  ISSUE CREATE  -->
     <string name="issue_create_label">New notice</string>
@@ -78,6 +83,8 @@
     <!--  ISSUE DETAIL  -->
     <string name="issue_detail_label">Notice detail</string>
     <string name="issue_detail_description_title">Description: </string>
+    <string name="no_issues_created">You have not created any issues yet</string>
+    <string name="user_issue_counter">You have %d issues</string>
 
     <!--  ISSUE TYPE  -->
     <string name="issue_type_public_damage">Public property damage</string>

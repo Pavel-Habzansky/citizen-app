@@ -48,9 +48,10 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
     var useContext: String = USE_CONTEXT_EMPTY
 
     fun loadData() {
-        when(useContext) {
+        when (useContext) {
             USE_CONTEXT_CITIZEN, USE_CONTEXT_EMPTY -> {
                 fetchIssues()
+                loadIssues()
             }
         }
     }
@@ -66,13 +67,14 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
     fun fetchIssues() {
         viewModelScope.launch(Dispatchers.IO) {
             fetchIssuesUseCase(Unit)
+
         }
     }
 
     fun fetchPlaces(lat: Double, lng: Double) {
         if (useContext == USE_CONTEXT_TOURIST || useContext == USE_CONTEXT_EMPTY) {
             viewModelScope.launch(Dispatchers.IO) {
-                when(connectivityManager.isConnected()) {
+                when (connectivityManager.isConnected()) {
                     true -> fetchPlacesUseCase(FetchPlacesUseCase.Params(lat, lng))
                     else -> mapViewState.postValue(MapViewStates.PlacesNoConnectionEvent())
                 }
@@ -80,15 +82,15 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
         }
     }
 
-    fun loadIssues(bounds: Bounds) {
-        if (useContext == USE_CONTEXT_CITIZEN || useContext == USE_CONTEXT_EMPTY) {
-            viewModelScope.launch(Dispatchers.IO) {
-                val issues = loadBoundIssuesUseCase(bounds)
-                mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(issues.map {
-                    IssueVOMapper.mapTo(
-                            to = it
-                    )
-                }))
+    fun loadIssues() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (useContext) {
+                USE_CONTEXT_CITIZEN, USE_CONTEXT_EMPTY -> {
+                    val issues = loadBoundIssuesUseCase(Unit)
+                    mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(issues.map {
+                        IssueVOMapper.mapTo(to = it)
+                    }))
+                }
             }
         }
     }

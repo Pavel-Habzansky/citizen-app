@@ -106,6 +106,7 @@ class CreateIssueFragment : BaseFragment() {
                         CAMERA_PERMISSION_REQ
                 )
             }
+            is CreateIssueViewStates.IssueCreated -> findParentNavController().navigateUp()
             is CreateIssueViewStates.CameraPermissionGranted -> binding.addPhotoImg.isEnabled = true
         }
     }
@@ -143,7 +144,7 @@ class CreateIssueFragment : BaseFragment() {
         )
 
         viewModel.createIssue(issue)
-        findParentNavController().navigateUp()
+//        findParentNavController().navigateUp()
     }
 
     private fun openImageChooser() {
@@ -193,9 +194,7 @@ class CreateIssueFragment : BaseFragment() {
 
     private fun openCamera() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
-            //            intent.resolveActivity(requireActivity().packageManager)?.also {
             startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
-//            }
         }
     }
 }

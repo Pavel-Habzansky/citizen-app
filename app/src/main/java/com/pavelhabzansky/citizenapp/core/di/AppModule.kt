@@ -60,7 +60,8 @@ val appModule = module {
                 issuesReference = get(named(QUAL_FIREBASE_INCIDENTS)),
                 storageReference = get(),
                 issueDao = get<AppDatabase>().issueDao,
-                issueSettingsDao = get<AppDatabase>().issueSettingsDao
+                issueSettingsDao = get<AppDatabase>().issueSettingsDao,
+                userIssueDao = get<AppDatabase>().userIssueDao
         ) as IIssuesRepository
     }
 

@@ -44,6 +44,7 @@ class CreateIssueViewModel(app: Application) : BaseAndroidViewModel(app) {
         viewModelScope.launch(Dispatchers.IO) {
             val issueDom = IssueVOMapper.mapFrom(from = issue)
             createIssueUseCase(CreateIssueUseCase.Params(issueDom, requireNotNull(attachment)))
+            createIssueViewState.postValue(CreateIssueViewStates.IssueCreated())
         }
     }
 

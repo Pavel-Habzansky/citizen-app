@@ -16,7 +16,9 @@ import com.pavelhabzansky.data.features.events.dao.EventSettingDao
 import com.pavelhabzansky.data.features.events.dao.EventsDao
 import com.pavelhabzansky.data.features.events.entities.*
 import com.pavelhabzansky.data.features.issues.dao.IssueDao
+import com.pavelhabzansky.data.features.issues.dao.UserIssueDao
 import com.pavelhabzansky.data.features.issues.entities.IssueEntity
+import com.pavelhabzansky.data.features.issues.entities.UserIssueEntity
 import com.pavelhabzansky.data.features.news.dao.NewsDao
 import com.pavelhabzansky.data.features.news.entities.NewsEntity
 import com.pavelhabzansky.data.features.settings.dao.PlaceSettingsDao
@@ -43,7 +45,8 @@ import com.pavelhabzansky.data.features.settings.entities.PlaceSettingsEntity
             LocalityEntity::class,
             ScheduleEntity::class,
             CitySettingEntity::class,
-            PushEventEntity::class
+            PushEventEntity::class,
+            UserIssueEntity::class
         ],
         version = 14
 )
@@ -59,6 +62,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val issueSettingsDao: IssueSettingsDao
     abstract val eventsDao: EventsDao
     abstract val eventSettingDao: EventSettingDao
+    abstract val userIssueDao: UserIssueDao
 
     companion object {
         @Volatile

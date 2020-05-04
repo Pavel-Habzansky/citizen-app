@@ -202,7 +202,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 if (this::googleMap.isInitialized) {
                     googleMap.isMyLocationEnabled = true
                     val location = locationClient.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-//                    targetUser()
                     viewModel.fetchPlaces(location.latitude, location.longitude)
                 }
             }
@@ -272,7 +271,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             googleMap.setOnMarkerClickListener(clusterManager)
             googleMap.setOnCameraMoveListener {
                 lastShownPosition = it.cameraPosition
-                loadIssueInBounds()
+//                loadIssueInBounds()
             }
 
             val latitude = arguments?.getDouble(ARG_CITY_LAT)
@@ -293,7 +292,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             }
 
             viewModel.loadPlaces()
-            loadIssueInBounds()
+//            loadIssueInBounds()
         } ?: run {
             Timber.w("Couldn't obtain map - GoogleMap is null")
         }
@@ -301,7 +300,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     private fun loadIssueInBounds() {
         val bounds = getCurrentBounds()
-        viewModel.loadIssues(bounds)
+        viewModel.loadIssues()
     }
 
     private fun createNewIssue() {

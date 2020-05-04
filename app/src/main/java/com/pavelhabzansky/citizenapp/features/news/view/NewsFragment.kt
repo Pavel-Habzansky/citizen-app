@@ -8,6 +8,7 @@ import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.FINE_LOCATION_REQ_NEWS
 import com.pavelhabzansky.citizenapp.core.fragment.BaseFragment
@@ -69,6 +70,12 @@ class NewsFragment : BaseFragment() {
             }
             else -> activity?.onOptionsItemSelected(item) ?: false
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+
     }
 
     private fun initViewPager() {
