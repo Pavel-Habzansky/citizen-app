@@ -94,5 +94,4 @@ dependencies {
     androidTestImplementation testDependencies.espressoCore
     androidTestImplementation architectureComponents.roomTesting
 
-//    implementation 'com.google.firebase:firebase-analytics:17.2.1'
 }
