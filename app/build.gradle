@@ -3,6 +3,9 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+// Add the Fabric plugin.
+apply plugin: 'io.fabric'
+
 
 android {
     compileSdkVersion versions.compileSdk
@@ -77,6 +80,8 @@ dependencies {
     implementation thirdPartyDependencies.firebaseAuth
     implementation thirdPartyDependencies.firebaseStorage
     implementation thirdPartyDependencies.firebaseCfm
+    // Add the Firebase Crashlytics dependency.
+    implementation thirdPartyDependencies.crashlytics
 
 
     testImplementation testDependencies.junit

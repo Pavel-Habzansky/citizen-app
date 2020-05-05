@@ -43,11 +43,13 @@ ext {
             firebaseAuth       : '19.2.0',
             firebaseStorage    : '19.1.0',
             firebaseCfm        : '20.1.5',
+            crashlytics        : '2.10.1',
             gms                : '4.3.3',
             googleMaps         : '16.1.0',
             googlePlaces       : '2.2.0',
             retrofit           : '2.7.1',
             mapsUtil           : '1.0.0',
+            fabric             : '1.31.2',
 
             debugDb            : '1.0.6',
             espresso           : '3.1.0',
@@ -140,6 +142,7 @@ ext {
             firebaseAuth   : "com.google.firebase:firebase-auth:${versions.firebaseAuth}",
             firebaseDb     : "com.google.firebase:firebase-database:${versions.firebaseDb}",
             firebase       : "com.google.gms:google-services:${versions.gms}",
+            crashlytics    : "com.crashlytics.sdk.android:crashlytics:${versions.crashlytics}",
             material       : "com.google.android.material:material:${versions.material}",
             koinScope      : "org.koin:koin-android-scope:${versions.koin}", // Koin Android Scope feature
             koinAndroid    : "org.koin:koin-android:${versions.koin}",
@@ -152,6 +155,7 @@ ext {
             kotpref        : "com.chibatching.kotpref:kotpref:${versions.kotpref}",
             safeRoom       : "com.commonsware.cwac:saferoom:${versions.safeRoom}",
             debugDb        : "com.amitshekhar.android:debug-db:${versions.debugDb}",
-            firebaseCfm    : "com.google.firebase:firebase-messaging:${versions.firebaseCfm}"
+            firebaseCfm    : "com.google.firebase:firebase-messaging:${versions.firebaseCfm}",
+            fabric         : "io.fabric.tools:gradle:${versions.fabric}"
     ]
 }
