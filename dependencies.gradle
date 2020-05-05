@@ -50,6 +50,7 @@ ext {
             retrofit           : '2.7.1',
             mapsUtil           : '1.0.0',
             fabric             : '1.31.2',
+            markwon            : '4.3.1',
 
             debugDb            : '1.0.6',
             espresso           : '3.1.0',
@@ -156,6 +157,7 @@ ext {
             safeRoom       : "com.commonsware.cwac:saferoom:${versions.safeRoom}",
             debugDb        : "com.amitshekhar.android:debug-db:${versions.debugDb}",
             firebaseCfm    : "com.google.firebase:firebase-messaging:${versions.firebaseCfm}",
-            fabric         : "io.fabric.tools:gradle:${versions.fabric}"
+            fabric         : "io.fabric.tools:gradle:${versions.fabric}",
+            markwon        : "io.noties.markwon:core:${versions.markwon}"
     ]
 }
