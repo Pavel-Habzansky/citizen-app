@@ -1,15 +1,19 @@
 package com.pavelhabzansky.citizenapp.features.news.view.adapter
 
 import android.graphics.Bitmap
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.github.rjeschke.txtmark.Processor
 import com.pavelhabzansky.citizenapp.BR
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.hide
 import com.pavelhabzansky.citizenapp.databinding.ItemEventBinding
 import com.pavelhabzansky.citizenapp.features.news.view.vo.ScheduleViewObject
+import io.noties.markwon.Markwon
 
 class EventsAdapter(
         private val onClick: (ScheduleViewObject) -> Unit
@@ -39,7 +43,10 @@ class EventsAdapter(
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
 
-            if(item.pricing.isEmpty()) {
+            val markwon = Markwon.create(binding.root.context)
+            markwon.setMarkdown(binding.eventText, item.text)
+
+            if (item.pricing.isEmpty()) {
                 binding.price.hide()
             }
 

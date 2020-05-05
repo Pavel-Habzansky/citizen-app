@@ -3,13 +3,16 @@ package com.pavelhabzansky.citizenapp.features.events.view
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.rjeschke.txtmark.Processor
 import com.pavelhabzansky.citizenapp.BR
 import com.pavelhabzansky.citizenapp.R
 import com.pavelhabzansky.citizenapp.core.ARG_EVENT_DATA
@@ -22,6 +25,7 @@ import com.pavelhabzansky.citizenapp.features.events.states.EventsViewStates
 import com.pavelhabzansky.citizenapp.features.events.view.adapter.EventsGalleryAdapter
 import com.pavelhabzansky.citizenapp.features.events.view.vm.EventDetailViewModel
 import com.pavelhabzansky.citizenapp.features.news.view.vo.ScheduleViewObject
+import io.noties.markwon.Markwon
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -59,6 +63,9 @@ class EventDetailFragment : BaseFragment() {
             if (schedule != null) {
                 binding.setVariable(BR.item, schedule)
                 binding.executePendingBindings()
+
+                val markwon = Markwon.create(binding.root.context)
+                markwon.setMarkdown(binding.eventText, schedule.text)
 
                 if (imgData != null) {
                     val bitmap = BitmapFactory.decodeByteArray(imgData, 0, imgData.size)

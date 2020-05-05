@@ -83,6 +83,8 @@ dependencies {
     // Add the Firebase Crashlytics dependency.
     implementation thirdPartyDependencies.crashlytics
 
+    implementation 'com.github.rjeschke:txtmark:0.13'
+    implementation "io.noties.markwon:core:4.3.1"
 
     testImplementation testDependencies.junit
     testImplementation testDependencies.koinTest
