@@ -16,6 +16,7 @@ import com.pavelhabzansky.citizenapp.features.map.states.MapViewStates
 import com.pavelhabzansky.citizenapp.features.map.view.mapper.IssueVOMapper
 import com.pavelhabzansky.citizenapp.features.place.view.mapper.PlacesVOMapper
 import com.pavelhabzansky.domain.features.issues.domain.Bounds
+import com.pavelhabzansky.domain.features.issues.domain.IssueDO
 import com.pavelhabzansky.domain.features.issues.usecase.FetchIssuesUseCase
 import com.pavelhabzansky.domain.features.issues.usecase.LoadBoundIssuesUseCase
 import com.pavelhabzansky.domain.features.places.domain.PlaceDO
@@ -43,7 +44,15 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
         }
     }
 
+    private val issuesObserver: Observer<List<IssueDO>> by lazy {
+        Observer<List<IssueDO>> {
+            val issuesVOList = it.map { IssueVOMapper.mapTo(to = it) }
+            mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(issuesVOList))
+        }
+    }
+
     private var placesLiveData: LiveData<List<PlaceDO>>? = null
+    private var issuesLiveData: LiveData<List<IssueDO>>? = null
 
     var useContext: String = USE_CONTEXT_EMPTY
 
@@ -86,10 +95,8 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
         viewModelScope.launch(Dispatchers.IO) {
             when (useContext) {
                 USE_CONTEXT_CITIZEN, USE_CONTEXT_EMPTY -> {
-                    val issues = loadBoundIssuesUseCase(Unit)
-                    mapViewState.postValue(MapViewStates.IssuesUpdatedEvent(issues.map {
-                        IssueVOMapper.mapTo(to = it)
-                    }))
+                    issuesLiveData = loadBoundIssuesUseCase(Unit)
+                    launch(Dispatchers.Main) { issuesLiveData?.observeForever(issuesObserver) }
                 }
             }
         }
@@ -107,6 +114,7 @@ class MapViewModel(app: Application) : BaseAndroidViewModel(app) {
     override fun onCleared() {
         super.onCleared()
 
+        issuesLiveData?.removeObserver(issuesObserver)
         placesLiveData?.removeObserver(placesObserver)
     }
 

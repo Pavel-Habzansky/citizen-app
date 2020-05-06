@@ -53,6 +53,7 @@ class PlacesRepository(
             }
         }
 
+        placesDao.removeAllPhotos()
         placesDao.removeAll()
         placesDao.insertAll(entities.distinctBy { it.placeId })
         placesDao.insertPhotos(photoEntities)

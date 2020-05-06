@@ -80,7 +80,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
         binding.toListFab.setOnClickListener { toMapList() }
         binding.mapSettingsFab.setOnClickListener { toSettings() }
-        binding.mapTypeSwitch.setOnClickListener { switchMap() }
 
         return binding.root
     }

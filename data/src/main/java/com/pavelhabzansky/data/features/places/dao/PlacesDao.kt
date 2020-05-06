@@ -29,4 +29,7 @@ abstract class PlacesDao {
     @Query("SELECT * FROM PhotoEntity WHERE placeId = :placeId")
     abstract fun getPhotos(placeId: String): List<PhotoEntity>
 
+    @Query("DELETE FROM PhotoEntity")
+    abstract fun removeAllPhotos()
+
 }

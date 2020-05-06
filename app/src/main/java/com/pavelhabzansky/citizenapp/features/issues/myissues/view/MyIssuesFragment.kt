@@ -63,6 +63,9 @@ class MyIssuesFragment : BaseFragment() {
                     binding.issuesRecycler.hide()
                     binding.issueCounter.hide()
                 } else {
+                    binding.noIssuesCreated.hide()
+                    binding.issuesRecycler.show()
+                    binding.issueCounter.show()
                     binding.issueCounter.text = getString(R.string.user_issue_counter, event.items.size)
                     issuesAdapter.updateItems(event.items)
                 }
